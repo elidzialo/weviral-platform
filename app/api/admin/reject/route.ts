@@ -27,13 +27,13 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { proof_submission_id, note } = body
+    const { proof_submission_id, admin_note } = body
 
     if (!proof_submission_id || typeof proof_submission_id !== 'string') {
       return NextResponse.json({ error: 'proof_submission_id is required' }, { status: 400 })
     }
 
-    const adminNote = typeof note === 'string' ? note.trim() : ''
+    const adminNote = typeof admin_note === 'string' ? admin_note.trim() : ''
 
     // Use admin client for privileged operations (bypasses RLS)
     const adminClient = createAdminClient()
