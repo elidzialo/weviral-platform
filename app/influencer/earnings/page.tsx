@@ -43,7 +43,7 @@ function formatCurrency(amount: number): string {
     style: 'currency',
     currency: 'GBP',
     minimumFractionDigits: 2,
-  }).format(amount / 100);
+  }).format(amount);
 }
 
 // ---------------------------------------------------------------------------
