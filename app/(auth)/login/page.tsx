@@ -20,87 +20,70 @@ export default function LoginPage() {
     try {
       const supabase = createClient()
 
-      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      })
+      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({ email, password })
 
-      if (authError) {
-        setError(authError.message)
-        setLoading(false)
-        return
-      }
+      if (authError) { setError(authError.message); setLoading(false); return }
+      if (!authData.user) { setError('Login failed. Please try again.'); setLoading(false); return }
 
-      if (!authData.user) {
-        setError('Login failed. Please try again.')
-        setLoading(false)
-        return
-      }
-
-      // Fetch user role from profiles table
       const { data: profile, error: profileError } = await supabase
         .from('profiles')
         .select('role')
         .eq('id', authData.user.id)
         .single()
 
-      if (profileError || !profile) {
-        setError('Could not load your profile. Please contact support.')
-        setLoading(false)
-        return
-      }
+      if (profileError || !profile) { setError('Could not load your profile. Please contact support.'); setLoading(false); return }
 
-      // Redirect based on role
       switch (profile.role) {
-        case 'admin':
-          router.push('/admin')
-          break
-        case 'influencer':
-          router.push('/influencer')
-          break
-        case 'marketer':
-          router.push('/marketer')
-          break
-        default:
-          setError('Unknown account role. Please contact support.')
-          setLoading(false)
+        case 'admin':      router.push('/admin'); break
+        case 'influencer': router.push('/influencer'); break
+        case 'marketer':   router.push('/marketer'); break
+        default: setError('Unknown account role. Please contact support.'); setLoading(false)
       }
-    } catch (err) {
+    } catch {
       setError('An unexpected error occurred. Please try again.')
       setLoading(false)
     }
   }
 
+  const inputClass =
+    'w-full px-4 py-3 border border-[#ECECE8] rounded-xl text-[#0B0B0C] placeholder-[#C4C4C0] bg-white text-[15px] transition focus:outline-none focus:ring-2 focus:ring-[#6E5BFF]/30 focus:border-[#6E5BFF]'
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-700 via-purple-600 to-purple-800 px-4 py-12">
+    <div
+      className="min-h-screen flex items-center justify-center px-4 py-12"
+      style={{ background: '#F6F6F3' }}
+    >
       <div className="w-full max-w-md">
-        {/* Logo & Tagline */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-extrabold tracking-tight mb-2">
-            <span className="text-purple-200">We</span>
-            <span className="text-green-400">Viral</span>
-          </h1>
-          <p className="text-purple-200 text-sm font-medium">
-            Post your status. Get paid for your reach.
-          </p>
+        {/* Logo */}
+        <div className="flex flex-col items-center mb-8 gap-3">
+          <Link href="/" className="flex items-center gap-2.5 no-underline">
+            <div className="relative w-8 h-8">
+              <div className="absolute inset-0 rounded-full border border-[#6E5BFF]/40" />
+              <div
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full"
+                style={{ background: 'linear-gradient(120deg,#6E5BFF,#1FD3A3)', boxShadow: '0 0 10px rgba(110,91,255,.5)' }}
+              />
+            </div>
+            <span className="text-[22px] font-black tracking-[-0.8px] text-[#0B0B0C]">WViral</span>
+          </Link>
+          <p className="text-[14px] text-[#8C8C88] font-medium">Welcome back</p>
         </div>
 
         {/* Card */}
-        <div className="bg-white rounded-2xl shadow-2xl px-8 py-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-1">Welcome back</h2>
-          <p className="text-gray-500 text-sm mb-8">Sign in to your WeViral account</p>
-
-          <form onSubmit={handleSubmit} noValidate className="space-y-5">
-            {/* Error message */}
+        <div
+          className="bg-white rounded-2xl px-8 py-9"
+          style={{ border: '1px solid #ECECE8', boxShadow: '0 1px 2px rgba(0,0,0,.04), 0 10px 30px rgba(0,0,0,.06)' }}
+        >
+          <form onSubmit={handleSubmit} noValidate className="space-y-4">
             {error && (
-              <div className="bg-red-50 border border-red-200 rounded-lg px-4 py-3">
-                <p className="text-red-600 text-sm">{error}</p>
+              <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+                <p className="text-red-600 text-[13px]">{error}</p>
               </div>
             )}
 
             {/* Email */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="email" className="block text-[13px] font-semibold text-[#0B0B0C] mb-1.5">
                 Email address
               </label>
               <input
@@ -111,13 +94,13 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                className={inputClass}
               />
             </div>
 
             {/* Password */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="password" className="block text-[13px] font-semibold text-[#0B0B0C] mb-1.5">
                 Password
               </label>
               <input
@@ -128,7 +111,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                className={inputClass}
               />
             </div>
 
@@ -136,7 +119,11 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 px-4 bg-purple-600 hover:bg-purple-700 disabled:bg-purple-400 text-white font-semibold rounded-lg transition focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+              className="w-full py-3.5 px-4 rounded-xl text-white font-bold text-[15px] transition mt-2 disabled:opacity-60"
+              style={{
+                background: 'linear-gradient(120deg,#6E5BFF,#4D7CFF)',
+                boxShadow: '0 6px 22px rgba(98,92,255,.35)',
+              }}
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -147,19 +134,23 @@ export default function LoginPage() {
                   Signing in…
                 </span>
               ) : (
-                'Sign in'
+                'Sign in →'
               )}
             </button>
           </form>
 
-          {/* Footer link */}
-          <p className="mt-6 text-center text-sm text-gray-500">
+          <p className="mt-5 text-center text-[13px] text-[#8C8C88]">
             Don&apos;t have an account?{' '}
-            <Link href="/signup" className="text-purple-600 font-semibold hover:text-purple-700">
+            <Link href="/signup" className="font-semibold text-[#6E5BFF] hover:underline">
               Create one
             </Link>
           </p>
         </div>
+
+        <p className="mt-6 text-center text-[12px] text-[#C4C4C0]">
+          Having trouble?{' '}
+          <span className="text-[#8C8C88] cursor-pointer hover:underline">Contact support</span>
+        </p>
       </div>
     </div>
   )
