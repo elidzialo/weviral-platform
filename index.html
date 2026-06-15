@@ -482,7 +482,7 @@ function renderApprovals() {
             <td>${tierBadge(a.tier)}</td>
             <td>${a.target.toLocaleString()}</td>
             <td><span style="color:var(--g);font-weight:700">${a.submitted.toLocaleString()}</span></td>
-            <td><span style="color:${a.confidence>=90?'var(--g)':a.confidence>=75?'var(--a)':'var(--r)';};font-weight:700">${a.confidence}%</span></td>
+            <td><span style="color:${a.confidence>=90?'var(--g)':a.confidence>=75?'var(--a)':'var(--r)'}font-weight:700">${a.confidence}%</span></td>
             <td>${a.date}</td>
             <td style="white-space:nowrap">
               <button class="btn btn-sm btn-p" onclick="openProofModal(${a.id})" style="margin-right:4px">View Proof</button>
