@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
-import { Sidebar } from '@/components/layout/Sidebar';
+import { AppShell } from '@/components/layout/AppShell';
 
 export const dynamic = 'force-dynamic'
 
@@ -47,16 +47,13 @@ export default async function MarketerLayout({
     .join('');
 
   return (
-    <div className="flex min-h-screen bg-[#F6F6F3]">
-      <Sidebar
-        role="marketer"
-        userName={displayName}
-        userRole="Marketer"
-        userInitials={initials || 'M'}
-      />
-      <main className="flex-1 min-w-0 overflow-y-auto">
-        {children}
-      </main>
-    </div>
+    <AppShell
+      role="marketer"
+      userName={displayName}
+      userRole="Marketer"
+      userInitials={initials || 'M'}
+    >
+      {children}
+    </AppShell>
   );
 }

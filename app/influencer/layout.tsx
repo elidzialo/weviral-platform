@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
-import { Sidebar } from '@/components/layout/Sidebar';
+import { AppShell } from '@/components/layout/AppShell';
 
 export const dynamic = 'force-dynamic'
 
@@ -31,7 +31,6 @@ export default async function InfluencerLayout({
   }
 
   if (profile.role !== 'influencer') {
-    // Redirect to appropriate portal based on role
     if (profile.role === 'admin') redirect('/admin');
     if (profile.role === 'marketer') redirect('/marketer');
     redirect('/login');
@@ -46,16 +45,13 @@ export default async function InfluencerLayout({
     .slice(0, 2);
 
   return (
-    <div className="flex min-h-screen bg-[#F6F6F3]">
-      <Sidebar
-        role="influencer"
-        userName={fullName}
-        userRole="Influencer"
-        userInitials={initials}
-      />
-      <main className="flex-1 min-w-0 overflow-y-auto">
-        {children}
-      </main>
-    </div>
+    <AppShell
+      role="influencer"
+      userName={fullName}
+      userRole="Influencer"
+      userInitials={initials}
+    >
+      {children}
+    </AppShell>
   );
 }

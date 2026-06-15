@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { createBrowserClient } from '@supabase/ssr';
+import { useSidebar } from '@/contexts/SidebarContext';
 
 type Role = 'admin' | 'influencer' | 'marketer';
 
@@ -73,6 +74,11 @@ const Icons = {
       <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
   ),
+  bell: (
+    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+    </svg>
+  ),
   logout: (
     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -84,7 +90,7 @@ function getNavItems(role: Role, pendingCount?: number): NavItem[] {
   switch (role) {
     case 'admin':
       return [
-        { label: 'Overview', href: '/admin', icon: Icons.home },
+        { label: 'Overview', href: '/admin/dashboard', icon: Icons.home },
         {
           label: 'Approvals',
           href: '/admin/approvals',
@@ -93,22 +99,26 @@ function getNavItems(role: Role, pendingCount?: number): NavItem[] {
         },
         { label: 'Campaigns', href: '/admin/campaigns', icon: Icons.campaign },
         { label: 'Users', href: '/admin/influencers', icon: Icons.users },
-        { label: 'Financials', href: '/admin/dashboard', icon: Icons.coin },
+        { label: 'Notifications', href: '/admin/notifications', icon: Icons.bell },
         { label: 'Settings', href: '/admin/settings', icon: Icons.gear },
       ];
     case 'influencer':
       return [
-        { label: 'Home', href: '/influencer', icon: Icons.home },
+        { label: 'Home', href: '/influencer/dashboard', icon: Icons.home },
         { label: 'Browse Ads', href: '/influencer/browse', icon: Icons.search },
         { label: 'My Campaigns', href: '/influencer/campaigns', icon: Icons.campaign },
         { label: 'Wallet', href: '/influencer/earnings', icon: Icons.wallet },
+        { label: 'Notifications', href: '/influencer/notifications', icon: Icons.bell },
+        { label: 'Settings', href: '/influencer/settings', icon: Icons.gear },
       ];
     case 'marketer':
       return [
-        { label: 'Overview', href: '/marketer', icon: Icons.home },
+        { label: 'Overview', href: '/marketer/dashboard', icon: Icons.home },
         { label: 'Campaigns', href: '/marketer/campaigns', icon: Icons.campaign },
         { label: 'Create Ad', href: '/marketer/create', icon: Icons.grid },
         { label: 'Billing', href: '/marketer/billing', icon: Icons.wallet },
+        { label: 'Notifications', href: '/marketer/notifications', icon: Icons.bell },
+        { label: 'Settings', href: '/marketer/settings', icon: Icons.gear },
       ];
   }
 }
@@ -128,6 +138,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const pathname = usePathname();
   const router = useRouter();
+  const { isOpen, close } = useSidebar();
   const supabase = createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
@@ -136,8 +147,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const navItems = getNavItems(role, pendingCount);
 
   const isActive = (href: string): boolean => {
-    if (href === '/admin' || href === '/influencer' || href === '/marketer') {
-      return pathname === href;
+    if (
+      href === '/admin/dashboard' ||
+      href === '/influencer/dashboard' ||
+      href === '/marketer/dashboard'
+    ) {
+      return pathname === href || pathname === href.replace('/dashboard', '');
     }
     return pathname === href || pathname.startsWith(href + '/');
   };
@@ -149,8 +164,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
+      className={[
+        'flex flex-col bg-white border-r border-[#ECECE8] flex-shrink-0',
+        'fixed inset-y-0 left-0 z-50 transition-transform duration-300 ease-in-out',
+        'md:relative md:translate-x-0 md:z-auto md:flex',
+        isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0',
+      ].join(' ')}
       style={{ width: '252px', minWidth: '252px' }}
-      className="flex flex-col min-h-screen bg-white border-r border-[#ECECE8] flex-shrink-0"
     >
       {/* Logo */}
       <div className="flex items-center gap-2.5 px-6 py-5 border-b border-[#ECECE8]">
@@ -181,6 +201,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <Link
               key={item.href}
               href={item.href}
+              onClick={close}
               className={[
                 'group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all relative',
                 active

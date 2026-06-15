@@ -6,6 +6,8 @@ import { Card, CardHeader, CardTitle, CardBody } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Badge } from '@/components/ui/Badge'
+import { Topbar } from '@/components/layout/Topbar'
+import { EmailSettingsCard } from '@/components/EmailSettingsCard'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -182,12 +184,14 @@ export default function AdminSettingsPage() {
   // ---------------------------------------------------------------------------
 
   return (
-    <div className="p-8">
+    <div className="min-h-screen">
+      <Topbar title="Settings" />
+      <div className="px-4 md:px-8 py-6 md:py-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Platform Settings</h1>
-        <p className="mt-1 text-sm text-gray-500">
-          Manage campaign tiers, payouts, and platform fees.
+        <h1 className="text-xl md:text-2xl font-bold text-[#0B0B0C]">Platform Settings</h1>
+        <p className="mt-1 text-sm text-[#8C8C88]">
+          Manage campaign tiers, payouts, platform fees, and notifications.
         </p>
       </div>
 
@@ -454,6 +458,10 @@ export default function AdminSettingsPage() {
             </div>
           </CardBody>
         </Card>
+
+        {/* Email Notifications */}
+        <EmailSettingsCard role="admin" />
+      </div>
       </div>
     </div>
   )
