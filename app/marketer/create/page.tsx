@@ -574,7 +574,7 @@ export default function CreateCampaignPage() {
                   ? 'border-red-300 bg-red-50'
                   : creativeFile
                   ? 'border-[#6E5BFF]/40 bg-[rgba(110,91,255,.06)]'
-                  : 'border-[#ECECE8] bg-[#F6F6F3] hover:border-violet-300 hover:bg-violet-50',
+                  : 'border-[#ECECE8] bg-[#F6F6F3] hover:border-[#6E5BFF]/30 hover:bg-[rgba(110,91,255,.04)]',
               ].join(' ')}
             >
               <input
@@ -638,7 +638,7 @@ export default function CreateCampaignPage() {
               ) : (
                 <div className="flex flex-col items-center gap-2 text-center">
                   <svg
-                    className="w-10 h-10 text-gray-300"
+                    className="w-10 h-10 text-[#C4C4C0]"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"

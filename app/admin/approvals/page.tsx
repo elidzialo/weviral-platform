@@ -72,7 +72,7 @@ function WhatsAppStatusFrame({
   return (
     <div className="flex flex-col items-center">
       {/* Phone frame */}
-      <div className="relative w-40 rounded-3xl border-4 border-gray-800 bg-gray-800 shadow-xl overflow-hidden">
+      <div className="relative w-40 rounded-3xl border-4 border-[#1a1a1a] bg-[#1a1a1a] shadow-xl overflow-hidden">
         {/* Status bar mock */}
         <div className="bg-black px-3 py-1 flex justify-between items-center">
           <span className="text-white text-[9px] font-medium">9:41</span>
@@ -89,7 +89,7 @@ function WhatsAppStatusFrame({
               className="w-full h-full object-cover"
             />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center bg-gray-900">
+            <div className="absolute inset-0 flex items-center justify-center bg-[#111]">
               <span className="text-[#8C8C88] text-xs text-center px-2">No screenshot</span>
             </div>
           )}
@@ -108,7 +108,7 @@ function WhatsAppStatusFrame({
 
         {/* Home indicator */}
         <div className="bg-black py-1.5 flex justify-center">
-          <div className="w-10 h-1 bg-gray-600 rounded-full" />
+          <div className="w-10 h-1 bg-[#444] rounded-full" />
         </div>
       </div>
 
@@ -513,14 +513,18 @@ function ApprovalsPageContent() {
   }, [])
 
   return (
-    <div className="p-8">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-[#0B0B0C]">Proof Approvals</h1>
-        <p className="mt-1 text-sm text-[#8C8C88]">
-          Review AI-verified WhatsApp Status proof submissions and approve or reject payouts.
+    <div className="min-h-screen">
+      {/* Sticky topbar */}
+      <div
+        className="sticky top-0 z-10 px-8 py-4 border-b border-[#ECECE8]"
+        style={{ background: 'rgba(246,246,243,.85)', backdropFilter: 'blur(14px)' }}
+      >
+        <h1 className="text-lg font-bold text-[#0B0B0C] leading-tight">Proof Approvals</h1>
+        <p className="text-[13px] text-[#8C8C88]">
+          Review AI-verified WhatsApp Status proofs and approve payouts
         </p>
       </div>
+    <div className="p-8">
 
       {submissions === null && !error && (
         <div className="flex items-center justify-center py-24">
@@ -543,6 +547,7 @@ function ApprovalsPageContent() {
       {submissions !== null && (
         <ApprovalsClient initialSubmissions={submissions} />
       )}
+    </div>
     </div>
   )
 }

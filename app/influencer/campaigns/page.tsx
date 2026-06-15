@@ -238,7 +238,7 @@ const ProofModal: React.FC<ProofModalProps> = ({ application, isOpen, onClose, o
 
           {/* Instructions */}
           <div className="bg-[rgba(110,91,255,.06)] border border-[#6E5BFF]/20 rounded-xl px-4 py-3">
-            <p className="text-xs font-semibold text-violet-800 mb-1">How to submit</p>
+            <p className="text-xs font-semibold text-[#4D3FCC] mb-1">How to submit</p>
             <ol className="text-xs text-[#6E5BFF] space-y-1 list-decimal list-inside">
               <li>Post the campaign creative to your WhatsApp Status</li>
               <li>After 24h, take a screenshot of your Status view count</li>
@@ -286,9 +286,9 @@ const ProofModal: React.FC<ProofModalProps> = ({ application, isOpen, onClose, o
               <button
                 type="button"
                 onClick={() => screenshotInputRef.current?.click()}
-                className="w-full border-2 border-dashed border-gray-300 rounded-xl px-4 py-8 text-center hover:border-violet-400 hover:bg-[rgba(110,91,255,.06)] transition-colors group"
+                className="w-full border-2 border-dashed border-[#ECECE8] rounded-xl px-4 py-8 text-center hover:border-[#6E5BFF]/50 hover:bg-[rgba(110,91,255,.06)] transition-colors group"
               >
-                <svg className="w-8 h-8 text-[#8C8C88] group-hover:text-violet-500 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <svg className="w-8 h-8 text-[#8C8C88] group-hover:text-[#6E5BFF] mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
                 <p className="text-sm text-[#8C8C88] group-hover:text-[#6E5BFF]">Click to upload screenshot</p>
@@ -333,7 +333,7 @@ const ProofModal: React.FC<ProofModalProps> = ({ application, isOpen, onClose, o
               <button
                 type="button"
                 onClick={() => videoInputRef.current?.click()}
-                className="w-full border-2 border-dashed border-gray-300 rounded-xl px-4 py-5 text-center hover:border-violet-400 hover:bg-[rgba(110,91,255,.06)] transition-colors group"
+                className="w-full border-2 border-dashed border-[#ECECE8] rounded-xl px-4 py-5 text-center hover:border-[#6E5BFF]/50 hover:bg-[rgba(110,91,255,.06)] transition-colors group"
               >
                 <p className="text-sm text-[#8C8C88] group-hover:text-[#6E5BFF]">Click to upload video (optional)</p>
               </button>
@@ -493,7 +493,7 @@ export default function MyCampaignsPage() {
   };
 
   return (
-    <div className="p-6 lg:p-8 max-w-5xl mx-auto">
+    <div className="min-h-screen" style={{ background: '#F6F6F3' }}>
       {/* Proof Modal */}
       {proofModalApp && (
         <ProofModal
@@ -504,11 +504,20 @@ export default function MyCampaignsPage() {
         />
       )}
 
-      {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-[#0B0B0C]">My Campaigns</h1>
-        <p className="text-sm text-[#8C8C88] mt-1">Track all your campaign applications and submit proof when ready.</p>
+      {/* Sticky topbar */}
+      <div
+        className="sticky top-0 z-10 px-8 py-4 border-b border-[#ECECE8]"
+        style={{ background: 'rgba(246,246,243,.85)', backdropFilter: 'blur(14px)' }}
+      >
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-lg font-bold text-[#0B0B0C] leading-tight">My Campaigns</h1>
+            <p className="text-[13px] text-[#8C8C88]">Track applications and submit proof when ready</p>
+          </div>
+        </div>
       </div>
+
+    <div className="p-6 lg:p-8 max-w-5xl mx-auto">
 
       {/* Tabs */}
       <div className="flex gap-1 overflow-x-auto mb-6 bg-[#F6F6F3] p-1 rounded-xl w-fit max-w-full">
@@ -533,7 +542,7 @@ export default function MyCampaignsPage() {
                     'inline-flex items-center justify-center min-w-[1.25rem] h-5 px-1.5 rounded-full text-xs font-semibold',
                     activeTab === tab.value
                       ? 'bg-[rgba(110,91,255,.1)] text-[#6E5BFF]'
-                      : 'bg-gray-200 text-[#8C8C88]',
+                      : 'bg-[#ECECE8] text-[#8C8C88]',
                   ].join(' ')}
                 >
                   {count}
@@ -564,7 +573,7 @@ export default function MyCampaignsPage() {
         </Card>
       ) : filtered.length === 0 ? (
         <div className="bg-white border border-[#ECECE8] rounded-xl px-6 py-16 text-center">
-          <svg className="w-12 h-12 text-gray-300 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <svg className="w-12 h-12 text-[#C4C4C0] mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
           </svg>
           <p className="text-[#8C8C88] font-medium">No {activeTab === 'all' ? '' : activeTab.replace('_', ' ')} campaigns</p>
@@ -585,6 +594,7 @@ export default function MyCampaignsPage() {
           ))}
         </div>
       )}
+    </div>
     </div>
   );
 }

@@ -182,14 +182,16 @@ export default function AdminSettingsPage() {
   // ---------------------------------------------------------------------------
 
   return (
-    <div className="p-8">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Platform Settings</h1>
-        <p className="mt-1 text-sm text-gray-500">
-          Manage campaign tiers, payouts, and platform fees.
-        </p>
+    <div className="min-h-screen">
+      {/* Sticky topbar */}
+      <div
+        className="sticky top-0 z-10 px-8 py-4 border-b border-[#ECECE8]"
+        style={{ background: 'rgba(246,246,243,.85)', backdropFilter: 'blur(14px)' }}
+      >
+        <h1 className="text-lg font-bold text-[#0B0B0C] leading-tight">Platform Settings</h1>
+        <p className="text-[13px] text-[#8C8C88]">Manage campaign tiers, payouts, and platform fees</p>
       </div>
+    <div className="p-8">
 
       {/* Status messages */}
       {error && (
@@ -214,14 +216,14 @@ export default function AdminSettingsPage() {
         <Card>
           <CardHeader>
             <CardTitle>Campaign Tiers</CardTitle>
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#F6F6F3] text-[#0B0B0C]">
               {tiers.length} tiers
             </span>
           </CardHeader>
           <CardBody className="p-0">
             {loading ? (
               <div className="flex items-center justify-center py-12">
-                <svg className="animate-spin w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24">
+                <svg className="animate-spin w-6 h-6 text-[#C4C4C0]" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                 </svg>
@@ -229,47 +231,47 @@ export default function AdminSettingsPage() {
             ) : tiers.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-12 text-center px-6">
                 <span className="text-4xl mb-3 select-none">📊</span>
-                <p className="text-sm font-medium text-gray-700">No tiers defined yet</p>
-                <p className="text-xs text-gray-400 mt-1">Add your first tier using the form below.</p>
+                <p className="text-sm font-medium text-[#0B0B0C]">No tiers defined yet</p>
+                <p className="text-xs text-[#C4C4C0] mt-1">Add your first tier using the form below.</p>
               </div>
             ) : (
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-100">
+                <table className="min-w-full divide-y divide-[#ECECE8]">
                   <thead>
-                    <tr className="bg-gray-50">
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    <tr className="bg-[#F6F6F3]">
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-[#8C8C88] uppercase tracking-wider">
                         Name
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-[#8C8C88] uppercase tracking-wider">
                         Views Target
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-[#8C8C88] uppercase tracking-wider">
                         Influencer Payout
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-[#8C8C88] uppercase tracking-wider">
                         Platform Fee
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-[#8C8C88] uppercase tracking-wider">
                         Total Charge
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-[#8C8C88] uppercase tracking-wider">
                         Active
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-100 bg-white">
+                  <tbody className="divide-y divide-[#ECECE8] bg-white">
                     {tiers.map((tier) => (
                       <tr
                         key={tier.id}
                         className={[
-                          'hover:bg-gray-50 transition-colors',
+                          'hover:bg-[#F6F6F3] transition-colors',
                           !tier.active ? 'opacity-50' : '',
                         ].join(' ')}
                       >
                         {/* Name */}
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-2">
-                            <span className="text-sm font-semibold text-gray-900">{tier.name}</span>
+                            <span className="text-sm font-semibold text-[#0B0B0C]">{tier.name}</span>
                             {!tier.active && (
                               <Badge variant="gray">Inactive</Badge>
                             )}
@@ -278,7 +280,7 @@ export default function AdminSettingsPage() {
 
                         {/* Views target */}
                         <td className="px-6 py-4">
-                          <span className="text-sm text-gray-700 font-medium">
+                          <span className="text-sm text-[#0B0B0C] font-medium">
                             {tier.views_target.toLocaleString()}
                           </span>
                         </td>
@@ -292,14 +294,14 @@ export default function AdminSettingsPage() {
 
                         {/* Platform fee */}
                         <td className="px-6 py-4">
-                          <span className="text-sm font-semibold text-violet-700">
+                          <span className="text-sm font-semibold text-[#6E5BFF]">
                             {formatCurrency(Number(tier.platform_fee))}
                           </span>
                         </td>
 
                         {/* Total */}
                         <td className="px-6 py-4">
-                          <span className="text-sm font-semibold text-gray-900">
+                          <span className="text-sm font-semibold text-[#0B0B0C]">
                             {formatCurrency(Number(tier.total_charge))}
                           </span>
                         </td>
@@ -311,8 +313,8 @@ export default function AdminSettingsPage() {
                             onClick={() => handleToggleActive(tier)}
                             disabled={togglePending === tier.id}
                             className={[
-                              'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2',
-                              tier.active ? 'bg-violet-600' : 'bg-gray-200',
+                              'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-[#6E5BFF] focus:ring-offset-2',
+                              tier.active ? 'bg-[#6E5BFF]' : 'bg-[#ECECE8]',
                               togglePending === tier.id ? 'opacity-50 cursor-not-allowed' : '',
                             ].join(' ')}
                             role="switch"
@@ -386,9 +388,9 @@ export default function AdminSettingsPage() {
 
             {/* Computed total preview */}
             {(form.influencer_payout || form.platform_fee) && (
-              <div className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-50 border border-gray-200 text-sm">
-                <span className="text-gray-500">Total charge to marketer:</span>
-                <span className="font-bold text-gray-900">
+              <div className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#F6F6F3] border border-[#ECECE8] text-sm">
+                <span className="text-[#8C8C88]">Total charge to marketer:</span>
+                <span className="font-bold text-[#0B0B0C]">
                   {formatCurrency(isNaN(computedTotal) ? 0 : computedTotal)}
                 </span>
               </div>
@@ -435,19 +437,19 @@ export default function AdminSettingsPage() {
                   Amount paid to the influencer on approval via Stripe Connect transfer.
                 </p>
               </div>
-              <div className="rounded-xl bg-violet-50 border border-violet-100 px-5 py-4">
-                <p className="text-xs font-medium text-violet-600 uppercase tracking-wide mb-1">
+              <div className="rounded-xl bg-[rgba(110,91,255,.06)] border border-[#6E5BFF]/15 px-5 py-4">
+                <p className="text-xs font-medium text-[#6E5BFF] uppercase tracking-wide mb-1">
                   Platform Fee
                 </p>
-                <p className="text-sm text-violet-800">
+                <p className="text-sm text-[#4D3FCC]">
                   WeViral revenue retained from each completed campaign.
                 </p>
               </div>
-              <div className="rounded-xl bg-gray-50 border border-gray-200 px-5 py-4">
-                <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">
+              <div className="rounded-xl bg-[#F6F6F3] border border-[#ECECE8] px-5 py-4">
+                <p className="text-xs font-medium text-[#8C8C88] uppercase tracking-wide mb-1">
                   Total Charge
                 </p>
-                <p className="text-sm text-gray-700">
+                <p className="text-sm text-[#0B0B0C]">
                   Total amount charged to the marketer at campaign creation. Auto-calculated.
                 </p>
               </div>
@@ -455,6 +457,7 @@ export default function AdminSettingsPage() {
           </CardBody>
         </Card>
       </div>
+    </div>
     </div>
   )
 }
