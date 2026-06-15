@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
-import { Sidebar } from '@/components/layout/Sidebar'
+import { AppShell } from '@/components/layout/AppShell'
 
 export const dynamic = 'force-dynamic'
 
@@ -12,7 +12,6 @@ export default async function AdminLayout({
 }) {
   const supabase = createClient()
 
-  // Verify authenticated session
   const {
     data: { user },
     error: authError,
@@ -22,7 +21,6 @@ export default async function AdminLayout({
     redirect('/login')
   }
 
-  // Fetch user profile and verify admin role
   const { data: profile, error: profileError } = await supabase
     .from('profiles')
     .select('id, full_name, email, role, avatar_url')
@@ -34,20 +32,17 @@ export default async function AdminLayout({
   }
 
   if (profile.role !== 'admin') {
-    // Non-admin: redirect to their own dashboard
     if (profile.role === 'marketer') redirect('/marketer')
     if (profile.role === 'influencer') redirect('/influencer')
     redirect('/login')
   }
 
-  // Fetch pending approvals count for sidebar badge (using admin client to bypass RLS)
   const adminClient = createAdminClient()
   const { count: pendingCount } = await adminClient
     .from('proof_submissions')
     .select('id', { count: 'exact', head: true })
     .eq('status', 'pending')
 
-  // Build display name and initials for sidebar user footer
   const fullName = profile.full_name?.trim() || profile.email || 'Admin'
   const initials = fullName
     .split(' ')
@@ -56,17 +51,14 @@ export default async function AdminLayout({
     .join('')
 
   return (
-    <div className="flex min-h-screen bg-[#F6F6F3]">
-      <Sidebar
-        role="admin"
-        userName={fullName}
-        userRole="Admin"
-        userInitials={initials || 'A'}
-        pendingCount={pendingCount ?? 0}
-      />
-      <main className="flex-1 min-w-0 overflow-y-auto">
-        {children}
-      </main>
-    </div>
+    <AppShell
+      role="admin"
+      userName={fullName}
+      userRole="Admin"
+      userInitials={initials || 'A'}
+      pendingCount={pendingCount ?? 0}
+    >
+      {children}
+    </AppShell>
   )
 }
