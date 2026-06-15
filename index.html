@@ -200,8 +200,8 @@ tr:hover td{background:var(--g50)}
         <div><div class="pt">Advertiser / Marketer</div><div class="pd">Create campaigns &amp; track reach</div></div>
       </div>
     </div>
-    <button class="lbtn" onclick="enterPortal()">Enter Portal â†’</button>
-    <div class="demo-note">Demo mode â€” no login required</div>
+    <button class="lbtn" onclick="enterPortal()">Enter Portal &#x2192;</button>
+    <div class="demo-note">Demo mode &#x2014; no login required</div>
   </div>
 </div>
 
@@ -221,9 +221,9 @@ tr:hover td{background:var(--g50)}
           <div style="font-size:12px;color:white;font-weight:600" id="user-name">Eli D.</div>
           <div style="font-size:10px;color:var(--g400)" id="user-role">Super Admin</div>
         </div>
-        <button class="lgbtn" onclick="doLogout()" title="Log out">âŽ‹</button>
+        <button class="lgbtn" onclick="doLogout()" title="Log out">&#x238B;</button>
       </div>
-      <button class="swbtn" onclick="doLogout()">â‡„ Switch Portal</button>
+      <button class="swbtn" onclick="doLogout()">&#x21C4; Switch Portal</button>
     </div>
   </div>
 
@@ -245,7 +245,7 @@ tr:hover td{background:var(--g50)}
   <div class="mb">
     <div class="mh">
       <div class="mt" id="modal-title">Modal</div>
-      <button class="mc" onclick="closeModal()">âœ•</button>
+      <button class="mc" onclick="closeModal()">&#x2715;</button>
     </div>
     <div class="mbody" id="modal-body"></div>
     <div class="mf" id="modal-footer"></div>
@@ -283,7 +283,7 @@ let tiers = [
 let availCampaigns = [
   {id:4,campaign:'Zara Summer',marketer:'Zara UK',tier:'Growth',payout:45,deadline:'20 Jun',desc:'Promote our new summer collection. Post ad creative to your WhatsApp Status for 24 hours.'},
   {id:5,campaign:'Innocent Smoothies',marketer:'Innocent Drinks',tier:'Starter',payout:10,deadline:'18 Jun',desc:'Share our new smoothie range with your contacts. Fun, colourful creative provided.'},
-  {id:6,campaign:'ASOS Payday',marketer:'ASOS',tier:'Viral',payout:80,deadline:'25 Jun',desc:'Payday sale campaign â€” 30% off everything. Post to status and earn when you hit 1,000 views.'},
+  {id:6,campaign:'ASOS Payday',marketer:'ASOS',tier:'Viral',payout:80,deadline:'25 Jun',desc:'Payday sale campaign &#x2014; 30% off everything. Post to status and earn when you hit 1,000 views.'},
 ];
 let myCampaigns = [
   {id:1,campaign:'Nike Summer Drop',marketer:'Nike UK',tier:'Growth',payout:45,status:'proof_submitted',target:500},
@@ -314,7 +314,7 @@ const portals = {
     default:'dashboard'
   },
   influencer:{
-    label:'Influencer Portal',user:'Sarah J.',role:'Influencer Â· &#x1F1EC;&#x1F1E7; UK',av:'SJ',avcls:'g',
+    label:'Influencer Portal',user:'Sarah J.',role:'Influencer · &#x1F1EC;&#x1F1E7; UK',av:'SJ',avcls:'g',
     nav:[
       {sec:'inf-dashboard',ic:'&#x1F4CA;',label:'My Dashboard'},
       {sec:'browse',ic:'&#x1F50D;',label:'Browse Campaigns'},
@@ -324,7 +324,7 @@ const portals = {
     default:'inf-dashboard'
   },
   marketer:{
-    label:'Marketer Portal',user:'Nike UK',role:'Marketer Â· &#x1F1EC;&#x1F1E7; UK',av:'NK',avcls:'b',
+    label:'Marketer Portal',user:'Nike UK',role:'Marketer · &#x1F1EC;&#x1F1E7; UK',av:'NK',avcls:'b',
     nav:[
       {sec:'mkr-dashboard',ic:'&#x1F4CA;',label:'Dashboard'},
       {sec:'create',ic:'&#x2795;',label:'Create Campaign'},
@@ -356,7 +356,7 @@ function initPortal() {
   const cfg = portals[portal];
   document.getElementById('portal-label').textContent = cfg.label;
   document.getElementById('user-name').textContent = cfg.user;
-  document.getElementById('user-role').textContent = cfg.role;
+  document.getElementById('user-role').innerHTML = cfg.role;
   const av = document.getElementById('user-av');
   av.textContent = cfg.av;
   av.className = 'av ' + cfg.avcls;
@@ -422,13 +422,13 @@ function tierBadge(t) {
 function statusBadge(s) {
   const map = {
     active:['bg','Active'],proof_submitted:['ba','Proof Submitted'],
-    completed:['bg','Completed'],paid:['bg','Paid âœ“'],pending:['ba','Pending'],
+    completed:['bg','Completed'],paid:['bg','Paid &#x2713;'],pending:['ba','Pending'],
     rejected:['br2','Rejected']
   };
   const [cls,lbl] = map[s]||['bk',s];
   return `<span class="b ${cls}">${lbl}</span>`;
 }
-function pound(n) { return 'Â£' + n.toLocaleString('en-GB',{minimumFractionDigits:0}); }
+function pound(n) { return '£' + n.toLocaleString('en-GB',{minimumFractionDigits:0}); }
 function prog(v,t) { const pct = Math.min(100,Math.round(v/t*100)); return `<div style="font-size:11px;color:var(--g400)">${v.toLocaleString()} / ${t.toLocaleString()} views</div><div class="prog"><div class="progf" style="width:${pct}%"></div></div>`; }
 
 // ===== ADMIN PAGES =====
@@ -438,38 +438,38 @@ function renderAdminDash() {
   <div class="sgrid">
     <div class="scard"><div class="si">&#x1F465;</div><div class="sl">Influencers</div><div class="sv">${allInfluencers.length}</div><div class="ss">${allInfluencers.filter(x=>x.status==='active').length} active</div></div>
     <div class="scard"><div class="si">&#x1F4E3;</div><div class="sl">Marketers</div><div class="sv">${allMarketers.length}</div><div class="ss">All verified</div></div>
-    <div class="scard"><div class="si">â³</div><div class="sl">Pending Approvals</div><div class="sv" style="color:var(--a)">${pendingApprovals.length}</div><div class="ss">Need review</div></div>
+    <div class="scard"><div class="si">&#x23F3;</div><div class="sl">Pending Approvals</div><div class="sv" style="color:var(--a)">${pendingApprovals.length}</div><div class="ss">Need review</div></div>
     <div class="scard"><div class="si">&#x1F4B0;</div><div class="sl">Platform Revenue</div><div class="sv" style="color:var(--g)">${pound(rev)}</div><div class="ss">Total earned</div></div>
   </div>
   <div class="grid2">
     <div class="card">
-      <div class="ch"><div class="ct">â³ Pending Approvals</div><div class="cbadge">${pendingApprovals.length}</div></div>
-      ${pendingApprovals.length === 0 ? '<div class="cb"><div class="empty"><div class="ei">&#x2705;</div><p>All clear â€” no approvals pending</p></div></div>' :
+      <div class="ch"><div class="ct">&#x23F3; Pending Approvals</div><div class="cbadge">${pendingApprovals.length}</div></div>
+      ${pendingApprovals.length === 0 ? '<div class="cb"><div class="empty"><div class="ei">&#x2705;</div><p>All clear &#x2014; no approvals pending</p></div></div>' :
       `<div class="cb">` + pendingApprovals.slice(0,3).map(a => `
         <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--g100)">
-          <div style="flex:1"><div class="cname">${a.campaign}</div><div class="csub">${a.influencer} Â· ${a.tier} Â· <span style="color:var(--g);font-weight:600">${a.submitted} views</span></div></div>
+          <div style="flex:1"><div class="cname">${a.campaign}</div><div class="csub">${a.influencer} · ${a.tier} · <span style="color:var(--g);font-weight:600">${a.submitted} views</span></div></div>
           <button class="btn btn-sm btn-p" onclick="openProofModal(${a.id})">Review</button>
-        </div>`).join('') + `<div style="padding-top:10px"><button class="btn btn-gh btn-sm" onclick="navigate('approvals')">View all â†’</button></div></div>`}
+        </div>`).join('') + `<div style="padding-top:10px"><button class="btn btn-gh btn-sm" onclick="navigate('approvals')">View all &#x2192;</button></div></div>`}
     </div>
     <div class="card">
       <div class="ch"><div class="ct">&#x1F4C8; Platform Activity</div></div>
       <div class="cb">
         ${[
-          ['10 Jun','Nike Summer Drop â€” approved','var(--g)'],
+          ['10 Jun','Nike Summer Drop &#x2014; approved','var(--g)'],
           ['9 Jun','New influencer: @tyler_b (USA)','var(--p)'],
           ['8 Jun','BrewDog campaign created','var(--p)'],
-          ['7 Jun','Payout: Â£80 â†’ @james_w','var(--g)'],
-          ['5 Jun','Zara Belgium â€” approved','var(--g)'],
-        ].map(([d,t,c])=>`<div style="display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--g100);font-size:12px"><span style="color:var(--g400);width:52px">${d}</span><span style="color:${c}">â—</span><span>${t}</span></div>`).join('')}
+          ['7 Jun','Payout: £80 &#x2192; @james_w','var(--g)'],
+          ['5 Jun','Zara Belgium &#x2014; approved','var(--g)'],
+        ].map(([d,t,c])=>`<div style="display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--g100);font-size:12px"><span style="color:var(--g400);width:52px">${d}</span><span style="color:${c}">&#x25CF;</span><span>${t}</span></div>`).join('')}
       </div>
     </div>
   </div>`;
 }
 
 function renderApprovals() {
-  if (pendingApprovals.length === 0) return `<div class="card"><div class="cb"><div class="empty"><div class="ei">&#x2705;</div><p>No pending approvals â€” all caught up!</p></div></div></div>`;
+  if (pendingApprovals.length === 0) return `<div class="card"><div class="cb"><div class="empty"><div class="ei">&#x2705;</div><p>No pending approvals &#x2014; all caught up!</p></div></div></div>`;
   return `
-  <div class="alert ai">&#x2139;&#xFE0F; Review each submission below. The AI has pre-screened every proof â€” you make the final call.</div>
+  <div class="alert ai">&#x2139;&#xFE0F; Review each submission below. The AI has pre-screened every proof &#x2014; you make the final call.</div>
   <div class="card">
     <div class="tw">
       <table>
@@ -482,7 +482,7 @@ function renderApprovals() {
             <td>${tierBadge(a.tier)}</td>
             <td>${a.target.toLocaleString()}</td>
             <td><span style="color:var(--g);font-weight:700">${a.submitted.toLocaleString()}</span></td>
-            <td><span style="color:${a.confidence>=90?'var(--g)':a.confidence>=75?'var(--a)':'var(--r)'}font-weight:700">${a.confidence}%</span></td>
+            <td><span style="color:${a.confidence>=90?'var(--g)':a.confidence>=75?'var(--a)':'var(--r)'};font-weight:700">${a.confidence}%</span></td>
             <td>${a.date}</td>
             <td style="white-space:nowrap">
               <button class="btn btn-sm btn-p" onclick="openProofModal(${a.id})" style="margin-right:4px">View Proof</button>
@@ -576,8 +576,8 @@ function renderTiers() {
       <div class="fg2">
         <div class="fg"><label class="fl">Tier Name</label><input class="fi" placeholder="e.g. Premium" id="nt-name"></div>
         <div class="fg"><label class="fl">Views Target</label><input class="fi" type="number" placeholder="e.g. 2000" id="nt-views"></div>
-        <div class="fg"><label class="fl">Influencer Payout (Â£)</label><input class="fi" type="number" placeholder="e.g. 160" id="nt-inf"></div>
-        <div class="fg"><label class="fl">Platform Fee (Â£)</label><input class="fi" type="number" placeholder="e.g. 32" id="nt-fee"></div>
+        <div class="fg"><label class="fl">Influencer Payout (£)</label><input class="fi" type="number" placeholder="e.g. 160" id="nt-inf"></div>
+        <div class="fg"><label class="fl">Platform Fee (£)</label><input class="fi" type="number" placeholder="e.g. 32" id="nt-fee"></div>
       </div>
       <button class="btn btn-p" onclick="addTier()">Add Tier</button>
     </div>
@@ -604,7 +604,7 @@ function renderInfDash() {
       <div class="elbl">Total Earned</div>
       <div class="eamt">${pound(paid)}</div>
       <div class="erow">
-        <div>â³ Pending: <strong>${pound(pending)}</strong></div>
+        <div>&#x23F3; Pending: <strong>${pound(pending)}</strong></div>
         <div>&#x1F4F2; Active: <strong>${active}</strong></div>
         <div>&#x2705; Completed: <strong>${myCampaigns.filter(c=>c.status==='paid').length}</strong></div>
       </div>
@@ -620,13 +620,13 @@ function renderInfDash() {
             <div class="cname">${c.campaign}</div>
             ${statusBadge(c.status)}
           </div>
-          <div class="csub">${tierBadge(c.tier)} Â· Earn ${pound(c.payout)}</div>
+          <div class="csub">${tierBadge(c.tier)} · Earn ${pound(c.payout)}</div>
           ${c.status==='active'?`<button class="btn btn-sm btn-p" style="margin-top:8px" onclick="openSubmitProof(${c.id})">Submit Proof</button>`:''}
         </div>`).join('')}
       </div>
     </div>
     <div class="card">
-      <div class="ch"><div class="ct">&#x1F50D; Available Campaigns</div><div class="ca"><button class="btn btn-gh btn-sm" onclick="navigate('browse')">View all â†’</button></div></div>
+      <div class="ch"><div class="ct">&#x1F50D; Available Campaigns</div><div class="ca"><button class="btn btn-gh btn-sm" onclick="navigate('browse')">View all &#x2192;</button></div></div>
       <div class="cb">
         ${availCampaigns.slice(0,3).map(c=>`
         <div style="padding:10px 0;border-bottom:1px solid var(--g100)">
@@ -634,7 +634,7 @@ function renderInfDash() {
             <div class="cname">${c.campaign}</div>
             <span style="font-weight:700;color:var(--g)">${pound(c.payout)}</span>
           </div>
-          <div class="csub">${c.marketer} Â· ${tierBadge(c.tier)} Â· Deadline ${c.deadline}</div>
+          <div class="csub">${c.marketer} · ${tierBadge(c.tier)} · Deadline ${c.deadline}</div>
         </div>`).join('')}
       </div>
     </div>
@@ -643,7 +643,7 @@ function renderInfDash() {
 
 function renderBrowse() {
   return `
-  <div class="alert as">&#x2705; Stripe account connected â€” payouts go straight to your bank within 2 business days.</div>
+  <div class="alert as">&#x2705; Stripe account connected &#x2014; payouts go straight to your bank within 2 business days.</div>
   ${availCampaigns.map(c=>`
   <div class="card">
     <div class="ch">
@@ -669,7 +669,7 @@ function applyNow(id) {
   if (!c) return;
   myCampaigns.unshift({id:c.id,campaign:c.campaign,marketer:c.marketer,tier:c.tier,payout:c.payout,status:'active',target:tiers.find(t=>t.name===c.tier)?.views||500});
   availCampaigns = availCampaigns.filter(x=>x.id!==id);
-  openModal('Applied!', `<div class="alert as">&#x2705; You've applied to <strong>${c.campaign}</strong>!<br><br>Download the ad creative and post it to your WhatsApp Status. Once it hits ${tiers.find(t=>t.name===c.tier)?.views.toLocaleString()} views, come back and submit your screenshot proof.</div>`, `<button class="btn btn-g" onclick="closeModal();navigate('my-camps')">Go to My Campaigns â†’</button>`);
+  openModal('Applied!', `<div class="alert as">&#x2705; You've applied to <strong>${c.campaign}</strong>!<br><br>Download the ad creative and post it to your WhatsApp Status. Once it hits ${tiers.find(t=>t.name===c.tier)?.views.toLocaleString()} views, come back and submit your screenshot proof.</div>`, `<button class="btn btn-g" onclick="closeModal();navigate('my-camps')">Go to My Campaigns &#x2192;</button>`);
 }
 
 function renderMyCamps() {
@@ -685,8 +685,8 @@ function renderMyCamps() {
         <td style="font-weight:700;color:var(--g)">${pound(c.payout)}</td>
         <td>${statusBadge(c.status)}</td>
         <td>${c.status==='active'?`<button class="btn btn-sm btn-p" onclick="openSubmitProof(${c.id})">Submit Proof</button>`:
-             c.status==='proof_submitted'?`<span style="font-size:12px;color:var(--a)">â³ Awaiting admin</span>`:
-             c.status==='paid'?`<span style="font-size:12px;color:var(--g)">âœ“ Paid</span>`:'â€”'}</td>
+             c.status==='proof_submitted'?`<span style="font-size:12px;color:var(--a)">&#x23F3; Awaiting admin</span>`:
+             c.status==='paid'?`<span style="font-size:12px;color:var(--g)">&#x2713; Paid</span>`:'&#x2014;'}</td>
       </tr>`).join('')}</tbody>
     </table></div>
   </div>`;
@@ -701,14 +701,14 @@ function renderEarnings() {
       <div class="elbl">Lifetime Earnings</div>
       <div class="eamt">${pound(paid)}</div>
       <div class="erow">
-        <div>â³ Pending payout: <strong>${pound(pending)}</strong></div>
+        <div>&#x23F3; Pending payout: <strong>${pound(pending)}</strong></div>
       </div>
     </div>
   </div>
   <div class="card">
     <div class="ch"><div class="ct">&#x1F4B3; Stripe Payout Account</div></div>
     <div class="cb">
-      <div class="alert as">&#x2705; Stripe account connected â€” **** **** **** 4242 (Barclays UK)</div>
+      <div class="alert as">&#x2705; Stripe account connected &#x2014; **** **** **** 4242 (Barclays UK)</div>
       <button class="btn btn-gh btn-sm">Update bank details</button>
     </div>
   </div>
@@ -720,7 +720,7 @@ function renderEarnings() {
         <td style="color:var(--g400)">Jun 2026</td>
         <td>${c.campaign}</td>
         <td style="font-weight:700;color:var(--g)">${pound(c.payout)}</td>
-        <td><span class="b bg">Paid âœ“</span></td>
+        <td><span class="b bg">Paid &#x2713;</span></td>
       </tr>`).join('')}</tbody>
     </table></div>
   </div>`;
@@ -736,7 +736,7 @@ function renderMkrDash() {
     <div class="scard"><div class="si">&#x1F4CB;</div><div class="sl">Total Campaigns</div><div class="sv">${mkrCampaigns.length}</div><div class="ss">${active} active</div></div>
     <div class="scard"><div class="si">&#x1F441;&#xFE0F;</div><div class="sl">Verified Views</div><div class="sv">${totalViews.toLocaleString()}</div><div class="ss">AI verified</div></div>
     <div class="scard"><div class="si">&#x1F4B0;</div><div class="sl">Total Spent</div><div class="sv">${pound(totalSpent)}</div><div class="ss">In escrow</div></div>
-    <div class="scard"><div class="si">&#x1F4CA;</div><div class="sl">Cost Per View</div><div class="sv">${totalViews > 0 ? 'Â£' + (totalSpent/totalViews).toFixed(3) : 'â€”'}</div><div class="ss">Avg CPV</div></div>
+    <div class="scard"><div class="si">&#x1F4CA;</div><div class="sl">Cost Per View</div><div class="sv">${totalViews > 0 ? '£' + (totalSpent/totalViews).toFixed(3) : '&#x2014;'}</div><div class="ss">Avg CPV</div></div>
   </div>
   <div class="card">
     <div class="ch"><div class="ct">My Campaigns</div><div class="ca"><button class="btn btn-p btn-sm" onclick="navigate('create')">+ New Campaign</button></div></div>
@@ -774,7 +774,7 @@ function renderCreate() {
     <div class="ch"><div class="ct">Select Tier *</div></div>
     <div class="cb">
       <div class="tpicker" id="tier-picker">${tierRows}</div>
-      <div id="tier-info" style="font-size:12px;color:var(--g400)">Selected: <strong style="color:var(--g900)">${selectedTier}</strong> â€” influencer earns ${pound(tiers.find(t=>t.name===selectedTier)?.inf||0)}, you pay ${pound(tiers.find(t=>t.name===selectedTier)?.total||0)} total</div>
+      <div id="tier-info" style="font-size:12px;color:var(--g400)">Selected: <strong style="color:var(--g900)">${selectedTier}</strong> &#x2014; influencer earns ${pound(tiers.find(t=>t.name===selectedTier)?.inf||0)}, you pay ${pound(tiers.find(t=>t.name===selectedTier)?.total||0)} total</div>
     </div>
   </div>
   <div class="card">
@@ -783,13 +783,13 @@ function renderCreate() {
       <div class="uz" onclick="alert('File upload coming in the live build')">
         <div class="ui">&#x1F4E4;</div>
         <div class="ut">Click to upload ad creative</div>
-        <div class="us">Image or video Â· Max 50MB Â· WhatsApp Status format recommended (9:16)</div>
+        <div class="us">Image or video · Max 50MB · WhatsApp Status format recommended (9:16)</div>
       </div>
     </div>
   </div>
   <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:4px">
     <button class="btn btn-gh" onclick="navigate('mkr-camps')">Cancel</button>
-    <button class="btn btn-p" onclick="submitCampaign()">Pay to Escrow &amp; Launch â†’</button>
+    <button class="btn btn-p" onclick="submitCampaign()">Pay to Escrow &amp; Launch &#x2192;</button>
   </div>`;
 }
 function selectTier(name, el) {
@@ -797,7 +797,7 @@ function selectTier(name, el) {
   document.querySelectorAll('.tc').forEach(c=>c.classList.remove('sel'));
   el.classList.add('sel');
   const t = tiers.find(t=>t.name===name);
-  document.getElementById('tier-info').innerHTML = `Selected: <strong style="color:var(--g900)">${name}</strong> â€” influencer earns ${pound(t.inf)}, you pay ${pound(t.total)} total`;
+  document.getElementById('tier-info').innerHTML = `Selected: <strong style="color:var(--g900)">${name}</strong> &#x2014; influencer earns ${pound(t.inf)}, you pay ${pound(t.total)} total`;
 }
 function submitCampaign() {
   const name = document.getElementById('cc-name')?.value.trim();
@@ -813,7 +813,7 @@ function submitCampaign() {
        <div style="margin-bottom:6px">&#x1F4B0; Escrow held: <strong>${pound(t.total)}</strong></div>
        <div>&#x1F4E3; Influencers can now apply</div>
      </div>`,
-    `<button class="btn btn-g" onclick="closeModal();navigate('mkr-camps')">View My Campaigns â†’</button>`);
+    `<button class="btn btn-g" onclick="closeModal();navigate('mkr-camps')">View My Campaigns &#x2192;</button>`);
 }
 
 function renderMkrCamps() {
@@ -840,7 +840,7 @@ function renderBilling() {
   <div class="card">
     <div class="ch"><div class="ct">&#x1F4B3; Payment Method</div></div>
     <div class="cb">
-      <div class="alert as">&#x2705; Stripe account active â€” **** **** **** 8765 (HSBC Business)</div>
+      <div class="alert as">&#x2705; Stripe account active &#x2014; **** **** **** 8765 (HSBC Business)</div>
       <button class="btn btn-gh btn-sm">Update card</button>
     </div>
   </div>
@@ -881,7 +881,7 @@ function openProofModal(id) {
   const a = pendingApprovals.find(x=>x.id===id);
   if (!a) return;
   const tierPayout = tiers.find(t=>t.name===a.tier)?.inf || 0;
-  openModal(`Proof Review â€” ${a.campaign}`,
+  openModal(`Proof Review &#x2014; ${a.campaign}`,
     `<div class="proof-wrap">
       <div class="phone"><div class="ws">
         <div style="font-size:10px;opacity:.6;margin-bottom:8px">WhatsApp Status</div>
@@ -896,15 +896,15 @@ function openProofModal(id) {
       <div style="text-align:right"><div style="font-size:11px;color:var(--g400)">Influencer Payout on Approval</div><div style="font-size:22px;font-weight:800;color:var(--g)">${pound(tierPayout)}</div></div>
     </div>
     <ul class="ai-list">
-      <li><span class="ck">âœ“</span> WhatsApp Status UI detected</li>
-      <li><span class="ck">âœ“</span> View count readable: ${a.submitted.toLocaleString()} views</li>
-      <li><span class="ck">âœ“</span> Target met: ${a.target.toLocaleString()} required, ${a.submitted.toLocaleString()} submitted</li>
-      <li><span class="ck">âœ“</span> Ad creative identified in frame</li>
-      <li><span class="${a.confidence>=90?'ck':'cx'}">${a.confidence>=90?'âœ“':'âš '}</span> Confidence score: ${a.confidence}% ${a.confidence>=90?'(Pass)':'(Review carefully)'}</li>
+      <li><span class="ck">&#x2713;</span> WhatsApp Status UI detected</li>
+      <li><span class="ck">&#x2713;</span> View count readable: ${a.submitted.toLocaleString()} views</li>
+      <li><span class="ck">&#x2713;</span> Target met: ${a.target.toLocaleString()} required, ${a.submitted.toLocaleString()} submitted</li>
+      <li><span class="ck">&#x2713;</span> Ad creative identified in frame</li>
+      <li><span class="${a.confidence>=90?'ck':'cx'}">${a.confidence>=90?'&#x2713;':'&#x26A0;'}</span> Confidence score: ${a.confidence}% ${a.confidence>=90?'(Pass)':'(Review carefully)'}</li>
     </ul>`,
     `<button class="btn btn-gh" onclick="closeModal()">Cancel</button>
-     <button class="btn btn-r" onclick="rejectProof(${id})">âœ• Reject</button>
-     <button class="btn btn-g" onclick="approveProof(${id})">âœ“ Approve &amp; Release ${pound(tierPayout)}</button>`);
+     <button class="btn btn-r" onclick="rejectProof(${id})">&#x2715; Reject</button>
+     <button class="btn btn-g" onclick="approveProof(${id})">&#x2713; Approve &amp; Release ${pound(tierPayout)}</button>`);
 }
 function approveProof(id) {
   const a = pendingApprovals.find(x=>x.id===id);
@@ -928,7 +928,7 @@ function rejectProof(id) {
   closeModal();
   setTimeout(()=>{
     openModal('Proof Rejected',
-      `<div class="alert aw">âš ï¸ Proof has been rejected. The influencer has been notified and can resubmit.</div>`,
+      `<div class="alert aw">&#x26A0;&#xFE0F; Proof has been rejected. The influencer has been notified and can resubmit.</div>`,
       `<button class="btn btn-gh" onclick="closeModal();navigate('approvals')">Done</button>`);
     buildNav(portals[portal]);
   }, 100);
@@ -936,7 +936,7 @@ function rejectProof(id) {
 
 function openSubmitProof(id) {
   const c = myCampaigns.find(x=>x.id===id);
-  openModal(`Submit Proof â€” ${c.campaign}`,
+  openModal(`Submit Proof &#x2014; ${c.campaign}`,
     `<div class="alert ai">&#x2139;&#xFE0F; Post the ad creative to your WhatsApp Status, wait for ${c.target.toLocaleString()} views, then upload a screenshot below.</div>
      <div class="fg"><label class="fl">Screenshot of WhatsApp Status (showing view count) *</label>
        <div class="uz" onclick="alert('File upload active in the live build')">
@@ -949,11 +949,11 @@ function openSubmitProof(id) {
        <div class="uz" onclick="alert('File upload active in the live build')">
          <div class="ui">&#x1F3A5;</div>
          <div class="ut">Click to upload video</div>
-         <div class="us">MP4 or MOV Â· Max 100MB</div>
+         <div class="us">MP4 or MOV · Max 100MB</div>
        </div>
      </div>`,
     `<button class="btn btn-gh" onclick="closeModal()">Cancel</button>
-     <button class="btn btn-p" onclick="fakeSubmitProof(${id})">Submit for Review â†’</button>`);
+     <button class="btn btn-p" onclick="fakeSubmitProof(${id})">Submit for Review &#x2192;</button>`);
 }
 function fakeSubmitProof(id) {
   const c = myCampaigns.find(x=>x.id===id);
@@ -962,10 +962,10 @@ function fakeSubmitProof(id) {
   pendingApprovals.push(p);
   closeModal();
   setTimeout(()=>{
-    openModal('Proof Submitted! â³',
+    openModal('Proof Submitted! &#x23F3;',
       `<div class="alert as">&#x2705; Your proof has been submitted for admin review.</div>
-       <p style="font-size:13px;color:var(--g600)">The AI has pre-screened your screenshot. An admin will review and release your payment â€” usually within 24 hours.</p>`,
-      `<button class="btn btn-g" onclick="closeModal();navigate('my-camps')">Go to My Campaigns â†’</button>`);
+       <p style="font-size:13px;color:var(--g600)">The AI has pre-screened your screenshot. An admin will review and release your payment &#x2014; usually within 24 hours.</p>`,
+      `<button class="btn btn-g" onclick="closeModal();navigate('my-camps')">Go to My Campaigns &#x2192;</button>`);
     if (portal==='admin') buildNav(portals['admin']);
   }, 100);
 }
@@ -984,7 +984,7 @@ function openInviteModal(type) {
      </div>
      <div class="alert ai">&#x2139;&#xFE0F; An invite email will be sent with a secure signup link.</div>`,
     `<button class="btn btn-gh" onclick="closeModal()">Cancel</button>
-     <button class="btn btn-p" onclick="sendInvite('${type}')">Send Invite â†’</button>`);
+     <button class="btn btn-p" onclick="sendInvite('${type}')">Send Invite &#x2192;</button>`);
 }
 function sendInvite(type) {
   const name = document.getElementById('inv-name').value.trim();
