@@ -200,7 +200,7 @@ tr:hover td{background:var(--g50)}
         <div><div class="pt">Advertiser / Marketer</div><div class="pd">Create campaigns &amp; track reach</div></div>
       </div>
     </div>
-    <button class="lbtn" onclick="login()">Enter Portal â†’</button>
+    <button class="lbtn" onclick="enterPortal()">Enter Portal â†’</button>
     <div class="demo-note">Demo mode â€” no login required</div>
   </div>
 </div>
@@ -221,9 +221,9 @@ tr:hover td{background:var(--g50)}
           <div style="font-size:12px;color:white;font-weight:600" id="user-name">Eli D.</div>
           <div style="font-size:10px;color:var(--g400)" id="user-role">Super Admin</div>
         </div>
-        <button class="lgbtn" onclick="logout()" title="Log out">âŽ‹</button>
+        <button class="lgbtn" onclick="doLogout()" title="Log out">âŽ‹</button>
       </div>
-      <button class="swbtn" onclick="logout()">â‡„ Switch Portal</button>
+      <button class="swbtn" onclick="doLogout()">â‡„ Switch Portal</button>
     </div>
   </div>
 
@@ -341,14 +341,14 @@ function selectPortal(p, el) {
   document.querySelectorAll('.pcard').forEach(c => c.classList.remove('sel'));
   el.classList.add('sel');
 }
-function login() {
+function enterPortal() {
   try {
     document.getElementById('login').style.display = 'none';
     document.getElementById('app').style.display = 'block';
     initPortal();
   } catch(e) { alert('Error: ' + e.message); }
 }
-function logout() {
+function doLogout() {
   document.getElementById('app').style.display = 'none';
   document.getElementById('login').style.display = 'flex';
 }
