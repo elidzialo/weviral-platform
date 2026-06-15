@@ -47,7 +47,7 @@ export default async function MarketerLayout({
     .join('');
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-[#F6F6F3]">
       <Sidebar
         role="marketer"
         userName={displayName}

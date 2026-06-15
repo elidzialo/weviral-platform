@@ -2,11 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes wvGrow {
+  from { transform: scaleY(0); opacity: 0; }
+  to   { transform: scaleY(1); opacity: 1; }
+}
+
 :root {
-  --primary: #7C3AED;
-  --green: #10B981;
+  --primary: #6E5BFF;
+  --teal: #1FD3A3;
+  --bg: #F6F6F3;
 }
 
 body {
-  @apply bg-gray-50 text-gray-800;
+  background-color: #F6F6F3;
+  color: #0B0B0C;
 }

@@ -5,10 +5,6 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { createBrowserClient } from '@supabase/ssr';
 
-// ---------------------------------------------------------------------------
-// Types
-// ---------------------------------------------------------------------------
-
 type Role = 'admin' | 'influencer' | 'marketer';
 
 interface NavItem {
@@ -26,19 +22,35 @@ interface SidebarProps {
   pendingCount?: number;
 }
 
-// ---------------------------------------------------------------------------
-// Icons (inline SVGs to avoid external deps)
-// ---------------------------------------------------------------------------
-
 const Icons = {
-  dashboard: (
+  home: (
     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10" />
     </svg>
   ),
-  check: (
+  grid: (
     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      <rect x="3" y="3" width="7" height="7" rx="1" />
+      <rect x="14" y="3" width="7" height="7" rx="1" />
+      <rect x="3" y="14" width="7" height="7" rx="1" />
+      <rect x="14" y="14" width="7" height="7" rx="1" />
+    </svg>
+  ),
+  wallet: (
+    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M3 8h18v11H3zM16 13h3M3 8l2.5-3h13L21 8" />
+    </svg>
+  ),
+  coin: (
+    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
+      <circle cx="12" cy="12" r="9" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 9.5h4.5a1.6 1.6 0 010 3.2H9m0-3.2v6.5m0-6.5V8" />
+    </svg>
+  ),
+  gear: (
+    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
+      <circle cx="12" cy="12" r="3.5" />
+      <path strokeLinecap="round" d="M12 2v3M12 19v3M4.2 6.2l2 2M17.8 17.8l2 2M2 12h3M19 12h3M4.2 17.8l2-2M17.8 6.2l2-2" />
     </svg>
   ),
   campaign: (
@@ -46,40 +58,19 @@ const Icons = {
       <path strokeLinecap="round" strokeLinejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
     </svg>
   ),
-  users: (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-    </svg>
-  ),
-  briefcase: (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-    </svg>
-  ),
-  settings: (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-    </svg>
-  ),
   search: (
     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
     </svg>
   ),
-  cash: (
+  users: (
     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
     </svg>
   ),
-  plus: (
+  check: (
     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-    </svg>
-  ),
-  creditCard: (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
   ),
   logout: (
@@ -89,48 +80,44 @@ const Icons = {
   ),
 };
 
-// ---------------------------------------------------------------------------
-// Navigation config
-// ---------------------------------------------------------------------------
-
 function getNavItems(role: Role, pendingCount?: number): NavItem[] {
   switch (role) {
     case 'admin':
       return [
-        { label: 'Dashboard', href: '/admin', icon: Icons.dashboard },
+        { label: 'Overview', href: '/admin', icon: Icons.home },
         {
           label: 'Approvals',
           href: '/admin/approvals',
           icon: Icons.check,
           badge: pendingCount && pendingCount > 0 ? pendingCount : undefined,
         },
-        { label: 'All Campaigns', href: '/admin/campaigns', icon: Icons.campaign },
-        { label: 'Influencers', href: '/admin/influencers', icon: Icons.users },
-        { label: 'Marketers', href: '/admin/marketers', icon: Icons.briefcase },
-        { label: 'Settings', href: '/admin/settings', icon: Icons.settings },
+        { label: 'Campaigns', href: '/admin/campaigns', icon: Icons.campaign },
+        { label: 'Users', href: '/admin/influencers', icon: Icons.users },
+        { label: 'Financials', href: '/admin/dashboard', icon: Icons.coin },
+        { label: 'Settings', href: '/admin/settings', icon: Icons.gear },
       ];
-
     case 'influencer':
       return [
-        { label: 'Dashboard', href: '/influencer', icon: Icons.dashboard },
-        { label: 'Browse Campaigns', href: '/influencer/browse', icon: Icons.search },
+        { label: 'Home', href: '/influencer', icon: Icons.home },
+        { label: 'Browse Ads', href: '/influencer/browse', icon: Icons.search },
         { label: 'My Campaigns', href: '/influencer/campaigns', icon: Icons.campaign },
-        { label: 'Earnings', href: '/influencer/earnings', icon: Icons.cash },
+        { label: 'Wallet', href: '/influencer/earnings', icon: Icons.wallet },
       ];
-
     case 'marketer':
       return [
-        { label: 'Dashboard', href: '/marketer', icon: Icons.dashboard },
-        { label: 'Create Campaign', href: '/marketer/create', icon: Icons.plus },
-        { label: 'My Campaigns', href: '/marketer/campaigns', icon: Icons.campaign },
-        { label: 'Billing', href: '/marketer/billing', icon: Icons.creditCard },
+        { label: 'Overview', href: '/marketer', icon: Icons.home },
+        { label: 'Campaigns', href: '/marketer/campaigns', icon: Icons.campaign },
+        { label: 'Create Ad', href: '/marketer/create', icon: Icons.grid },
+        { label: 'Billing', href: '/marketer/billing', icon: Icons.wallet },
       ];
   }
 }
 
-// ---------------------------------------------------------------------------
-// Component
-// ---------------------------------------------------------------------------
+const roleLabels: Record<Role, string> = {
+  admin: 'Super Admin',
+  influencer: 'Influencer',
+  marketer: 'Marketer',
+};
 
 export const Sidebar: React.FC<SidebarProps> = ({
   role,
@@ -149,8 +136,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const navItems = getNavItems(role, pendingCount);
 
   const isActive = (href: string): boolean => {
-    // Exact match for root role dashboards, prefix match otherwise
-    if (href === `/admin` || href === `/influencer` || href === `/marketer`) {
+    if (href === '/admin' || href === '/influencer' || href === '/marketer') {
       return pathname === href;
     }
     return pathname === href || pathname.startsWith(href + '/');
@@ -162,12 +148,28 @@ export const Sidebar: React.FC<SidebarProps> = ({
   };
 
   return (
-    <aside className="flex flex-col w-64 min-h-screen bg-gray-900 text-white flex-shrink-0">
+    <aside
+      style={{ width: '252px', minWidth: '252px' }}
+      className="flex flex-col min-h-screen bg-white border-r border-[#ECECE8] flex-shrink-0"
+    >
       {/* Logo */}
-      <div className="flex items-center gap-2 px-6 py-5 border-b border-gray-800">
-        <span className="text-xl font-bold">
-          <span className="text-violet-400">We</span>
-          <span className="text-emerald-400">Viral</span>
+      <div className="flex items-center gap-2.5 px-6 py-5 border-b border-[#ECECE8]">
+        <div
+          className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
+          style={{ background: 'linear-gradient(135deg, #6E5BFF, #1FD3A3)' }}
+        >
+          <svg width="14" height="14" fill="none" viewBox="0 0 14 14">
+            <path
+              d="M1 7h2.5l2-5 3 10 2-5H13"
+              stroke="white"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+        <span className="text-[15px] font-bold tracking-tight text-[#0B0B0C]">
+          We<span style={{ color: '#6E5BFF' }}>Viral</span>
         </span>
       </div>
 
@@ -180,27 +182,34 @@ export const Sidebar: React.FC<SidebarProps> = ({
               key={item.href}
               href={item.href}
               className={[
-                'group flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors relative',
+                'group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all relative',
                 active
-                  ? 'bg-violet-900/50 text-violet-300 before:absolute before:left-0 before:top-1 before:bottom-1 before:w-0.5 before:rounded-full before:bg-violet-400'
-                  : 'text-gray-400 hover:bg-gray-800 hover:text-gray-100',
-              ]
-                .filter(Boolean)
-                .join(' ')}
+                  ? 'text-[#6E5BFF]'
+                  : 'text-[#8C8C88] hover:bg-[#F6F6F3] hover:text-[#0B0B0C]',
+              ].join(' ')}
+              style={active ? { background: 'rgba(110,91,255,0.08)' } : {}}
             >
+              {active && (
+                <span
+                  className="absolute left-0 top-2 bottom-2 w-0.5 rounded-full"
+                  style={{ background: 'linear-gradient(180deg, #6E5BFF, #1FD3A3)' }}
+                />
+              )}
               <span
-                className={[
-                  'flex-shrink-0 transition-colors',
-                  active ? 'text-violet-400' : 'text-gray-500 group-hover:text-gray-300',
-                ]
-                  .filter(Boolean)
-                  .join(' ')}
+                className={
+                  active
+                    ? 'text-[#6E5BFF]'
+                    : 'text-[#8C8C88] group-hover:text-[#0B0B0C] transition-colors'
+                }
               >
                 {item.icon}
               </span>
               <span className="flex-1 truncate">{item.label}</span>
               {item.badge !== undefined && (
-                <span className="ml-auto inline-flex items-center justify-center min-w-[1.25rem] h-5 px-1.5 rounded-full bg-red-600 text-white text-xs font-semibold leading-none">
+                <span
+                  className="ml-auto inline-flex items-center justify-center min-w-[1.25rem] h-5 px-1.5 rounded-full text-white text-xs font-semibold leading-none"
+                  style={{ background: '#6E5BFF' }}
+                >
                   {item.badge > 99 ? '99+' : item.badge}
                 </span>
               )}
@@ -209,22 +218,40 @@ export const Sidebar: React.FC<SidebarProps> = ({
         })}
       </nav>
 
-      {/* User footer */}
-      <div className="px-3 py-4 border-t border-gray-800">
-        <div className="flex items-center gap-3 px-3 py-2 mb-2">
-          {/* Avatar */}
-          <div className="flex-shrink-0 w-8 h-8 rounded-full bg-violet-600 flex items-center justify-center text-white text-xs font-bold select-none">
+      {/* Footer */}
+      <div className="px-3 py-4 border-t border-[#ECECE8]">
+        {/* Viewing as */}
+        <div className="flex items-center gap-2.5 px-3 py-2.5 mb-2 rounded-xl bg-[#F6F6F3]">
+          <span
+            className="w-2 h-2 rounded-full flex-shrink-0"
+            style={{ background: 'linear-gradient(135deg, #6E5BFF, #1FD3A3)' }}
+          />
+          <div className="min-w-0 flex-1">
+            <p className="text-[10px] font-semibold text-[#8C8C88] uppercase tracking-wider leading-none mb-1">
+              Viewing as
+            </p>
+            <p className="text-sm font-semibold text-[#0B0B0C] truncate">{roleLabels[role]}</p>
+          </div>
+        </div>
+
+        {/* User row */}
+        <div className="flex items-center gap-3 px-3 py-2 mb-1">
+          <div
+            className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold select-none"
+            style={{ background: 'linear-gradient(135deg, #6E5BFF, #4D7CFF)' }}
+          >
             {userInitials}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-gray-100 truncate">{userName}</p>
-            <p className="text-xs text-gray-500 truncate capitalize">{userRole}</p>
+            <p className="text-sm font-medium text-[#0B0B0C] truncate">{userName}</p>
+            <p className="text-xs text-[#8C8C88] truncate">{userRole}</p>
           </div>
         </div>
+
         <button
           type="button"
           onClick={handleLogout}
-          className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-400 hover:bg-gray-800 hover:text-gray-100 transition-colors"
+          className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-[#8C8C88] hover:bg-[#F6F6F3] hover:text-[#0B0B0C] transition-colors"
         >
           {Icons.logout}
           <span>Log out</span>

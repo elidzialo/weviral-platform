@@ -46,7 +46,7 @@ export default async function InfluencerLayout({
     .slice(0, 2);
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-[#F6F6F3]">
       <Sidebar
         role="influencer"
         userName={fullName}

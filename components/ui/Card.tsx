@@ -27,26 +27,18 @@ interface CardBadgeProps {
 
 export const Card: React.FC<CardProps> = ({ className = '', children }) => (
   <div
-    className={[
-      'bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden',
-      className,
-    ]
+    className={['bg-white border border-[#ECECE8] rounded-2xl overflow-hidden', className]
       .filter(Boolean)
       .join(' ')}
+    style={{ boxShadow: '0 1px 2px rgba(0,0,0,.04), 0 10px 30px rgba(0,0,0,.04)' }}
   >
     {children}
   </div>
 );
 
-export const CardHeader: React.FC<CardHeaderProps> = ({
-  className = '',
-  children,
-}) => (
+export const CardHeader: React.FC<CardHeaderProps> = ({ className = '', children }) => (
   <div
-    className={[
-      'flex items-center justify-between px-6 py-4 border-b border-gray-100',
-      className,
-    ]
+    className={['flex items-center justify-between px-6 py-4 border-b border-[#ECECE8]', className]
       .filter(Boolean)
       .join(' ')}
   >
@@ -54,12 +46,9 @@ export const CardHeader: React.FC<CardHeaderProps> = ({
   </div>
 );
 
-export const CardTitle: React.FC<CardTitleProps> = ({
-  className = '',
-  children,
-}) => (
+export const CardTitle: React.FC<CardTitleProps> = ({ className = '', children }) => (
   <h3
-    className={['text-base font-semibold text-gray-900', className]
+    className={['text-[15px] font-semibold text-[#0B0B0C]', className]
       .filter(Boolean)
       .join(' ')}
   >
@@ -67,19 +56,13 @@ export const CardTitle: React.FC<CardTitleProps> = ({
   </h3>
 );
 
-export const CardBody: React.FC<CardBodyProps> = ({
-  className = '',
-  children,
-}) => (
+export const CardBody: React.FC<CardBodyProps> = ({ className = '', children }) => (
   <div className={['px-6 py-4', className].filter(Boolean).join(' ')}>
     {children}
   </div>
 );
 
-export const CardBadge: React.FC<CardBadgeProps> = ({
-  className = '',
-  children,
-}) => (
+export const CardBadge: React.FC<CardBadgeProps> = ({ className = '', children }) => (
   <span
     className={[
       'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium',
