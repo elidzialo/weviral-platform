@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WeViral Platform</title>
+<title>WeViral &#x2014; WhatsApp Status Marketing Platform</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -177,31 +177,59 @@ tr:hover td{background:var(--g50)}
 .csub{font-size:11px;color:var(--g400)}
 .flex{display:flex;align-items:center;gap:8px}
 .sep{border:none;border-top:1px solid var(--g100);margin:14px 0}
+
+/* ===== POLISH ===== */
+.scard{transition:box-shadow .15s}.scard:hover{box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.btn{transition:all .15s}
+.pcard{transition:all .2s;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.pcard.sel{box-shadow:0 2px 8px rgba(124,58,237,.2)}
+.lbtn{font-size:15px;padding:14px;letter-spacing:.3px}
+.brand{letter-spacing:-0.5px}
+.lbox{box-shadow:0 30px 80px rgba(0,0,0,.35)}
+#login{background:linear-gradient(135deg,#1E1B4B 0%,#4C1D95 50%,#7C3AED 100%)}
+.ni{transition:all .15s;border-radius:0 6px 6px 0;margin-right:8px}
+td{transition:background .1s}
+.mo{backdrop-filter:blur(4px)}
+.mb{animation:slideUp .2s ease}
+@keyframes gradientShift {
+  0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}
+}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
 </style>
 </head>
-<body><script>window.onerror=function(m,u,l){document.getElementById("jserr").textContent="JS Error line "+l+": "+m;document.getElementById("jserr").style.display="block";return false};</script><div id="jserr" style="display:none;position:fixed;top:0;left:0;right:0;background:#ef4444;color:white;padding:12px 16px;font-size:13px;z-index:9999"></div>
+<body>
 
 <!-- ===== LOGIN ===== -->
 <div id="login">
   <div class="lbox">
     <div class="brand">We<span>Viral</span></div>
-    <div class="tag">Post your status. Get paid for your reach.</div>
+    <div class="tag">Post to WhatsApp Status &bull; Get verified &bull; Get paid</div>
     <div class="pcards">
       <div class="pcard sel" onclick="selectPortal('admin',this)">
         <div class="ico">&#x1F6E1;&#xFE0F;</div>
-        <div><div class="pt">Super Admin</div><div class="pd">Manage campaigns, approvals &amp; users</div></div>
+        <div><div class="pt">Super Admin</div><div class="pd">Approve proofs, manage users &amp; payouts</div></div>
       </div>
       <div class="pcard" onclick="selectPortal('influencer',this)">
         <div class="ico">&#x1F4F2;</div>
-        <div><div class="pt">Influencer / Creator</div><div class="pd">Browse campaigns, post &amp; earn</div></div>
+        <div><div class="pt">Influencer / Creator</div><div class="pd">Post to your Status &amp; earn per view</div></div>
       </div>
       <div class="pcard" onclick="selectPortal('marketer',this)">
         <div class="ico">&#x1F4E3;</div>
-        <div><div class="pt">Advertiser / Marketer</div><div class="pd">Create campaigns &amp; track reach</div></div>
+        <div><div class="pt">Brand / Marketer</div><div class="pd">Create campaigns &amp; track real views</div></div>
       </div>
     </div>
     <button class="lbtn" onclick="enterPortal()">Enter Portal &#x2192;</button>
-    <div class="demo-note">Demo mode &#x2014; no login required</div>
+    <div class="demo-note">&#x1F517; Interactive demo &#x2014; explore all three portals</div>
+    <div style="margin-top:20px;padding-top:18px;border-top:1px solid var(--g200)">
+      <div style="font-size:11px;font-weight:600;color:var(--g400);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px;text-align:center">How WeViral Works</div>
+      <div style="display:flex;justify-content:space-between;gap:8px;font-size:11px">
+        <div style="text-align:center;flex:1"><div style="font-size:18px;margin-bottom:4px">&#x1F4E3;</div><div style="color:var(--g600)">Brand creates campaign</div></div>
+        <div style="text-align:center;flex:1;padding-top:10px;color:var(--g200)">&#x2192;</div>
+        <div style="text-align:center;flex:1"><div style="font-size:18px;margin-bottom:4px">&#x1F4F2;</div><div style="color:var(--g600)">Influencer posts to Status</div></div>
+        <div style="text-align:center;flex:1;padding-top:10px;color:var(--g200)">&#x2192;</div>
+        <div style="text-align:center;flex:1"><div style="font-size:18px;margin-bottom:4px">&#x1F4B0;</div><div style="color:var(--g600)">Gets paid per view</div></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -221,7 +249,7 @@ tr:hover td{background:var(--g50)}
           <div style="font-size:12px;color:white;font-weight:600" id="user-name">Eli D.</div>
           <div style="font-size:10px;color:var(--g400)" id="user-role">Super Admin</div>
         </div>
-        <button class="lgbtn" onclick="doLogout()" title="Log out">&#x238B;</button>
+        <button class="lgbtn" onclick="doLogout()" title="Log out">&#x2192;</button>
       </div>
       <button class="swbtn" onclick="doLogout()">&#x21C4; Switch Portal</button>
     </div>
@@ -283,7 +311,7 @@ let tiers = [
 let availCampaigns = [
   {id:4,campaign:'Zara Summer',marketer:'Zara UK',tier:'Growth',payout:45,deadline:'20 Jun',desc:'Promote our new summer collection. Post ad creative to your WhatsApp Status for 24 hours.'},
   {id:5,campaign:'Innocent Smoothies',marketer:'Innocent Drinks',tier:'Starter',payout:10,deadline:'18 Jun',desc:'Share our new smoothie range with your contacts. Fun, colourful creative provided.'},
-  {id:6,campaign:'ASOS Payday',marketer:'ASOS',tier:'Viral',payout:80,deadline:'25 Jun',desc:'Payday sale campaign &#x2014; 30% off everything. Post to status and earn when you hit 1,000 views.'},
+  {id:6,campaign:'ASOS Payday',marketer:'ASOS',tier:'Viral',payout:80,deadline:'25 Jun',desc:'Payday sale campaign — 30% off everything. Post to status and earn when you hit 1,000 views.'},
 ];
 let myCampaigns = [
   {id:1,campaign:'Nike Summer Drop',marketer:'Nike UK',tier:'Growth',payout:45,status:'proof_submitted',target:500},
@@ -422,7 +450,7 @@ function tierBadge(t) {
 function statusBadge(s) {
   const map = {
     active:['bg','Active'],proof_submitted:['ba','Proof Submitted'],
-    completed:['bg','Completed'],paid:['bg','Paid &#x2713;'],pending:['ba','Pending'],
+    completed:['bg','Completed'],paid:['bg','&#x2713; Paid'],pending:['ba','Pending'],
     rejected:['br2','Rejected']
   };
   const [cls,lbl] = map[s]||['bk',s];
@@ -444,7 +472,7 @@ function renderAdminDash() {
   <div class="grid2">
     <div class="card">
       <div class="ch"><div class="ct">&#x23F3; Pending Approvals</div><div class="cbadge">${pendingApprovals.length}</div></div>
-      ${pendingApprovals.length === 0 ? '<div class="cb"><div class="empty"><div class="ei">&#x2705;</div><p>All clear &#x2014; no approvals pending</p></div></div>' :
+      ${pendingApprovals.length === 0 ? '<div class="cb"><div class="empty"><div class="ei">&#x2705;</div><p>All caught up &#x2014; no pending approvals!</p></div></div>' :
       `<div class="cb">` + pendingApprovals.slice(0,3).map(a => `
         <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--g100)">
           <div style="flex:1"><div class="cname">${a.campaign}</div><div class="csub">${a.influencer} · ${a.tier} · <span style="color:var(--g);font-weight:600">${a.submitted} views</span></div></div>
@@ -467,7 +495,7 @@ function renderAdminDash() {
 }
 
 function renderApprovals() {
-  if (pendingApprovals.length === 0) return `<div class="card"><div class="cb"><div class="empty"><div class="ei">&#x2705;</div><p>No pending approvals &#x2014; all caught up!</p></div></div></div>`;
+  if (pendingApprovals.length === 0) return `<div class="card"><div class="cb"><div class="empty"><div class="ei">&#x2705;</div><p>All caught up &#x2014; no pending approvals!</p></div></div></div>`;
   return `
   <div class="alert ai">&#x2139;&#xFE0F; Review each submission below. The AI has pre-screened every proof &#x2014; you make the final call.</div>
   <div class="card">
@@ -669,7 +697,7 @@ function applyNow(id) {
   if (!c) return;
   myCampaigns.unshift({id:c.id,campaign:c.campaign,marketer:c.marketer,tier:c.tier,payout:c.payout,status:'active',target:tiers.find(t=>t.name===c.tier)?.views||500});
   availCampaigns = availCampaigns.filter(x=>x.id!==id);
-  openModal('Applied!', `<div class="alert as">&#x2705; You've applied to <strong>${c.campaign}</strong>!<br><br>Download the ad creative and post it to your WhatsApp Status. Once it hits ${tiers.find(t=>t.name===c.tier)?.views.toLocaleString()} views, come back and submit your screenshot proof.</div>`, `<button class="btn btn-g" onclick="closeModal();navigate('my-camps')">Go to My Campaigns &#x2192;</button>`);
+  openModal('&#x2705; Applied Successfully!', `<div class="alert as">&#x2705; You've applied to <strong>${c.campaign}</strong>!<br><br>Download the ad creative and post it to your WhatsApp Status. Once it hits ${tiers.find(t=>t.name===c.tier)?.views.toLocaleString()} views, come back and submit your screenshot proof.</div>`, `<button class="btn btn-g" onclick="closeModal();navigate('my-camps')">Go to My Campaigns &#x2192;</button>`);
 }
 
 function renderMyCamps() {
@@ -774,7 +802,7 @@ function renderCreate() {
     <div class="ch"><div class="ct">Select Tier *</div></div>
     <div class="cb">
       <div class="tpicker" id="tier-picker">${tierRows}</div>
-      <div id="tier-info" style="font-size:12px;color:var(--g400)">Selected: <strong style="color:var(--g900)">${selectedTier}</strong> &#x2014; influencer earns ${pound(tiers.find(t=>t.name===selectedTier)?.inf||0)}, you pay ${pound(tiers.find(t=>t.name===selectedTier)?.total||0)} total</div>
+      <div id="tier-info" style="font-size:13px;color:var(--g600);padding:10px;background:var(--g50);border-radius:6px">Selected: <strong style="color:var(--g900)">${selectedTier}</strong> &#x2014; influencer earns ${pound(tiers.find(t=>t.name===selectedTier)?.inf||0)}, you pay ${pound(tiers.find(t=>t.name===selectedTier)?.total||0)} total</div>
     </div>
   </div>
   <div class="card">
@@ -805,7 +833,7 @@ function submitCampaign() {
   const t = tiers.find(t=>t.name===selectedTier);
   mkrCampaigns.unshift({id:Date.now(),name,tier:selectedTier,status:'active',target:t.views,verified:0,influencers:0,cost:t.total,created:'Today'});
   totalAdminRevenue += t.fee;
-  openModal('Campaign Launched! &#x1F389;',
+  openModal('&#x1F389; Campaign Launched!',
     `<div class="alert as">&#x2705; <strong>${name}</strong> is now live!</div>
      <p style="font-size:13px;color:var(--g600);margin-bottom:12px">${pound(t.total)} has been held in Stripe escrow. It will be released to the influencer once the view target (${t.views.toLocaleString()} views) is verified and admin-approved.</p>
      <div style="background:var(--g50);border-radius:8px;padding:14px;font-size:13px">
@@ -893,7 +921,7 @@ function openProofModal(id) {
     </div>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
       <div><div style="font-size:11px;color:var(--g400)">AI Confidence Score</div><div class="conf">${a.confidence}%</div></div>
-      <div style="text-align:right"><div style="font-size:11px;color:var(--g400)">Influencer Payout on Approval</div><div style="font-size:22px;font-weight:800;color:var(--g)">${pound(tierPayout)}</div></div>
+      <div style="text-align:right"><div style="font-size:11px;color:var(--g400)">Influencer Payout (on approval)</div><div style="font-size:22px;font-weight:800;color:var(--g)">${pound(tierPayout)}</div></div>
     </div>
     <ul class="ai-list">
       <li><span class="ck">&#x2713;</span> WhatsApp Status UI detected</li>
