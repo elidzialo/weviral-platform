@@ -2,6 +2,8 @@ import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { Sidebar } from '@/components/layout/Sidebar';
 
+export const dynamic = 'force-dynamic'
+
 export default async function InfluencerLayout({
   children,
 }: {
