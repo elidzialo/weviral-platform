@@ -88,9 +88,9 @@ const CampaignCard: React.FC<CampaignCardProps> = ({
         {/* Header */}
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0 flex-1">
-            <h3 className="text-base font-semibold text-gray-900 leading-snug">{campaign.title}</h3>
+            <h3 className="text-base font-semibold text-[#0B0B0C] leading-snug">{campaign.title}</h3>
             {marketerName && (
-              <p className="text-xs text-gray-500 mt-0.5">by {marketerName}</p>
+              <p className="text-xs text-[#8C8C88] mt-0.5">by {marketerName}</p>
             )}
           </div>
           {tierName && (
@@ -100,7 +100,7 @@ const CampaignCard: React.FC<CampaignCardProps> = ({
 
         {/* Description */}
         {campaign.description && (
-          <p className="text-sm text-gray-600 leading-relaxed line-clamp-3">
+          <p className="text-sm text-[#8C8C88] leading-relaxed line-clamp-3">
             {campaign.description}
           </p>
         )}
@@ -119,25 +119,25 @@ const CampaignCard: React.FC<CampaignCardProps> = ({
           </div>
 
           {viewsTarget > 0 && (
-            <div className="flex items-center gap-1.5 bg-violet-50 border border-violet-200 rounded-lg px-3 py-2">
-              <svg className="w-4 h-4 text-violet-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <div className="flex items-center gap-1.5 bg-[rgba(110,91,255,.06)] border border-[#6E5BFF]/20 rounded-lg px-3 py-2">
+              <svg className="w-4 h-4 text-[#6E5BFF] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
               </svg>
               <div>
-                <p className="text-xs text-violet-700 font-medium">Views Target</p>
-                <p className="text-sm font-bold text-violet-800">{formatViews(viewsTarget)}</p>
+                <p className="text-xs text-[#6E5BFF] font-medium">Views Target</p>
+                <p className="text-sm font-bold text-[#6E5BFF]">{formatViews(viewsTarget)}</p>
               </div>
             </div>
           )}
 
           {campaign.deadline && (
-            <div className="flex items-center gap-1.5 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2">
-              <svg className="w-4 h-4 text-gray-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <div className="flex items-center gap-1.5 bg-gray-50 border border-[#ECECE8] rounded-lg px-3 py-2">
+              <svg className="w-4 h-4 text-[#8C8C88] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
               <div>
-                <p className="text-xs text-gray-600 font-medium">Deadline</p>
+                <p className="text-xs text-[#8C8C88] font-medium">Deadline</p>
                 <p className="text-sm font-bold text-gray-700">
                   {format(parseISO(campaign.deadline), 'dd MMM yyyy')}
                 </p>
@@ -301,8 +301,8 @@ export default function BrowseCampaignsPage() {
 
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Browse Campaigns</h1>
-        <p className="text-sm text-gray-500 mt-1">
+        <h1 className="text-2xl font-bold text-[#0B0B0C]">Browse Campaigns</h1>
+        <p className="text-sm text-[#8C8C88] mt-1">
           Find campaigns that match your audience and earn by posting to your WhatsApp Status.
         </p>
       </div>
@@ -311,7 +311,7 @@ export default function BrowseCampaignsPage() {
       <div className="mb-6">
         <div className="relative max-w-md">
           <svg
-            className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
+            className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8C8C88]"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -324,7 +324,7 @@ export default function BrowseCampaignsPage() {
             placeholder="Search campaigns..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2.5 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
+            className="w-full pl-9 pr-4 py-2.5 border border-[#ECECE8] rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#6E5BFF]/30 focus:border-transparent"
           />
         </div>
       </div>
@@ -333,7 +333,7 @@ export default function BrowseCampaignsPage() {
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           {[...Array(6)].map((_, i) => (
-            <div key={i} className="bg-white border border-gray-200 rounded-xl h-64 animate-pulse" />
+            <div key={i} className="bg-white border border-[#ECECE8] rounded-xl h-64 animate-pulse" />
           ))}
         </div>
       ) : error ? (
@@ -347,18 +347,18 @@ export default function BrowseCampaignsPage() {
           </button>
         </div>
       ) : filtered.length === 0 ? (
-        <div className="bg-white border border-gray-200 rounded-xl px-6 py-16 text-center">
+        <div className="bg-white border border-[#ECECE8] rounded-xl px-6 py-16 text-center">
           <svg className="w-12 h-12 text-gray-300 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
           </svg>
-          <p className="text-gray-600 font-medium">No campaigns found</p>
-          <p className="text-gray-400 text-sm mt-1">
+          <p className="text-[#8C8C88] font-medium">No campaigns found</p>
+          <p className="text-[#8C8C88] text-sm mt-1">
             {search ? 'Try adjusting your search.' : 'Check back soon for new opportunities.'}
           </p>
         </div>
       ) : (
         <>
-          <p className="text-sm text-gray-500 mb-4">
+          <p className="text-sm text-[#8C8C88] mb-4">
             {filtered.length} {filtered.length === 1 ? 'campaign' : 'campaigns'} available
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">

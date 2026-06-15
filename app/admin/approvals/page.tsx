@@ -90,7 +90,7 @@ function WhatsAppStatusFrame({
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center bg-gray-900">
-              <span className="text-gray-500 text-xs text-center px-2">No screenshot</span>
+              <span className="text-[#8C8C88] text-xs text-center px-2">No screenshot</span>
             </div>
           )}
 
@@ -112,7 +112,7 @@ function WhatsAppStatusFrame({
         </div>
       </div>
 
-      <p className="mt-2 text-xs text-gray-500">
+      <p className="mt-2 text-xs text-[#8C8C88]">
         {viewCount.toLocaleString()} views detected
       </p>
     </div>
@@ -195,22 +195,22 @@ function ProofReviewCard({
 
   return (
     <>
-      <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+      <div className="bg-white border border-[#ECECE8] rounded-xl shadow-sm overflow-hidden">
         {/* Card Header */}
-        <div className="px-6 py-4 border-b border-gray-100 flex items-start justify-between gap-4">
+        <div className="px-6 py-4 border-b border-[#ECECE8] flex items-start justify-between gap-4">
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2 flex-wrap">
-              <h3 className="text-base font-semibold text-gray-900 truncate">
+              <h3 className="text-base font-semibold text-[#0B0B0C] truncate">
                 {submission.campaign_title}
               </h3>
               <Badge variant="purple">{submission.tier_name}</Badge>
             </div>
-            <p className="text-sm text-gray-500 mt-0.5">
+            <p className="text-sm text-[#8C8C88] mt-0.5">
               by{' '}
-              <span className="font-medium text-gray-700">{submission.campaign_marketer}</span>
+              <span className="font-medium text-[#0B0B0C]">{submission.campaign_marketer}</span>
             </p>
           </div>
-          <span className="flex-shrink-0 text-xs text-gray-400">
+          <span className="flex-shrink-0 text-xs text-[#8C8C88]">
             {formatDate(submission.submitted_at)}
           </span>
         </div>
@@ -227,23 +227,23 @@ function ProofReviewCard({
           <div className="space-y-5">
             {/* Influencer */}
             <div>
-              <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">Influencer</p>
-              <p className="text-sm font-semibold text-gray-900">{submission.influencer_name}</p>
+              <p className="text-xs font-medium text-[#8C8C88] uppercase tracking-wide mb-1">Influencer</p>
+              <p className="text-sm font-semibold text-[#0B0B0C]">{submission.influencer_name}</p>
               {submission.influencer_handle && (
-                <p className="text-xs text-gray-400">@{submission.influencer_handle}</p>
+                <p className="text-xs text-[#8C8C88]">@{submission.influencer_handle}</p>
               )}
             </div>
 
             {/* View count progress */}
             <div>
               <div className="flex items-center justify-between mb-1">
-                <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">Views</p>
-                <span className="text-xs text-gray-500">
+                <p className="text-xs font-medium text-[#8C8C88] uppercase tracking-wide">Views</p>
+                <span className="text-xs text-[#8C8C88]">
                   {submission.ai_view_count.toLocaleString()} /{' '}
                   {submission.tier_views_target.toLocaleString()} target
                 </span>
               </div>
-              <div className="w-full bg-gray-100 rounded-full h-2">
+              <div className="w-full bg-[#F6F6F3] rounded-full h-2">
                 <div
                   className={[
                     'h-2 rounded-full transition-all',
@@ -252,12 +252,12 @@ function ProofReviewCard({
                   style={{ width: `${viewProgress}%` }}
                 />
               </div>
-              <p className="text-xs text-gray-400 mt-1">{viewProgress}% of target</p>
+              <p className="text-xs text-[#8C8C88] mt-1">{viewProgress}% of target</p>
             </div>
 
             {/* AI Confidence Score */}
             <div>
-              <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
+              <p className="text-xs font-medium text-[#8C8C88] uppercase tracking-wide mb-2">
                 AI Confidence Score
               </p>
               <span
@@ -273,7 +273,7 @@ function ProofReviewCard({
 
             {/* AI Checks */}
             <div>
-              <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
+              <p className="text-xs font-medium text-[#8C8C88] uppercase tracking-wide mb-2">
                 AI Verification Checks
               </p>
               <ul className="space-y-1.5">
@@ -361,7 +361,7 @@ function ProofReviewCard({
         }
       >
         <div className="space-y-4">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-[#8C8C88]">
             Please provide a reason for rejection. The influencer will be notified.
           </p>
           <Textarea
@@ -392,7 +392,7 @@ function AiCheck({ label, passed }: { label: string; passed: boolean }) {
           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
       )}
-      <span className={passed ? 'text-gray-700' : 'text-gray-400 line-through'}>{label}</span>
+      <span className={passed ? 'text-[#0B0B0C]' : 'text-[#8C8C88] line-through'}>{label}</span>
     </li>
   )
 }
@@ -430,7 +430,7 @@ function ApprovalsClient({ initialSubmissions }: { initialSubmissions: ProofSubm
   if (loading) {
     return (
       <div className="flex items-center justify-center py-24">
-        <div className="flex flex-col items-center gap-3 text-gray-400">
+        <div className="flex flex-col items-center gap-3 text-[#8C8C88]">
           <svg className="animate-spin w-8 h-8" fill="none" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -449,8 +449,8 @@ function ApprovalsClient({ initialSubmissions }: { initialSubmissions: ProofSubm
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-1">All caught up!</h3>
-        <p className="text-sm text-gray-500 max-w-sm">
+        <h3 className="text-lg font-semibold text-[#0B0B0C] mb-1">All caught up!</h3>
+        <p className="text-sm text-[#8C8C88] max-w-sm">
           There are no pending proof submissions to review right now. Check back soon.
         </p>
       </div>
@@ -516,15 +516,15 @@ function ApprovalsPageContent() {
     <div className="p-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Proof Approvals</h1>
-        <p className="mt-1 text-sm text-gray-500">
+        <h1 className="text-2xl font-bold text-[#0B0B0C]">Proof Approvals</h1>
+        <p className="mt-1 text-sm text-[#8C8C88]">
           Review AI-verified WhatsApp Status proof submissions and approve or reject payouts.
         </p>
       </div>
 
       {submissions === null && !error && (
         <div className="flex items-center justify-center py-24">
-          <div className="flex flex-col items-center gap-3 text-gray-400">
+          <div className="flex flex-col items-center gap-3 text-[#8C8C88]">
             <svg className="animate-spin w-8 h-8" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />

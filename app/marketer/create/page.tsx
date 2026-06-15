@@ -94,9 +94,9 @@ function getTierAccentClasses(name: string): {
     { border: string; bg: string; badge: string; icon: string }
   > = {
     Starter: {
-      border: 'border-gray-300',
-      bg: 'bg-gray-50',
-      badge: 'bg-gray-100 text-gray-700',
+      border: 'border-[#ECECE8]',
+      bg: 'bg-[#F6F6F3]',
+      badge: 'bg-[#F6F6F3] text-[#8C8C88]',
       icon: '🌱',
     },
     Growth: {
@@ -106,23 +106,23 @@ function getTierAccentClasses(name: string): {
       icon: '📈',
     },
     Viral: {
-      border: 'border-violet-400',
-      bg: 'bg-violet-50',
-      badge: 'bg-violet-100 text-violet-800',
+      border: 'border-[#6E5BFF]/40',
+      bg: 'bg-[rgba(110,91,255,.06)]',
+      badge: 'bg-[rgba(110,91,255,.1)] text-[#6E5BFF]',
       icon: '🚀',
     },
     Elite: {
-      border: 'border-emerald-400',
-      bg: 'bg-emerald-50',
-      badge: 'bg-emerald-100 text-emerald-800',
+      border: 'border-[#1FD3A3]/40',
+      bg: 'bg-[rgba(31,211,163,.06)]',
+      badge: 'bg-[rgba(31,211,163,.12)] text-[#0F7A5A]',
       icon: '👑',
     },
   };
   return (
     map[name] ?? {
-      border: 'border-gray-200',
+      border: 'border-[#ECECE8]',
       bg: 'bg-white',
-      badge: 'bg-gray-100 text-gray-700',
+      badge: 'bg-[#F6F6F3] text-[#8C8C88]',
       icon: '📦',
     }
   );
@@ -150,11 +150,12 @@ function StepIndicator({ step }: { step: 1 | 2 }) {
                 className={[
                   'w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold border-2 transition-colors',
                   done
-                    ? 'bg-violet-700 border-violet-700 text-white'
+                    ? 'border-transparent text-white'
                     : active
-                    ? 'bg-white border-violet-700 text-violet-700'
-                    : 'bg-white border-gray-300 text-gray-400',
+                    ? 'bg-white border-[#6E5BFF] text-[#6E5BFF]'
+                    : 'bg-white border-[#ECECE8] text-[#8C8C88]',
                 ].join(' ')}
+                style={done ? { background: 'linear-gradient(120deg,#6E5BFF,#4D7CFF)' } : undefined}
               >
                 {done ? (
                   <svg
@@ -177,7 +178,7 @@ function StepIndicator({ step }: { step: 1 | 2 }) {
               <span
                 className={[
                   'text-sm font-medium',
-                  active ? 'text-gray-900' : 'text-gray-400',
+                  active ? 'text-[#0B0B0C]' : 'text-[#8C8C88]',
                 ].join(' ')}
               >
                 {s.label}
@@ -187,7 +188,7 @@ function StepIndicator({ step }: { step: 1 | 2 }) {
               <div
                 className={[
                   'flex-1 h-0.5 mx-4',
-                  done ? 'bg-violet-700' : 'bg-gray-200',
+                  done ? 'bg-[#6E5BFF]' : 'bg-[#ECECE8]',
                 ].join(' ')}
               />
             )}
@@ -390,8 +391,8 @@ export default function CreateCampaignPage() {
     <div className="px-8 py-8 max-w-3xl mx-auto">
       {/* Page header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Create Campaign</h1>
-        <p className="mt-1 text-sm text-gray-500">
+        <h1 className="text-2xl font-bold text-[#0B0B0C]">Create Campaign</h1>
+        <p className="mt-1 text-sm text-[#8C8C88]">
           Set up your campaign and pay into escrow to go live.
         </p>
       </div>
@@ -425,8 +426,8 @@ export default function CreateCampaignPage() {
       {step === 1 && (
         <div className="space-y-8">
           {/* Campaign details */}
-          <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6 space-y-5">
-            <h2 className="text-base font-semibold text-gray-900">
+          <div className="bg-white border border-[#ECECE8] rounded-2xl p-6 space-y-5">
+            <h2 className="text-base font-semibold text-[#0B0B0C]">
               Campaign Details
             </h2>
 
@@ -458,12 +459,12 @@ export default function CreateCampaignPage() {
           </div>
 
           {/* Tier selection */}
-          <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6 space-y-4">
+          <div className="bg-white border border-[#ECECE8] rounded-2xl p-6 space-y-4">
             <div>
-              <h2 className="text-base font-semibold text-gray-900">
+              <h2 className="text-base font-semibold text-[#0B0B0C]">
                 Select Tier
               </h2>
-              <p className="text-sm text-gray-500 mt-0.5">
+              <p className="text-sm text-[#8C8C88] mt-0.5">
                 Choose how many verified views you want to reach.
               </p>
             </div>
@@ -489,13 +490,13 @@ export default function CreateCampaignPage() {
                     className={[
                       'relative text-left rounded-xl border-2 p-4 transition-all cursor-pointer',
                       isSelected
-                        ? `${accent.border} ${accent.bg} ring-2 ring-violet-500 ring-offset-2`
-                        : `border-gray-200 bg-white hover:${accent.bg} hover:border-gray-300`,
+                        ? `${accent.border} ${accent.bg} ring-2 ring-[#6E5BFF]/40 ring-offset-2`
+                        : `border-[#ECECE8] bg-white`,
                     ].join(' ')}
                   >
                     {/* Selected check */}
                     {isSelected && (
-                      <div className="absolute top-3 right-3 w-5 h-5 rounded-full bg-violet-700 flex items-center justify-center">
+                      <div className="absolute top-3 right-3 w-5 h-5 rounded-full bg-[#6E5BFF] flex items-center justify-center">
                         <svg
                           className="w-3 h-3 text-white"
                           fill="none"
@@ -522,19 +523,19 @@ export default function CreateCampaignPage() {
                     </div>
 
                     <div className="space-y-1 text-sm">
-                      <p className="font-semibold text-gray-900 text-lg">
+                      <p className="font-semibold text-[#0B0B0C] text-lg">
                         {formatCurrency(tier.total_charge)}
                       </p>
-                      <p className="text-gray-500">
+                      <p className="text-[#8C8C88]">
                         {formatNumber(tier.views_target)} verified views
                       </p>
-                      <p className="text-gray-500">
+                      <p className="text-[#8C8C88]">
                         Influencer earns{' '}
-                        <span className="font-medium text-gray-700">
+                        <span className="font-medium text-[#0B0B0C]">
                           {formatCurrency(tier.influencer_payout)}
                         </span>
                       </p>
-                      <p className="text-gray-400 text-xs">
+                      <p className="text-[#8C8C88] text-xs">
                         Platform fee: {formatCurrency(tier.platform_fee)}
                       </p>
                     </div>
@@ -545,15 +546,15 @@ export default function CreateCampaignPage() {
           </div>
 
           {/* Ad creative upload */}
-          <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6 space-y-4">
+          <div className="bg-white border border-[#ECECE8] rounded-2xl p-6 space-y-4">
             <div>
-              <h2 className="text-base font-semibold text-gray-900">
+              <h2 className="text-base font-semibold text-[#0B0B0C]">
                 Ad Creative{' '}
-                <span className="text-gray-400 font-normal text-sm">
+                <span className="text-[#8C8C88] font-normal text-sm">
                   (optional)
                 </span>
               </h2>
-              <p className="text-sm text-gray-500 mt-0.5">
+              <p className="text-sm text-[#8C8C88] mt-0.5">
                 Upload an image or short video that influencers will share.
                 Max 50 MB.
               </p>
@@ -572,8 +573,8 @@ export default function CreateCampaignPage() {
                 errors.creative
                   ? 'border-red-300 bg-red-50'
                   : creativeFile
-                  ? 'border-violet-300 bg-violet-50'
-                  : 'border-gray-200 bg-gray-50 hover:border-violet-300 hover:bg-violet-50',
+                  ? 'border-[#6E5BFF]/40 bg-[rgba(110,91,255,.06)]'
+                  : 'border-[#ECECE8] bg-[#F6F6F3] hover:border-violet-300 hover:bg-violet-50',
               ].join(' ')}
             >
               <input
@@ -587,7 +588,7 @@ export default function CreateCampaignPage() {
               {uploadingCreative ? (
                 <div className="flex flex-col items-center gap-2">
                   <svg
-                    className="animate-spin w-8 h-8 text-violet-500"
+                    className="animate-spin w-8 h-8 text-[#6E5BFF]"
                     fill="none"
                     viewBox="0 0 24 24"
                   >
@@ -605,15 +606,15 @@ export default function CreateCampaignPage() {
                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
                     />
                   </svg>
-                  <p className="text-sm text-violet-600 font-medium">
+                  <p className="text-sm text-[#6E5BFF] font-medium">
                     Uploading...
                   </p>
                 </div>
               ) : creativeFile ? (
                 <div className="flex flex-col items-center gap-2 text-center">
-                  <div className="w-10 h-10 rounded-full bg-violet-100 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full bg-[rgba(110,91,255,.1)] flex items-center justify-center">
                     <svg
-                      className="w-5 h-5 text-violet-700"
+                      className="w-5 h-5 text-[#6E5BFF]"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -626,10 +627,10 @@ export default function CreateCampaignPage() {
                       />
                     </svg>
                   </div>
-                  <p className="text-sm font-medium text-violet-700">
+                  <p className="text-sm font-medium text-[#6E5BFF]">
                     {creativeFile.name}
                   </p>
-                  <p className="text-xs text-gray-400">
+                  <p className="text-xs text-[#8C8C88]">
                     {(creativeFile.size / 1024 / 1024).toFixed(2)} MB — click
                     to replace
                   </p>
@@ -649,13 +650,13 @@ export default function CreateCampaignPage() {
                       d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                     />
                   </svg>
-                  <p className="text-sm text-gray-500">
-                    <span className="font-medium text-violet-700">
+                  <p className="text-sm text-[#8C8C88]">
+                    <span className="font-medium text-[#6E5BFF]">
                       Click to upload
                     </span>{' '}
                     or drag and drop
                   </p>
-                  <p className="text-xs text-gray-400">
+                  <p className="text-xs text-[#8C8C88]">
                     PNG, JPG, WebP, GIF, MP4, MOV, WebM — max 50 MB
                   </p>
                 </div>
@@ -696,9 +697,9 @@ export default function CreateCampaignPage() {
       {step === 2 && selectedTier && (
         <div className="space-y-6">
           {/* Summary card */}
-          <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-100">
-              <h2 className="text-base font-semibold text-gray-900">
+          <div className="bg-white border border-[#ECECE8] rounded-2xl shadow-sm overflow-hidden">
+            <div className="px-6 py-4 border-b border-[#ECECE8]">
+              <h2 className="text-base font-semibold text-[#0B0B0C]">
                 Campaign Summary
               </h2>
             </div>
@@ -706,17 +707,17 @@ export default function CreateCampaignPage() {
             <div className="px-6 py-5 space-y-4">
               {/* Title */}
               <div className="flex justify-between items-start gap-4">
-                <span className="text-sm text-gray-500 flex-shrink-0">
+                <span className="text-sm text-[#8C8C88] flex-shrink-0">
                   Campaign Title
                 </span>
-                <span className="text-sm font-medium text-gray-900 text-right">
+                <span className="text-sm font-medium text-[#0B0B0C] text-right">
                   {title}
                 </span>
               </div>
 
               {/* Tier */}
               <div className="flex justify-between items-center gap-4">
-                <span className="text-sm text-gray-500">Tier</span>
+                <span className="text-sm text-[#8C8C88]">Tier</span>
                 <span
                   className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ${getTierAccentClasses(selectedTier.name).badge}`}
                 >
@@ -726,8 +727,8 @@ export default function CreateCampaignPage() {
 
               {/* Views target */}
               <div className="flex justify-between items-center gap-4">
-                <span className="text-sm text-gray-500">Views Target</span>
-                <span className="text-sm font-medium text-gray-900">
+                <span className="text-sm text-[#8C8C88]">Views Target</span>
+                <span className="text-sm font-medium text-[#0B0B0C]">
                   {formatNumber(selectedTier.views_target)} verified views
                 </span>
               </div>
@@ -735,41 +736,41 @@ export default function CreateCampaignPage() {
               {/* Creative */}
               {creativeFile && (
                 <div className="flex justify-between items-center gap-4">
-                  <span className="text-sm text-gray-500">Ad Creative</span>
-                  <span className="text-sm font-medium text-gray-700">
+                  <span className="text-sm text-[#8C8C88]">Ad Creative</span>
+                  <span className="text-sm font-medium text-[#0B0B0C]">
                     {creativeFile.name}
                   </span>
                 </div>
               )}
 
-              <hr className="border-gray-100" />
+              <hr className="border-[#ECECE8]" />
 
               {/* Cost breakdown */}
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-500">
+                  <span className="text-sm text-[#8C8C88]">
                     Influencer earnings
                   </span>
-                  <span className="text-sm text-gray-700">
+                  <span className="text-sm text-[#0B0B0C]">
                     {formatCurrency(selectedTier.influencer_payout)}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-500">Platform fee</span>
-                  <span className="text-sm text-gray-700">
+                  <span className="text-sm text-[#8C8C88]">Platform fee</span>
+                  <span className="text-sm text-[#0B0B0C]">
                     {formatCurrency(selectedTier.platform_fee)}
                   </span>
                 </div>
               </div>
 
-              <hr className="border-gray-100" />
+              <hr className="border-[#ECECE8]" />
 
               {/* Total */}
               <div className="flex justify-between items-center">
-                <span className="text-sm font-semibold text-gray-900">
+                <span className="text-sm font-semibold text-[#0B0B0C]">
                   Total Charge
                 </span>
-                <span className="text-xl font-bold text-violet-700">
+                <span className="text-xl font-bold text-[#6E5BFF]">
                   {formatCurrency(selectedTier.total_charge)}
                 </span>
               </div>

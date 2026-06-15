@@ -1,62 +1,41 @@
-'use client';
+'use client'
 
-import React from 'react';
+import React from 'react'
 
-type ButtonVariant = 'primary' | 'green' | 'red' | 'ghost' | 'outline';
-type ButtonSize = 'sm' | 'md' | 'lg';
+type ButtonVariant = 'primary' | 'green' | 'red' | 'ghost' | 'outline'
+type ButtonSize = 'sm' | 'md' | 'lg'
 
 interface ButtonProps {
-  variant?: ButtonVariant;
-  size?: ButtonSize;
-  loading?: boolean;
-  disabled?: boolean;
-  className?: string;
-  children: React.ReactNode;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  type?: 'button' | 'submit' | 'reset';
+  variant?: ButtonVariant
+  size?: ButtonSize
+  loading?: boolean
+  disabled?: boolean
+  className?: string
+  children: React.ReactNode
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
+  type?: 'button' | 'submit' | 'reset'
 }
 
-const variantClasses: Record<ButtonVariant, string> = {
-  primary:
-    'bg-violet-700 text-white hover:bg-violet-800 focus:ring-violet-500 border border-transparent',
-  green:
-    'bg-emerald-500 text-white hover:bg-emerald-600 focus:ring-emerald-400 border border-transparent',
-  red: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 border border-transparent',
-  ghost:
-    'bg-transparent text-gray-700 hover:bg-gray-100 focus:ring-gray-300 border border-transparent',
-  outline:
-    'bg-white text-violet-700 border border-violet-700 hover:bg-violet-50 focus:ring-violet-500',
-};
+const variantBase: Record<ButtonVariant, string> = {
+  primary: 'text-white border border-transparent',
+  green:   'bg-[#1FD3A3] text-white hover:bg-[#19b88e] border border-transparent focus:ring-[#1FD3A3]',
+  red:     'bg-red-600 text-white hover:bg-red-700 border border-transparent focus:ring-red-500',
+  ghost:   'bg-transparent text-[#8C8C88] hover:bg-[#F6F6F3] border border-transparent focus:ring-[#ECECE8]',
+  outline: 'bg-white text-[#6E5BFF] border border-[#6E5BFF] hover:bg-[rgba(110,91,255,.06)] focus:ring-[#6E5BFF]',
+}
 
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: 'px-3 py-1.5 text-sm',
-  md: 'px-4 py-2 text-sm',
-  lg: 'px-6 py-3 text-base',
-};
+  sm: 'px-3 py-1.5 text-sm rounded-xl',
+  md: 'px-4 py-2 text-sm rounded-xl',
+  lg: 'px-6 py-3 text-base rounded-xl',
+}
 
 const Spinner: React.FC = () => (
-  <svg
-    className="animate-spin h-4 w-4 text-current"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    aria-hidden="true"
-  >
-    <circle
-      className="opacity-25"
-      cx="12"
-      cy="12"
-      r="10"
-      stroke="currentColor"
-      strokeWidth="4"
-    />
-    <path
-      className="opacity-75"
-      fill="currentColor"
-      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-    />
+  <svg className="animate-spin h-4 w-4 text-current" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
   </svg>
-);
+)
 
 export const Button: React.FC<ButtonProps> = ({
   variant = 'primary',
@@ -68,17 +47,26 @@ export const Button: React.FC<ButtonProps> = ({
   onClick,
   type = 'button',
 }) => {
-  const isDisabled = disabled || loading;
+  const isDisabled = disabled || loading
+
+  const primaryStyle =
+    variant === 'primary'
+      ? {
+          background: 'linear-gradient(120deg,#6E5BFF,#4D7CFF)',
+          boxShadow: isDisabled ? 'none' : '0 4px 14px rgba(98,92,255,.35)',
+        }
+      : undefined
 
   return (
     <button
       type={type}
       onClick={onClick}
       disabled={isDisabled}
+      style={primaryStyle}
       className={[
-        'inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors',
+        'inline-flex items-center justify-center gap-2 font-semibold transition-all',
         'focus:outline-none focus:ring-2 focus:ring-offset-2',
-        variantClasses[variant],
+        variantBase[variant],
         sizeClasses[size],
         isDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
         className,
@@ -89,7 +77,7 @@ export const Button: React.FC<ButtonProps> = ({
       {loading && <Spinner />}
       {children}
     </button>
-  );
-};
+  )
+}
 
-export default Button;
+export default Button
