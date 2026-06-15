@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WeViral Platform</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --p:#7C3AED;--pl:#EDE9FE;--pd:#5B21B6;
+  --g:#10B981;--gl:#D1FAE5;
+  --r:#EF4444;--rl:#FEE2E2;
+  --a:#F59E0B;--al:#FEF3C7;
+  --g50:#F9FAFB;--g100:#F3F4F6;--g200:#E5E7EB;
+  --g400:#9CA3AF;--g600:#4B5563;--g800:#1F2937;--g900:#111827;
+  --sw:240px
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--g50);color:var(--g800);font-size:14px}
+
+/* ===== LOGIN ===== */
+#login{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1E1B4B 0%,#7C3AED 100%)}
+.lbox{background:white;border-radius:16px;padding:44px 36px;width:420px;box-shadow:0 25px 60px rgba(0,0,0,.3)}
+.brand{font-size:26px;font-weight:800;color:var(--p);text-align:center;margin-bottom:4px}
+.brand span{color:var(--g)}
+.tag{text-align:center;color:var(--g400);font-size:12px;margin-bottom:28px}
+.pcards{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.pcard{border:2px solid var(--g200);border-radius:10px;padding:14px 16px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all .15s}
+.pcard:hover{border-color:var(--p);background:var(--pl)}
+.pcard.sel{border-color:var(--p);background:var(--pl)}
+.pcard .ico{font-size:22px}
+.pcard .pt{font-weight:600;font-size:13px;color:var(--g800)}
+.pcard .pd{font-size:11px;color:var(--g400)}
+.lbtn{width:100%;padding:13px;background:var(--p);color:white;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s}
+.lbtn:hover{background:var(--pd)}
+.demo-note{text-align:center;font-size:11px;color:var(--g400);margin-top:12px}
+
+/* ===== APP SHELL ===== */
+#app{display:none;min-height:100vh}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:var(--sw);background:var(--g900);display:flex;flex-direction:column;z-index:100}
+.slogo{padding:18px 20px;border-bottom:1px solid rgba(255,255,255,.08)}
+.slogo .br{font-size:18px;font-weight:800;color:white}
+.slogo .br span{color:var(--g)}
+.slogo .pt{font-size:10px;color:var(--g400);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+.snav{flex:1;padding:8px 0;overflow-y:auto}
+.nsec{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--g400);padding:14px 20px 4px}
+.ni{display:flex;align-items:center;gap:10px;padding:9px 20px;color:rgba(255,255,255,.6);cursor:pointer;font-size:13px;border-left:3px solid transparent;transition:all .1s}
+.ni:hover{background:rgba(255,255,255,.04);color:white}
+.ni.on{background:rgba(124,58,237,.25);color:white;border-left-color:var(--p)}
+.ni .ic{font-size:15px;width:18px}
+.nbadge{margin-left:auto;background:var(--r);color:white;border-radius:10px;padding:1px 7px;font-size:10px;font-weight:700}
+.sbottom{padding:14px 20px;border-top:1px solid rgba(255,255,255,.08)}
+.uchip{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.8);font-size:13px}
+.av{width:30px;height:30px;border-radius:50%;background:var(--p);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0}
+.av.g{background:var(--g)}.av.r{background:var(--r)}.av.a{background:var(--a)}.av.b{background:#3B82F6}.av.pk{background:#EC4899}
+.lgbtn{margin-left:auto;background:none;border:none;color:var(--g400);cursor:pointer;font-size:16px}
+.swbtn{background:none;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);border-radius:6px;padding:5px 10px;font-size:11px;cursor:pointer;width:100%;margin-top:8px}
+.swbtn:hover{background:rgba(255,255,255,.05);color:white}
+
+/* ===== MAIN ===== */
+.main{margin-left:var(--sw);min-height:100vh}
+.topbar{height:58px;background:white;border-bottom:1px solid var(--g200);display:flex;align-items:center;padding:0 24px;position:sticky;top:0;z-index:10;gap:12px}
+.topbar h1{font-size:16px;font-weight:600}
+.topbar .sp{flex:1}
+.tbbtn{background:var(--p);color:white;border:none;border-radius:6px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer}
+.tbbtn:hover{background:var(--pd)}
+.page{padding:24px}
+.sec{display:none}.sec.on{display:block}
+
+/* ===== STATS ===== */
+.sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.scard{background:white;border-radius:10px;padding:18px;border:1px solid var(--g200)}
+.scard .sl{font-size:11px;color:var(--g400);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.scard .sv{font-size:26px;font-weight:700;color:var(--g900)}
+.scard .ss{font-size:11px;color:var(--g400);margin-top:3px}
+.scard .si{float:right;font-size:22px;opacity:.5}
+
+/* ===== CARD ===== */
+.card{background:white;border-radius:10px;border:1px solid var(--g200);margin-bottom:18px}
+.ch{padding:14px 18px;border-bottom:1px solid var(--g200);display:flex;align-items:center;gap:10px}
+.ct{font-size:14px;font-weight:600}
+.cbadge{background:var(--p);color:white;border-radius:20px;padding:2px 8px;font-size:11px;font-weight:600}
+.ca{margin-left:auto}
+.cb{padding:18px}
+
+/* ===== TABLES ===== */
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:9px 12px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--g400);border-bottom:1px solid var(--g200);background:var(--g50);white-space:nowrap}
+td{padding:11px 12px;border-bottom:1px solid var(--g100);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--g50)}
+
+/* ===== BADGES ===== */
+.b{display:inline-block;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600}
+.bg{background:var(--gl);color:#065F46}
+.ba{background:var(--al);color:#92400E}
+.br2{background:var(--rl);color:#991B1B}
+.bp{background:var(--pl);color:var(--pd)}
+.bk{background:var(--g100);color:var(--g600)}
+
+/* ===== BUTTONS ===== */
+.btn{padding:8px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:none;transition:all .1s;display:inline-block}
+.btn-p{background:var(--p);color:white}.btn-p:hover{background:var(--pd)}
+.btn-g{background:var(--g);color:white}.btn-g:hover{background:#059669}
+.btn-r{background:var(--r);color:white}.btn-r:hover{background:#DC2626}
+.btn-gh{background:none;border:1px solid var(--g200);color:var(--g600)}.btn-gh:hover{background:var(--g50)}
+.btn-sm{padding:5px 10px;font-size:11px}
+.btn-xs{padding:3px 8px;font-size:11px}
+
+/* ===== FORMS ===== */
+.fg{margin-bottom:14px}
+.fl{display:block;font-size:12px;font-weight:500;margin-bottom:5px;color:#374151}
+.fi{width:100%;padding:9px 11px;border:1px solid var(--g200);border-radius:6px;font-size:13px;outline:none;transition:border-color .1s}
+.fi:focus{border-color:var(--p);box-shadow:0 0 0 3px var(--pl)}
+.fsel{width:100%;padding:9px 11px;border:1px solid var(--g200);border-radius:6px;font-size:13px;outline:none;background:white;cursor:pointer}
+.fta{width:100%;padding:9px 11px;border:1px solid var(--g200);border-radius:6px;font-size:13px;outline:none;resize:vertical;min-height:70px}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* ===== TIER PICKER ===== */
+.tpicker{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.tc{border:2px solid var(--g200);border-radius:8px;padding:12px;cursor:pointer;transition:all .1s}
+.tc:hover{border-color:var(--p)}
+.tc.sel{border-color:var(--p);background:var(--pl)}
+.tc .tn{font-weight:700;font-size:13px}
+.tc .tv{font-size:11px;color:var(--g400);margin:2px 0}
+.tc .tp{font-size:17px;font-weight:700;color:var(--p)}
+.tc .tt{font-size:10px;color:var(--g400)}
+
+/* ===== UPLOAD ===== */
+.uz{border:2px dashed var(--g200);border-radius:8px;padding:28px;text-align:center;cursor:pointer;transition:all .1s}
+.uz:hover{border-color:var(--p);background:var(--pl)}
+.uz .ui{font-size:28px;margin-bottom:6px}
+.uz .ut{font-size:13px;color:var(--g600)}
+.uz .us{font-size:11px;color:var(--g400);margin-top:3px}
+
+/* ===== MODAL ===== */
+.mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;align-items:center;justify-content:center}
+.mo.open{display:flex}
+.mb{background:white;border-radius:12px;width:92%;max-width:580px;max-height:90vh;overflow-y:auto;box-shadow:0 25px 60px rgba(0,0,0,.3)}
+.mh{padding:18px 22px 14px;border-bottom:1px solid var(--g200);display:flex;align-items:center}
+.mt{font-size:15px;font-weight:600}
+.mc{margin-left:auto;background:none;border:none;font-size:20px;cursor:pointer;color:var(--g400)}
+.mbody{padding:22px}
+.mf{padding:14px 22px;border-top:1px solid var(--g200);display:flex;gap:8px;justify-content:flex-end}
+
+/* ===== PROOF VIEWER ===== */
+.proof-wrap{background:var(--g900);border-radius:8px;padding:16px;text-align:center;margin-bottom:16px}
+.phone{background:#1a1a2e;border-radius:20px;padding:10px;display:inline-block;border:3px solid #333}
+.ws{background:linear-gradient(180deg,#128C7E,#075E54);width:160px;height:280px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:white}
+.wvc{font-size:40px;font-weight:800}
+.wvl{font-size:10px;opacity:.7;margin-top:2px}
+.wad{font-size:11px;opacity:.6;margin-top:8px}
+.ai-list{list-style:none}
+.ai-list li{padding:7px 0;font-size:13px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--g100)}
+.ai-list li:last-child{border:none}
+.ck{color:var(--g);font-weight:700}.cx{color:var(--r);font-weight:700}
+.conf{font-size:24px;font-weight:800;color:var(--p)}
+
+/* ===== EARNINGS BANNER ===== */
+.ebanner{background:linear-gradient(135deg,var(--p),#9333EA);border-radius:10px;padding:22px;color:white;margin-bottom:18px}
+.eamt{font-size:38px;font-weight:800}
+.elbl{font-size:12px;opacity:.8}
+.erow{display:flex;gap:24px;margin-top:10px}
+.erow div{font-size:12px;opacity:.85}
+
+/* ===== MISC ===== */
+.alert{border-radius:8px;padding:11px 14px;font-size:12px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.ai{background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE}
+.as{background:var(--gl);color:#065F46;border:1px solid #A7F3D0}
+.aw{background:var(--al);color:#92400E;border:1px solid #FDE68A}
+.prog{background:var(--g200);border-radius:4px;height:5px;overflow:hidden;margin-top:5px}
+.progf{height:100%;background:var(--g);border-radius:4px}
+.empty{text-align:center;padding:44px 20px;color:var(--g400)}
+.empty .ei{font-size:40px;margin-bottom:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cname{font-weight:600;color:var(--g900)}
+.csub{font-size:11px;color:var(--g400)}
+.flex{display:flex;align-items:center;gap:8px}
+.sep{border:none;border-top:1px solid var(--g100);margin:14px 0}
+</style>
+</head>
+<body><script>window.onerror=function(m,u,l){document.getElementById("jserr").textContent="JS Error line "+l+": "+m;document.getElementById("jserr").style.display="block";return false};</script><div id="jserr" style="display:none;position:fixed;top:0;left:0;right:0;background:#ef4444;color:white;padding:12px 16px;font-size:13px;z-index:9999"></div>
+
+<!-- ===== LOGIN ===== -->
+<div id="login">
+  <div class="lbox">
+    <div class="brand">We<span>Viral</span></div>
+    <div class="tag">Post your status. Get paid for your reach.</div>
+    <div class="pcards">
+      <div class="pcard sel" onclick="selectPortal('admin',this)">
+        <div class="ico">ðŸ›¡ï¸</div>
+        <div><div class="pt">Super Admin</div><div class="pd">Manage campaigns, approvals &amp; users</div></div>
+      </div>
+      <div class="pcard" onclick="selectPortal('influencer',this)">
+        <div class="ico">ðŸ“²</div>
+        <div><div class="pt">Influencer / Creator</div><div class="pd">Browse campaigns, post &amp; earn</div></div>
+      </div>
+      <div class="pcard" onclick="selectPortal('marketer',this)">
+        <div class="ico">ðŸ“£</div>
+        <div><div class="pt">Advertiser / Marketer</div><div class="pd">Create campaigns &amp; track reach</div></div>
+      </div>
+    </div>
+    <button class="lbtn" onclick="login()">Enter Portal â†’</button>
+    <div class="demo-note">Demo mode â€” no login required</div>
+  </div>
+</div>
+
+<!-- ===== APP ===== -->
+<div id="app">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="slogo">
+      <div class="br">We<span>Viral</span></div>
+      <div class="pt" id="portal-label">Admin Portal</div>
+    </div>
+    <div class="snav" id="sidenav"></div>
+    <div class="sbottom">
+      <div class="uchip">
+        <div class="av" id="user-av">EL</div>
+        <div>
+          <div style="font-size:12px;color:white;font-weight:600" id="user-name">Eli D.</div>
+          <div style="font-size:10px;color:var(--g400)" id="user-role">Super Admin</div>
+        </div>
+        <button class="lgbtn" onclick="logout()" title="Log out">âŽ‹</button>
+      </div>
+      <button class="swbtn" onclick="logout()">â‡„ Switch Portal</button>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <h1 id="page-title">Dashboard</h1>
+      <div class="sp"></div>
+      <div id="topbar-action"></div>
+    </div>
+    <div class="page" id="page-content">
+      <!-- Sections rendered by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL ===== -->
+<div class="mo" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="mb">
+    <div class="mh">
+      <div class="mt" id="modal-title">Modal</div>
+      <button class="mc" onclick="closeModal()">âœ•</button>
+    </div>
+    <div class="mbody" id="modal-body"></div>
+    <div class="mf" id="modal-footer"></div>
+  </div>
+</div>
+
+<script>
+// ===== STATE =====
+let portal = 'admin';
+let section = '';
+let pendingApprovals = [
+  {id:1,campaign:'Nike Summer Drop',marketer:'Nike UK',influencer:'Sarah J.',handle:'@sarah_j',tier:'Growth',target:500,submitted:523,confidence:94,date:'13 Jun'},
+  {id:2,campaign:"Ben's Deli Promo",marketer:"Ben's Deli",influencer:'Michal T.',handle:'@michal_t',tier:'Starter',target:100,submitted:108,confidence:88,date:'13 Jun'},
+  {id:3,campaign:'BrewDog IPA Launch',marketer:'BrewDog',influencer:'James W.',handle:'@james_w',tier:'Viral',target:1000,submitted:1047,confidence:97,date:'14 Jun'},
+];
+let allInfluencers = [
+  {name:'Sarah Johnson',handle:'@sarah_j',country:'ðŸ‡¬ðŸ‡§ UK',campaigns:6,earned:315,status:'active'},
+  {name:'Michal Tal',handle:'@michal_t',country:'ðŸ‡®ðŸ‡± Israel',campaigns:3,earned:120,status:'active'},
+  {name:'James Williams',handle:'@james_w',country:'ðŸ‡¬ðŸ‡§ UK',campaigns:4,earned:212,status:'active'},
+  {name:'Emma Dupont',handle:'@emma_d',country:'ðŸ‡§ðŸ‡ª Belgium',campaigns:2,earned:90,status:'active'},
+  {name:'Tyler Brooks',handle:'@tyler_b',country:'ðŸ‡ºðŸ‡¸ USA',campaigns:1,earned:45,status:'pending'},
+];
+let allMarketers = [
+  {name:'Nike UK',contact:'mark@nike.com',country:'ðŸ‡¬ðŸ‡§ UK',campaigns:4,spent:324,status:'active'},
+  {name:"Ben's Deli",contact:'ben@bensdeli.co.il',country:'ðŸ‡®ðŸ‡± Israel',campaigns:2,spent:108,status:'active'},
+  {name:'BrewDog',contact:'ads@brewdog.com',country:'ðŸ‡¬ðŸ‡§ UK',campaigns:3,spent:228,status:'active'},
+  {name:'Zara Belgium',contact:'digital@zara.be',country:'ðŸ‡§ðŸ‡ª Belgium',campaigns:1,spent:54,status:'active'},
+];
+let tiers = [
+  {name:'Starter',views:100,inf:10,fee:2,total:12},
+  {name:'Growth',views:500,inf:45,fee:9,total:54},
+  {name:'Viral',views:1000,inf:80,fee:16,total:96},
+  {name:'Elite',views:5000,inf:350,fee:70,total:420},
+];
+let availCampaigns = [
+  {id:4,campaign:'Zara Summer',marketer:'Zara UK',tier:'Growth',payout:45,deadline:'20 Jun',desc:'Promote our new summer collection. Post ad creative to your WhatsApp Status for 24 hours.'},
+  {id:5,campaign:'Innocent Smoothies',marketer:'Innocent Drinks',tier:'Starter',payout:10,deadline:'18 Jun',desc:'Share our new smoothie range with your contacts. Fun, colourful creative provided.'},
+  {id:6,campaign:'ASOS Payday',marketer:'ASOS',tier:'Viral',payout:80,deadline:'25 Jun',desc:'Payday sale campaign â€” 30% off everything. Post to status and earn when you hit 1,000 views.'},
+];
+let myCampaigns = [
+  {id:1,campaign:'Nike Summer Drop',marketer:'Nike UK',tier:'Growth',payout:45,status:'proof_submitted',target:500},
+  {id:2,campaign:"Ben's Deli Promo",marketer:"Ben's Deli",tier:'Starter',payout:10,status:'active',target:100},
+  {id:7,campaign:'BrewDog IPA',marketer:'BrewDog',tier:'Viral',payout:80,status:'paid',target:1000},
+  {id:8,campaign:'Zara BE',marketer:'Zara Belgium',tier:'Growth',payout:45,status:'paid',target:500},
+];
+let mkrCampaigns = [
+  {id:1,name:'Nike Summer Drop',tier:'Growth',status:'active',target:500,verified:234,influencers:2,cost:108,created:'10 Jun'},
+  {id:2,name:'Air Max Launch',tier:'Elite',status:'proof_submitted',target:5000,verified:4823,influencers:5,cost:2100,created:'5 Jun'},
+  {id:3,name:'Spring Clearance',tier:'Starter',status:'completed',target:100,verified:112,influencers:1,cost:12,created:'1 Jun'},
+];
+let selectedTier = 'Growth';
+let totalAdminRevenue = 847.50;
+
+// ===== PORTAL CONFIG =====
+const portals = {
+  admin:{
+    label:'Admin Portal',user:'Eli D.',role:'Super Admin',av:'EL',avcls:'',
+    nav:[
+      {sec:'dashboard',ic:'ðŸ“Š',label:'Dashboard'},
+      {sec:'approvals',ic:'âœ…',label:'Pending Approvals',badge:true},
+      {sec:'campaigns',ic:'ðŸ“‹',label:'All Campaigns'},
+      {sec:'influencers',ic:'ðŸ‘¥',label:'Influencers'},
+      {sec:'marketers',ic:'ðŸ“£',label:'Marketers'},
+      {sec:'tiers',ic:'âš™ï¸',label:'Tier Settings'},
+    ],
+    default:'dashboard'
+  },
+  influencer:{
+    label:'Influencer Portal',user:'Sarah J.',role:'Influencer Â· ðŸ‡¬ðŸ‡§ UK',av:'SJ',avcls:'g',
+    nav:[
+      {sec:'inf-dashboard',ic:'ðŸ“Š',label:'My Dashboard'},
+      {sec:'browse',ic:'ðŸ”',label:'Browse Campaigns'},
+      {sec:'my-camps',ic:'ðŸ“²',label:'My Campaigns'},
+      {sec:'earnings',ic:'ðŸ’°',label:'Earnings'},
+    ],
+    default:'inf-dashboard'
+  },
+  marketer:{
+    label:'Marketer Portal',user:'Nike UK',role:'Marketer Â· ðŸ‡¬ðŸ‡§ UK',av:'NK',avcls:'b',
+    nav:[
+      {sec:'mkr-dashboard',ic:'ðŸ“Š',label:'Dashboard'},
+      {sec:'create',ic:'âž•',label:'Create Campaign'},
+      {sec:'mkr-camps',ic:'ðŸ“‹',label:'My Campaigns'},
+      {sec:'billing',ic:'ðŸ’³',label:'Billing'},
+    ],
+    default:'mkr-dashboard'
+  }
+};
+
+// ===== LOGIN =====
+function selectPortal(p, el) {
+  portal = p;
+  document.querySelectorAll('.pcard').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+}
+function login() {
+  try {
+    document.getElementById('login').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    initPortal();
+  } catch(e) { alert('Error: ' + e.message); }
+}
+function logout() {
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('login').style.display = 'flex';
+}
+function initPortal() {
+  const cfg = portals[portal];
+  document.getElementById('portal-label').textContent = cfg.label;
+  document.getElementById('user-name').textContent = cfg.user;
+  document.getElementById('user-role').textContent = cfg.role;
+  const av = document.getElementById('user-av');
+  av.textContent = cfg.av;
+  av.className = 'av ' + cfg.avcls;
+  buildNav(cfg);
+  navigate(cfg.default);
+}
+function buildNav(cfg) {
+  const nav = document.getElementById('sidenav');
+  nav.innerHTML = '';
+  cfg.nav.forEach(item => {
+    const cnt = (item.badge && pendingApprovals.length > 0) ? `<span class="nbadge">${pendingApprovals.length}</span>` : '';
+    nav.innerHTML += `<div class="ni" id="ni-${item.sec}" onclick="navigate('${item.sec}')"><span class="ic">${item.ic}</span>${item.label}${cnt}</div>`;
+  });
+}
+
+// ===== NAVIGATION =====
+const pageTitles = {
+  dashboard:'Dashboard',approvals:'Pending Approvals',campaigns:'All Campaigns',
+  influencers:'Influencers',marketers:'Marketers',tiers:'Tier Settings',
+  'inf-dashboard':'My Dashboard',browse:'Browse Campaigns','my-camps':'My Campaigns',earnings:'Earnings',
+  'mkr-dashboard':'Dashboard',create:'Create Campaign','mkr-camps':'My Campaigns',billing:'Billing & Payments'
+};
+function navigate(sec) {
+  section = sec;
+  document.querySelectorAll('.ni').forEach(n => n.classList.remove('on'));
+  const ni = document.getElementById('ni-' + sec);
+  if (ni) ni.classList.add('on');
+  document.getElementById('page-title').textContent = pageTitles[sec] || sec;
+  renderPage(sec);
+}
+
+// ===== PAGE RENDERER =====
+function renderPage(sec) {
+  const pc = document.getElementById('page-content');
+  const ta = document.getElementById('topbar-action');
+  ta.innerHTML = '';
+  switch(sec) {
+    case 'dashboard': pc.innerHTML = renderAdminDash(); break;
+    case 'approvals': pc.innerHTML = renderApprovals(); break;
+    case 'campaigns': pc.innerHTML = renderAllCampaigns(); break;
+    case 'influencers': pc.innerHTML = renderInfluencers(); break;
+    case 'marketers': pc.innerHTML = renderMarketers(); break;
+    case 'tiers': pc.innerHTML = renderTiers(); break;
+    case 'inf-dashboard': pc.innerHTML = renderInfDash(); break;
+    case 'browse': pc.innerHTML = renderBrowse(); break;
+    case 'my-camps': pc.innerHTML = renderMyCamps(); break;
+    case 'earnings': pc.innerHTML = renderEarnings(); break;
+    case 'mkr-dashboard': pc.innerHTML = renderMkrDash(); break;
+    case 'create':
+      pc.innerHTML = renderCreate();
+      ta.innerHTML = '';
+      break;
+    case 'mkr-camps': pc.innerHTML = renderMkrCamps(); break;
+    case 'billing': pc.innerHTML = renderBilling(); break;
+  }
+}
+
+// ===== HELPERS =====
+function tierBadge(t) {
+  const cls = {Starter:'bk',Growth:'bp',Viral:'ba',Elite:'br2'};
+  return `<span class="b ${cls[t]||'bk'}">${t}</span>`;
+}
+function statusBadge(s) {
+  const map = {
+    active:['bg','Active'],proof_submitted:['ba','Proof Submitted'],
+    completed:['bg','Completed'],paid:['bg','Paid âœ“'],pending:['ba','Pending'],
+    rejected:['br2','Rejected']
+  };
+  const [cls,lbl] = map[s]||['bk',s];
+  return `<span class="b ${cls}">${lbl}</span>`;
+}
+function pound(n) { return 'Â£' + n.toLocaleString('en-GB',{minimumFractionDigits:0}); }
+function prog(v,t) { const pct = Math.min(100,Math.round(v/t*100)); return `<div style="font-size:11px;color:var(--g400)">${v.toLocaleString()} / ${t.toLocaleString()} views</div><div class="prog"><div class="progf" style="width:${pct}%"></div></div>`; }
+
+// ===== ADMIN PAGES =====
+function renderAdminDash() {
+  const rev = totalAdminRevenue;
+  return `
+  <div class="sgrid">
+    <div class="scard"><div class="si">ðŸ‘¥</div><div class="sl">Influencers</div><div class="sv">${allInfluencers.length}</div><div class="ss">${allInfluencers.filter(x=>x.status==='active').length} active</div></div>
+    <div class="scard"><div class="si">ðŸ“£</div><div class="sl">Marketers</div><div class="sv">${allMarketers.length}</div><div class="ss">All verified</div></div>
+    <div class="scard"><div class="si">â³</div><div class="sl">Pending Approvals</div><div class="sv" style="color:var(--a)">${pendingApprovals.length}</div><div class="ss">Need review</div></div>
+    <div class="scard"><div class="si">ðŸ’°</div><div class="sl">Platform Revenue</div><div class="sv" style="color:var(--g)">${pound(rev)}</div><div class="ss">Total earned</div></div>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="ch"><div class="ct">â³ Pending Approvals</div><div class="cbadge">${pendingApprovals.length}</div></div>
+      ${pendingApprovals.length === 0 ? '<div class="cb"><div class="empty"><div class="ei">âœ…</div><p>All clear â€” no approvals pending</p></div></div>' :
+      `<div class="cb">` + pendingApprovals.slice(0,3).map(a => `
+        <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--g100)">
+          <div style="flex:1"><div class="cname">${a.campaign}</div><div class="csub">${a.influencer} Â· ${a.tier} Â· <span style="color:var(--g);font-weight:600">${a.submitted} views</span></div></div>
+          <button class="btn btn-sm btn-p" onclick="openProofModal(${a.id})">Review</button>
+        </div>`).join('') + `<div style="padding-top:10px"><button class="btn btn-gh btn-sm" onclick="navigate('approvals')">View all â†’</button></div></div>`}
+    </div>
+    <div class="card">
+      <div class="ch"><div class="ct">ðŸ“ˆ Platform Activity</div></div>
+      <div class="cb">
+        ${[
+          ['10 Jun','Nike Summer Drop â€” approved','var(--g)'],
+          ['9 Jun','New influencer: @tyler_b (USA)','var(--p)'],
+          ['8 Jun','BrewDog campaign created','var(--p)'],
+          ['7 Jun','Payout: Â£80 â†’ @james_w','var(--g)'],
+          ['5 Jun','Zara Belgium â€” approved','var(--g)'],
+        ].map(([d,t,c])=>`<div style="display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--g100);font-size:12px"><span style="color:var(--g400);width:52px">${d}</span><span style="color:${c}">â—</span><span>${t}</span></div>`).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderApprovals() {
+  if (pendingApprovals.length === 0) return `<div class="card"><div class="cb"><div class="empty"><div class="ei">âœ…</div><p>No pending approvals â€” all caught up!</p></div></div></div>`;
+  return `
+  <div class="alert ai">â„¹ï¸ Review each submission below. The AI has pre-screened every proof â€” you make the final call.</div>
+  <div class="card">
+    <div class="tw">
+      <table>
+        <thead><tr><th>Campaign</th><th>Marketer</th><th>Influencer</th><th>Tier</th><th>Target</th><th>Views Submitted</th><th>AI Score</th><th>Date</th><th>Action</th></tr></thead>
+        <tbody>
+          ${pendingApprovals.map(a => `<tr>
+            <td><div class="cname">${a.campaign}</div></td>
+            <td>${a.marketer}</td>
+            <td><div class="cname">${a.influencer}</div><div class="csub">${a.handle}</div></td>
+            <td>${tierBadge(a.tier)}</td>
+            <td>${a.target.toLocaleString()}</td>
+            <td><span style="color:var(--g);font-weight:700">${a.submitted.toLocaleString()}</span></td>
+            <td><span style="color:${a.confidence>=90?'var(--g)':a.confidence>=75?'var(--a)':'var(--r)';};font-weight:700">${a.confidence}%</span></td>
+            <td>${a.date}</td>
+            <td style="white-space:nowrap">
+              <button class="btn btn-sm btn-p" onclick="openProofModal(${a.id})" style="margin-right:4px">View Proof</button>
+            </td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
+  </div>`;
+}
+
+function renderAllCampaigns() {
+  const all = [
+    ...pendingApprovals.map(a => ({name:a.campaign,marketer:a.marketer,influencer:a.influencer,tier:a.tier,status:'proof_submitted',verified:a.submitted,target:a.target,cost:tiers.find(t=>t.name===a.tier)?.total||0})),
+    {name:'Air Max Launch',marketer:'Nike UK',influencer:'James W.',tier:'Elite',status:'active',verified:234,target:5000,cost:420},
+    {name:'Spring Clearance',marketer:'Nike UK',influencer:'Sarah J.',tier:'Starter',status:'completed',verified:112,target:100,cost:12},
+    {name:'Zara Belgium',marketer:'Zara Belgium',influencer:'Emma D.',tier:'Growth',status:'paid',verified:503,target:500,cost:54},
+  ];
+  return `<div class="card"><div class="tw"><table>
+    <thead><tr><th>Campaign</th><th>Marketer</th><th>Influencer</th><th>Tier</th><th>Status</th><th>Progress</th><th>Value</th></tr></thead>
+    <tbody>${all.map(c=>`<tr>
+      <td><div class="cname">${c.name}</div></td>
+      <td>${c.marketer}</td>
+      <td>${c.influencer}</td>
+      <td>${tierBadge(c.tier)}</td>
+      <td>${statusBadge(c.status)}</td>
+      <td style="min-width:140px">${prog(c.verified,c.target)}</td>
+      <td>${pound(c.cost)}</td>
+    </tr>`).join('')}</tbody>
+  </table></div></div>`;
+}
+
+function renderInfluencers() {
+  return `
+  <div class="card">
+    <div class="ch"><div class="ct">All Influencers</div><div class="cbadge">${allInfluencers.length}</div><div class="ca"><button class="btn btn-p btn-sm" onclick="openInviteModal('influencer')">+ Invite</button></div></div>
+    <div class="tw"><table>
+      <thead><tr><th>Name</th><th>Handle</th><th>Country</th><th>Campaigns</th><th>Total Earned</th><th>Status</th><th></th></tr></thead>
+      <tbody>${allInfluencers.map(u=>`<tr>
+        <td><div class="cname">${u.name}</div></td>
+        <td style="color:var(--p);font-weight:600">${u.handle}</td>
+        <td>${u.country}</td>
+        <td>${u.campaigns}</td>
+        <td style="font-weight:600">${pound(u.earned)}</td>
+        <td>${statusBadge(u.status)}</td>
+        <td><button class="btn btn-gh btn-xs" onclick="alert('Profile view coming soon')">View</button></td>
+      </tr>`).join('')}</tbody>
+    </table></div>
+  </div>`;
+}
+
+function renderMarketers() {
+  return `
+  <div class="card">
+    <div class="ch"><div class="ct">All Marketers</div><div class="cbadge">${allMarketers.length}</div><div class="ca"><button class="btn btn-p btn-sm" onclick="openInviteModal('marketer')">+ Invite</button></div></div>
+    <div class="tw"><table>
+      <thead><tr><th>Company</th><th>Contact</th><th>Country</th><th>Campaigns</th><th>Total Spent</th><th>Status</th><th></th></tr></thead>
+      <tbody>${allMarketers.map(m=>`<tr>
+        <td><div class="cname">${m.name}</div></td>
+        <td style="color:var(--g400)">${m.contact}</td>
+        <td>${m.country}</td>
+        <td>${m.campaigns}</td>
+        <td style="font-weight:600">${pound(m.spent)}</td>
+        <td>${statusBadge(m.status)}</td>
+        <td><button class="btn btn-gh btn-xs" onclick="alert('Profile view coming soon')">View</button></td>
+      </tr>`).join('')}</tbody>
+    </table></div>
+  </div>`;
+}
+
+function renderTiers() {
+  return `
+  <div class="alert ai">â„¹ï¸ Changes to tiers affect all new campaigns. Existing campaigns are locked at their original tier price.</div>
+  <div class="card">
+    <div class="ch"><div class="ct">âš™ï¸ Payout Tiers</div></div>
+    <div class="tw"><table>
+      <thead><tr><th>Tier</th><th>Views Target</th><th>Influencer Payout</th><th>Platform Fee</th><th>Marketer Total</th><th>Margin</th></tr></thead>
+      <tbody>${tiers.map(t=>`<tr>
+        <td>${tierBadge(t.name)}</td>
+        <td style="font-weight:600">${t.views.toLocaleString()}</td>
+        <td style="color:var(--g);font-weight:700">${pound(t.inf)}</td>
+        <td style="color:var(--p);font-weight:700">${pound(t.fee)}</td>
+        <td style="font-weight:700">${pound(t.total)}</td>
+        <td>${Math.round(t.fee/t.total*100)}%</td>
+      </tr>`).join('')}</tbody>
+    </table></div>
+  </div>
+  <div class="card">
+    <div class="ch"><div class="ct">Add Custom Tier</div></div>
+    <div class="cb">
+      <div class="fg2">
+        <div class="fg"><label class="fl">Tier Name</label><input class="fi" placeholder="e.g. Premium" id="nt-name"></div>
+        <div class="fg"><label class="fl">Views Target</label><input class="fi" type="number" placeholder="e.g. 2000" id="nt-views"></div>
+        <div class="fg"><label class="fl">Influencer Payout (Â£)</label><input class="fi" type="number" placeholder="e.g. 160" id="nt-inf"></div>
+        <div class="fg"><label class="fl">Platform Fee (Â£)</label><input class="fi" type="number" placeholder="e.g. 32" id="nt-fee"></div>
+      </div>
+      <button class="btn btn-p" onclick="addTier()">Add Tier</button>
+    </div>
+  </div>`;
+}
+function addTier() {
+  const name = document.getElementById('nt-name').value.trim();
+  const views = parseInt(document.getElementById('nt-views').value);
+  const inf = parseFloat(document.getElementById('nt-inf').value);
+  const fee = parseFloat(document.getElementById('nt-fee').value);
+  if (!name || !views || !inf || !fee) { alert('Please fill in all fields'); return; }
+  tiers.push({name,views,inf,fee,total:inf+fee});
+  navigate('tiers');
+}
+
+// ===== INFLUENCER PAGES =====
+function renderInfDash() {
+  const paid = myCampaigns.filter(c=>c.status==='paid').reduce((s,c)=>s+c.payout,0);
+  const pending = myCampaigns.filter(c=>c.status==='proof_submitted').reduce((s,c)=>s+c.payout,0);
+  const active = myCampaigns.filter(c=>c.status==='active').length;
+  return `
+  <div class="ebanner">
+    <div>
+      <div class="elbl">Total Earned</div>
+      <div class="eamt">${pound(paid)}</div>
+      <div class="erow">
+        <div>â³ Pending: <strong>${pound(pending)}</strong></div>
+        <div>ðŸ“² Active: <strong>${active}</strong></div>
+        <div>âœ… Completed: <strong>${myCampaigns.filter(c=>c.status==='paid').length}</strong></div>
+      </div>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="ch"><div class="ct">ðŸ“² Active Campaigns</div></div>
+      <div class="cb">
+        ${myCampaigns.filter(c=>c.status==='active'||c.status==='proof_submitted').map(c=>`
+        <div style="padding:10px 0;border-bottom:1px solid var(--g100)">
+          <div class="flex" style="justify-content:space-between;margin-bottom:4px">
+            <div class="cname">${c.campaign}</div>
+            ${statusBadge(c.status)}
+          </div>
+          <div class="csub">${tierBadge(c.tier)} Â· Earn ${pound(c.payout)}</div>
+          ${c.status==='active'?`<button class="btn btn-sm btn-p" style="margin-top:8px" onclick="openSubmitProof(${c.id})">Submit Proof</button>`:''}
+        </div>`).join('')}
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><div class="ct">ðŸ” Available Campaigns</div><div class="ca"><button class="btn btn-gh btn-sm" onclick="navigate('browse')">View all â†’</button></div></div>
+      <div class="cb">
+        ${availCampaigns.slice(0,3).map(c=>`
+        <div style="padding:10px 0;border-bottom:1px solid var(--g100)">
+          <div class="flex" style="justify-content:space-between;margin-bottom:4px">
+            <div class="cname">${c.campaign}</div>
+            <span style="font-weight:700;color:var(--g)">${pound(c.payout)}</span>
+          </div>
+          <div class="csub">${c.marketer} Â· ${tierBadge(c.tier)} Â· Deadline ${c.deadline}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderBrowse() {
+  return `
+  <div class="alert as">âœ… Stripe account connected â€” payouts go straight to your bank within 2 business days.</div>
+  ${availCampaigns.map(c=>`
+  <div class="card">
+    <div class="ch">
+      <div><div class="ct">${c.campaign}</div><div class="csub" style="font-size:11px;margin-top:2px">${c.marketer}</div></div>
+      <div class="ca flex">
+        ${tierBadge(c.tier)}
+        <span style="font-weight:700;color:var(--g);font-size:16px">${pound(c.payout)}</span>
+        <button class="btn btn-g" onclick="applyNow(${c.id})">Apply Now</button>
+      </div>
+    </div>
+    <div class="cb">
+      <p style="font-size:13px;color:var(--g600);margin-bottom:12px">${c.desc}</p>
+      <div class="flex" style="gap:20px;font-size:12px;color:var(--g400)">
+        <span>ðŸŽ¯ Target: ${tiers.find(t=>t.name===c.tier)?.views.toLocaleString()} views</span>
+        <span>ðŸ“… Deadline: ${c.deadline}</span>
+        <span>ðŸ’° Payout: ${pound(c.payout)}</span>
+      </div>
+    </div>
+  </div>`).join('')}`;
+}
+function applyNow(id) {
+  const c = availCampaigns.find(x=>x.id===id);
+  if (!c) return;
+  myCampaigns.unshift({id:c.id,campaign:c.campaign,marketer:c.marketer,tier:c.tier,payout:c.payout,status:'active',target:tiers.find(t=>t.name===c.tier)?.views||500});
+  availCampaigns = availCampaigns.filter(x=>x.id!==id);
+  openModal('Applied!', `<div class="alert as">âœ… You've applied to <strong>${c.campaign}</strong>!<br><br>Download the ad creative and post it to your WhatsApp Status. Once it hits ${tiers.find(t=>t.name===c.tier)?.views.toLocaleString()} views, come back and submit your screenshot proof.</div>`, `<button class="btn btn-g" onclick="closeModal();navigate('my-camps')">Go to My Campaigns â†’</button>`);
+}
+
+function renderMyCamps() {
+  return `
+  <div class="card">
+    <div class="ch"><div class="ct">My Campaigns</div><div class="cbadge">${myCampaigns.length}</div></div>
+    <div class="tw"><table>
+      <thead><tr><th>Campaign</th><th>Brand</th><th>Tier</th><th>Payout</th><th>Status</th><th>Action</th></tr></thead>
+      <tbody>${myCampaigns.map(c=>`<tr>
+        <td><div class="cname">${c.campaign}</div></td>
+        <td>${c.marketer}</td>
+        <td>${tierBadge(c.tier)}</td>
+        <td style="font-weight:700;color:var(--g)">${pound(c.payout)}</td>
+        <td>${statusBadge(c.status)}</td>
+        <td>${c.status==='active'?`<button class="btn btn-sm btn-p" onclick="openSubmitProof(${c.id})">Submit Proof</button>`:
+             c.status==='proof_submitted'?`<span style="font-size:12px;color:var(--a)">â³ Awaiting admin</span>`:
+             c.status==='paid'?`<span style="font-size:12px;color:var(--g)">âœ“ Paid</span>`:'â€”'}</td>
+      </tr>`).join('')}</tbody>
+    </table></div>
+  </div>`;
+}
+
+function renderEarnings() {
+  const paid = myCampaigns.filter(c=>c.status==='paid').reduce((s,c)=>s+c.payout,0);
+  const pending = myCampaigns.filter(c=>c.status==='proof_submitted').reduce((s,c)=>s+c.payout,0);
+  return `
+  <div class="ebanner">
+    <div>
+      <div class="elbl">Lifetime Earnings</div>
+      <div class="eamt">${pound(paid)}</div>
+      <div class="erow">
+        <div>â³ Pending payout: <strong>${pound(pending)}</strong></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ch"><div class="ct">ðŸ’³ Stripe Payout Account</div></div>
+    <div class="cb">
+      <div class="alert as">âœ… Stripe account connected â€” **** **** **** 4242 (Barclays UK)</div>
+      <button class="btn btn-gh btn-sm">Update bank details</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ch"><div class="ct">Payment History</div></div>
+    <div class="tw"><table>
+      <thead><tr><th>Date</th><th>Campaign</th><th>Amount</th><th>Status</th></tr></thead>
+      <tbody>${myCampaigns.filter(c=>c.status==='paid').map(c=>`<tr>
+        <td style="color:var(--g400)">Jun 2026</td>
+        <td>${c.campaign}</td>
+        <td style="font-weight:700;color:var(--g)">${pound(c.payout)}</td>
+        <td><span class="b bg">Paid âœ“</span></td>
+      </tr>`).join('')}</tbody>
+    </table></div>
+  </div>`;
+}
+
+// ===== MARKETER PAGES =====
+function renderMkrDash() {
+  const totalSpent = mkrCampaigns.reduce((s,c)=>s+c.cost,0);
+  const totalViews = mkrCampaigns.reduce((s,c)=>s+c.verified,0);
+  const active = mkrCampaigns.filter(c=>c.status==='active').length;
+  return `
+  <div class="sgrid">
+    <div class="scard"><div class="si">ðŸ“‹</div><div class="sl">Total Campaigns</div><div class="sv">${mkrCampaigns.length}</div><div class="ss">${active} active</div></div>
+    <div class="scard"><div class="si">ðŸ‘ï¸</div><div class="sl">Verified Views</div><div class="sv">${totalViews.toLocaleString()}</div><div class="ss">AI verified</div></div>
+    <div class="scard"><div class="si">ðŸ’°</div><div class="sl">Total Spent</div><div class="sv">${pound(totalSpent)}</div><div class="ss">In escrow</div></div>
+    <div class="scard"><div class="si">ðŸ“Š</div><div class="sl">Cost Per View</div><div class="sv">${totalViews > 0 ? 'Â£' + (totalSpent/totalViews).toFixed(3) : 'â€”'}</div><div class="ss">Avg CPV</div></div>
+  </div>
+  <div class="card">
+    <div class="ch"><div class="ct">My Campaigns</div><div class="ca"><button class="btn btn-p btn-sm" onclick="navigate('create')">+ New Campaign</button></div></div>
+    <div class="tw"><table>
+      <thead><tr><th>Campaign</th><th>Tier</th><th>Status</th><th>Progress</th><th>Cost</th></tr></thead>
+      <tbody>${mkrCampaigns.map(c=>`<tr>
+        <td><div class="cname">${c.name}</div><div class="csub">Created ${c.created}</div></td>
+        <td>${tierBadge(c.tier)}</td>
+        <td>${statusBadge(c.status)}</td>
+        <td style="min-width:160px">${prog(c.verified,c.target)}</td>
+        <td style="font-weight:600">${pound(c.cost)}</td>
+      </tr>`).join('')}</tbody>
+    </table></div>
+  </div>`;
+}
+
+function renderCreate() {
+  const tierRows = tiers.map(t=>`
+    <div class="tc ${t.name===selectedTier?'sel':''}" onclick="selectTier('${t.name}',this)">
+      <div class="tn">${t.name}</div>
+      <div class="tv">${t.views.toLocaleString()} views</div>
+      <div class="tp">${pound(t.total)}</div>
+      <div class="tt">Influencer gets ${pound(t.inf)}</div>
+    </div>`).join('');
+  return `
+  <div class="alert ai">â„¹ï¸ Funds are held in escrow by Stripe until an influencer hits the view target and the proof is admin-approved.</div>
+  <div class="card">
+    <div class="ch"><div class="ct">Campaign Details</div></div>
+    <div class="cb">
+      <div class="fg"><label class="fl">Campaign Name *</label><input class="fi" placeholder="e.g. Summer Sale 2026" id="cc-name"></div>
+      <div class="fg"><label class="fl">Brief / Description *</label><textarea class="fta" placeholder="Describe the campaign, tone, and what you want influencers to promote..." id="cc-desc"></textarea></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ch"><div class="ct">Select Tier *</div></div>
+    <div class="cb">
+      <div class="tpicker" id="tier-picker">${tierRows}</div>
+      <div id="tier-info" style="font-size:12px;color:var(--g400)">Selected: <strong style="color:var(--g900)">${selectedTier}</strong> â€” influencer earns ${pound(tiers.find(t=>t.name===selectedTier)?.inf||0)}, you pay ${pound(tiers.find(t=>t.name===selectedTier)?.total||0)} total</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ch"><div class="ct">Ad Creative *</div></div>
+    <div class="cb">
+      <div class="uz" onclick="alert('File upload coming in the live build')">
+        <div class="ui">ðŸ“¤</div>
+        <div class="ut">Click to upload ad creative</div>
+        <div class="us">Image or video Â· Max 50MB Â· WhatsApp Status format recommended (9:16)</div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:4px">
+    <button class="btn btn-gh" onclick="navigate('mkr-camps')">Cancel</button>
+    <button class="btn btn-p" onclick="submitCampaign()">Pay to Escrow &amp; Launch â†’</button>
+  </div>`;
+}
+function selectTier(name, el) {
+  selectedTier = name;
+  document.querySelectorAll('.tc').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  const t = tiers.find(t=>t.name===name);
+  document.getElementById('tier-info').innerHTML = `Selected: <strong style="color:var(--g900)">${name}</strong> â€” influencer earns ${pound(t.inf)}, you pay ${pound(t.total)} total`;
+}
+function submitCampaign() {
+  const name = document.getElementById('cc-name')?.value.trim();
+  if (!name) { alert('Please enter a campaign name'); return; }
+  const t = tiers.find(t=>t.name===selectedTier);
+  mkrCampaigns.unshift({id:Date.now(),name,tier:selectedTier,status:'active',target:t.views,verified:0,influencers:0,cost:t.total,created:'Today'});
+  totalAdminRevenue += t.fee;
+  openModal('Campaign Launched! ðŸŽ‰',
+    `<div class="alert as">âœ… <strong>${name}</strong> is now live!</div>
+     <p style="font-size:13px;color:var(--g600);margin-bottom:12px">${pound(t.total)} has been held in Stripe escrow. It will be released to the influencer once the view target (${t.views.toLocaleString()} views) is verified and admin-approved.</p>
+     <div style="background:var(--g50);border-radius:8px;padding:14px;font-size:13px">
+       <div style="margin-bottom:6px">ðŸŽ¯ View target: <strong>${t.views.toLocaleString()}</strong></div>
+       <div style="margin-bottom:6px">ðŸ’° Escrow held: <strong>${pound(t.total)}</strong></div>
+       <div>ðŸ“£ Influencers can now apply</div>
+     </div>`,
+    `<button class="btn btn-g" onclick="closeModal();navigate('mkr-camps')">View My Campaigns â†’</button>`);
+}
+
+function renderMkrCamps() {
+  return `
+  <div class="card">
+    <div class="ch"><div class="ct">My Campaigns</div><div class="cbadge">${mkrCampaigns.length}</div><div class="ca"><button class="btn btn-p btn-sm" onclick="navigate('create')">+ New</button></div></div>
+    <div class="tw"><table>
+      <thead><tr><th>Campaign</th><th>Tier</th><th>Status</th><th>Influencers</th><th>Progress</th><th>Cost</th></tr></thead>
+      <tbody>${mkrCampaigns.map(c=>`<tr>
+        <td><div class="cname">${c.name}</div><div class="csub">Created ${c.created}</div></td>
+        <td>${tierBadge(c.tier)}</td>
+        <td>${statusBadge(c.status)}</td>
+        <td style="text-align:center">${c.influencers}</td>
+        <td style="min-width:160px">${prog(c.verified,c.target)}</td>
+        <td style="font-weight:600">${pound(c.cost)}</td>
+      </tr>`).join('')}</tbody>
+    </table></div>
+  </div>`;
+}
+
+function renderBilling() {
+  const totalSpent = mkrCampaigns.reduce((s,c)=>s+c.cost,0);
+  return `
+  <div class="card">
+    <div class="ch"><div class="ct">ðŸ’³ Payment Method</div></div>
+    <div class="cb">
+      <div class="alert as">âœ… Stripe account active â€” **** **** **** 8765 (HSBC Business)</div>
+      <button class="btn btn-gh btn-sm">Update card</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ch"><div class="ct">Spend Summary</div></div>
+    <div class="cb">
+      <div class="sgrid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="scard"><div class="sl">Total Deposited</div><div class="sv">${pound(totalSpent)}</div></div>
+        <div class="scard"><div class="sl">Released to Influencers</div><div class="sv" style="color:var(--g)">${pound(mkrCampaigns.filter(c=>c.status==='completed'||c.status==='paid').reduce((s,c)=>s+c.cost,0))}</div></div>
+        <div class="scard"><div class="sl">In Escrow</div><div class="sv" style="color:var(--a)">${pound(mkrCampaigns.filter(c=>c.status==='active'||c.status==='proof_submitted').reduce((s,c)=>s+c.cost,0))}</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ch"><div class="ct">Transaction History</div></div>
+    <div class="tw"><table>
+      <thead><tr><th>Campaign</th><th>Tier</th><th>Amount</th><th>Status</th></tr></thead>
+      <tbody>${mkrCampaigns.map(c=>`<tr>
+        <td>${c.name}</td>
+        <td>${tierBadge(c.tier)}</td>
+        <td style="font-weight:600">${pound(c.cost)}</td>
+        <td>${c.status==='active'?'<span class="b ba">In Escrow</span>':c.status==='completed'||c.status==='paid'?'<span class="b bg">Released</span>':'<span class="b ba">In Escrow</span>'}</td>
+      </tr>`).join('')}</tbody>
+    </table></div>
+  </div>`;
+}
+
+// ===== MODALS =====
+function openModal(title, body, footer='<button class="btn btn-gh" onclick="closeModal()">Close</button>') {
+  document.getElementById('modal-title').innerHTML = title;
+  document.getElementById('modal-body').innerHTML = body;
+  document.getElementById('modal-footer').innerHTML = footer;
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+
+function openProofModal(id) {
+  const a = pendingApprovals.find(x=>x.id===id);
+  if (!a) return;
+  const tierPayout = tiers.find(t=>t.name===a.tier)?.inf || 0;
+  openModal(`Proof Review â€” ${a.campaign}`,
+    `<div class="proof-wrap">
+      <div class="phone"><div class="ws">
+        <div style="font-size:10px;opacity:.6;margin-bottom:8px">WhatsApp Status</div>
+        <div style="width:100px;height:100px;background:rgba(255,255,255,.15);border-radius:8px;margin-bottom:10px;display:flex;align-items:center;justify-content:center;font-size:10px;opacity:.6">Ad Creative</div>
+        <div class="wvc">${a.submitted.toLocaleString()}</div>
+        <div class="wvl">ðŸ‘ Views</div>
+        <div class="wad">${a.influencer}</div>
+      </div></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div><div style="font-size:11px;color:var(--g400)">AI Confidence Score</div><div class="conf">${a.confidence}%</div></div>
+      <div style="text-align:right"><div style="font-size:11px;color:var(--g400)">Influencer Payout on Approval</div><div style="font-size:22px;font-weight:800;color:var(--g)">${pound(tierPayout)}</div></div>
+    </div>
+    <ul class="ai-list">
+      <li><span class="ck">âœ“</span> WhatsApp Status UI detected</li>
+      <li><span class="ck">âœ“</span> View count readable: ${a.submitted.toLocaleString()} views</li>
+      <li><span class="ck">âœ“</span> Target met: ${a.target.toLocaleString()} required, ${a.submitted.toLocaleString()} submitted</li>
+      <li><span class="ck">âœ“</span> Ad creative identified in frame</li>
+      <li><span class="${a.confidence>=90?'ck':'cx'}">${a.confidence>=90?'âœ“':'âš '}</span> Confidence score: ${a.confidence}% ${a.confidence>=90?'(Pass)':'(Review carefully)'}</li>
+    </ul>`,
+    `<button class="btn btn-gh" onclick="closeModal()">Cancel</button>
+     <button class="btn btn-r" onclick="rejectProof(${id})">âœ• Reject</button>
+     <button class="btn btn-g" onclick="approveProof(${id})">âœ“ Approve &amp; Release ${pound(tierPayout)}</button>`);
+}
+function approveProof(id) {
+  const a = pendingApprovals.find(x=>x.id===id);
+  const tierPayout = tiers.find(t=>t.name===a.tier)?.inf || 0;
+  const fee = tiers.find(t=>t.name===a.tier)?.fee || 0;
+  pendingApprovals = pendingApprovals.filter(x=>x.id!==id);
+  totalAdminRevenue += fee;
+  const mc = myCampaigns.find(c=>c.campaign===a.campaign);
+  if (mc) mc.status = 'paid';
+  closeModal();
+  setTimeout(()=>{
+    openModal('Payment Released âœ…',
+      `<div class="alert as">âœ… Approved! <strong>${pound(tierPayout)}</strong> has been released to <strong>${a.influencer}</strong> via Stripe.</div>
+       <p style="font-size:13px;color:var(--g600)">Platform fee of <strong>${pound(fee)}</strong> retained. Campaign marked complete.</p>`,
+      `<button class="btn btn-g" onclick="closeModal();navigate('approvals')">Done</button>`);
+    buildNav(portals[portal]);
+  }, 100);
+}
+function rejectProof(id) {
+  pendingApprovals = pendingApprovals.filter(x=>x.id!==id);
+  closeModal();
+  setTimeout(()=>{
+    openModal('Proof Rejected',
+      `<div class="alert aw">âš ï¸ Proof has been rejected. The influencer has been notified and can resubmit.</div>`,
+      `<button class="btn btn-gh" onclick="closeModal();navigate('approvals')">Done</button>`);
+    buildNav(portals[portal]);
+  }, 100);
+}
+
+function openSubmitProof(id) {
+  const c = myCampaigns.find(x=>x.id===id);
+  openModal(`Submit Proof â€” ${c.campaign}`,
+    `<div class="alert ai">â„¹ï¸ Post the ad creative to your WhatsApp Status, wait for ${c.target.toLocaleString()} views, then upload a screenshot below.</div>
+     <div class="fg"><label class="fl">Screenshot of WhatsApp Status (showing view count) *</label>
+       <div class="uz" onclick="alert('File upload active in the live build')">
+         <div class="ui">ðŸ“¸</div>
+         <div class="ut">Click to upload screenshot</div>
+         <div class="us">The AI will read your view count automatically</div>
+       </div>
+     </div>
+     <div class="fg"><label class="fl">Optional: Video recording (increases confidence score)</label>
+       <div class="uz" onclick="alert('File upload active in the live build')">
+         <div class="ui">ðŸŽ¥</div>
+         <div class="ut">Click to upload video</div>
+         <div class="us">MP4 or MOV Â· Max 100MB</div>
+       </div>
+     </div>`,
+    `<button class="btn btn-gh" onclick="closeModal()">Cancel</button>
+     <button class="btn btn-p" onclick="fakeSubmitProof(${id})">Submit for Review â†’</button>`);
+}
+function fakeSubmitProof(id) {
+  const c = myCampaigns.find(x=>x.id===id);
+  if (c) c.status = 'proof_submitted';
+  const p = {id:Date.now(),campaign:c.campaign,marketer:c.marketer,influencer:'Sarah J.',handle:'@sarah_j',tier:c.tier,target:c.target,submitted:c.target+Math.round(c.target*0.05),confidence:92,date:'Today'};
+  pendingApprovals.push(p);
+  closeModal();
+  setTimeout(()=>{
+    openModal('Proof Submitted! â³',
+      `<div class="alert as">âœ… Your proof has been submitted for admin review.</div>
+       <p style="font-size:13px;color:var(--g600)">The AI has pre-screened your screenshot. An admin will review and release your payment â€” usually within 24 hours.</p>`,
+      `<button class="btn btn-g" onclick="closeModal();navigate('my-camps')">Go to My Campaigns â†’</button>`);
+    if (portal==='admin') buildNav(portals['admin']);
+  }, 100);
+}
+
+function openInviteModal(type) {
+  openModal(`Invite ${type==='influencer'?'Influencer':'Marketer'}`,
+    `<div class="fg"><label class="fl">Name</label><input class="fi" placeholder="Full name" id="inv-name"></div>
+     <div class="fg"><label class="fl">Email Address</label><input class="fi" type="email" placeholder="email@example.com" id="inv-email"></div>
+     <div class="fg"><label class="fl">Country</label>
+       <select class="fsel" id="inv-country">
+         <option>ðŸ‡¬ðŸ‡§ United Kingdom</option>
+         <option>ðŸ‡®ðŸ‡± Israel</option>
+         <option>ðŸ‡§ðŸ‡ª Belgium</option>
+         <option>ðŸ‡ºðŸ‡¸ United States</option>
+       </select>
+     </div>
+     <div class="alert ai">â„¹ï¸ An invite email will be sent with a secure signup link.</div>`,
+    `<button class="btn btn-gh" onclick="closeModal()">Cancel</button>
+     <button class="btn btn-p" onclick="sendInvite('${type}')">Send Invite â†’</button>`);
+}
+function sendInvite(type) {
+  const name = document.getElementById('inv-name').value.trim();
+  const email = document.getElementById('inv-email').value.trim();
+  if (!name || !email) { alert('Please fill in all fields'); return; }
+  closeModal();
+  setTimeout(()=>{
+    openModal('Invite Sent âœ…',
+      `<div class="alert as">âœ… Invite sent to <strong>${name}</strong> (${email})</div>`,
+      `<button class="btn btn-g" onclick="closeModal()">Done</button>`);
+  }, 100);
+}
+</script>
+</body>
+</html>
+
+
