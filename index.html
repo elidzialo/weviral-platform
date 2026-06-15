@@ -188,15 +188,15 @@ tr:hover td{background:var(--g50)}
     <div class="tag">Post your status. Get paid for your reach.</div>
     <div class="pcards">
       <div class="pcard sel" onclick="selectPortal('admin',this)">
-        <div class="ico">ðŸ›¡ï¸</div>
+        <div class="ico">&#x1F6E1;&#xFE0F;</div>
         <div><div class="pt">Super Admin</div><div class="pd">Manage campaigns, approvals &amp; users</div></div>
       </div>
       <div class="pcard" onclick="selectPortal('influencer',this)">
-        <div class="ico">ðŸ“²</div>
+        <div class="ico">&#x1F4F2;</div>
         <div><div class="pt">Influencer / Creator</div><div class="pd">Browse campaigns, post &amp; earn</div></div>
       </div>
       <div class="pcard" onclick="selectPortal('marketer',this)">
-        <div class="ico">ðŸ“£</div>
+        <div class="ico">&#x1F4E3;</div>
         <div><div class="pt">Advertiser / Marketer</div><div class="pd">Create campaigns &amp; track reach</div></div>
       </div>
     </div>
@@ -262,17 +262,17 @@ let pendingApprovals = [
   {id:3,campaign:'BrewDog IPA Launch',marketer:'BrewDog',influencer:'James W.',handle:'@james_w',tier:'Viral',target:1000,submitted:1047,confidence:97,date:'14 Jun'},
 ];
 let allInfluencers = [
-  {name:'Sarah Johnson',handle:'@sarah_j',country:'ðŸ‡¬ðŸ‡§ UK',campaigns:6,earned:315,status:'active'},
-  {name:'Michal Tal',handle:'@michal_t',country:'ðŸ‡®ðŸ‡± Israel',campaigns:3,earned:120,status:'active'},
-  {name:'James Williams',handle:'@james_w',country:'ðŸ‡¬ðŸ‡§ UK',campaigns:4,earned:212,status:'active'},
-  {name:'Emma Dupont',handle:'@emma_d',country:'ðŸ‡§ðŸ‡ª Belgium',campaigns:2,earned:90,status:'active'},
-  {name:'Tyler Brooks',handle:'@tyler_b',country:'ðŸ‡ºðŸ‡¸ USA',campaigns:1,earned:45,status:'pending'},
+  {name:'Sarah Johnson',handle:'@sarah_j',country:'&#x1F1EC;&#x1F1E7; UK',campaigns:6,earned:315,status:'active'},
+  {name:'Michal Tal',handle:'@michal_t',country:'&#x1F1EE;&#x1F1F1; Israel',campaigns:3,earned:120,status:'active'},
+  {name:'James Williams',handle:'@james_w',country:'&#x1F1EC;&#x1F1E7; UK',campaigns:4,earned:212,status:'active'},
+  {name:'Emma Dupont',handle:'@emma_d',country:'&#x1F1E7;&#x1F1EA; Belgium',campaigns:2,earned:90,status:'active'},
+  {name:'Tyler Brooks',handle:'@tyler_b',country:'&#x1F1FA;&#x1F1F8; USA',campaigns:1,earned:45,status:'pending'},
 ];
 let allMarketers = [
-  {name:'Nike UK',contact:'mark@nike.com',country:'ðŸ‡¬ðŸ‡§ UK',campaigns:4,spent:324,status:'active'},
-  {name:"Ben's Deli",contact:'ben@bensdeli.co.il',country:'ðŸ‡®ðŸ‡± Israel',campaigns:2,spent:108,status:'active'},
-  {name:'BrewDog',contact:'ads@brewdog.com',country:'ðŸ‡¬ðŸ‡§ UK',campaigns:3,spent:228,status:'active'},
-  {name:'Zara Belgium',contact:'digital@zara.be',country:'ðŸ‡§ðŸ‡ª Belgium',campaigns:1,spent:54,status:'active'},
+  {name:'Nike UK',contact:'mark@nike.com',country:'&#x1F1EC;&#x1F1E7; UK',campaigns:4,spent:324,status:'active'},
+  {name:"Ben's Deli",contact:'ben@bensdeli.co.il',country:'&#x1F1EE;&#x1F1F1; Israel',campaigns:2,spent:108,status:'active'},
+  {name:'BrewDog',contact:'ads@brewdog.com',country:'&#x1F1EC;&#x1F1E7; UK',campaigns:3,spent:228,status:'active'},
+  {name:'Zara Belgium',contact:'digital@zara.be',country:'&#x1F1E7;&#x1F1EA; Belgium',campaigns:1,spent:54,status:'active'},
 ];
 let tiers = [
   {name:'Starter',views:100,inf:10,fee:2,total:12},
@@ -304,32 +304,32 @@ const portals = {
   admin:{
     label:'Admin Portal',user:'Eli D.',role:'Super Admin',av:'EL',avcls:'',
     nav:[
-      {sec:'dashboard',ic:'ðŸ“Š',label:'Dashboard'},
-      {sec:'approvals',ic:'âœ…',label:'Pending Approvals',badge:true},
-      {sec:'campaigns',ic:'ðŸ“‹',label:'All Campaigns'},
-      {sec:'influencers',ic:'ðŸ‘¥',label:'Influencers'},
-      {sec:'marketers',ic:'ðŸ“£',label:'Marketers'},
-      {sec:'tiers',ic:'âš™ï¸',label:'Tier Settings'},
+      {sec:'dashboard',ic:'&#x1F4CA;',label:'Dashboard'},
+      {sec:'approvals',ic:'&#x2705;',label:'Pending Approvals',badge:true},
+      {sec:'campaigns',ic:'&#x1F4CB;',label:'All Campaigns'},
+      {sec:'influencers',ic:'&#x1F465;',label:'Influencers'},
+      {sec:'marketers',ic:'&#x1F4E3;',label:'Marketers'},
+      {sec:'tiers',ic:'&#x2699;&#xFE0F;',label:'Tier Settings'},
     ],
     default:'dashboard'
   },
   influencer:{
-    label:'Influencer Portal',user:'Sarah J.',role:'Influencer Â· ðŸ‡¬ðŸ‡§ UK',av:'SJ',avcls:'g',
+    label:'Influencer Portal',user:'Sarah J.',role:'Influencer Â· &#x1F1EC;&#x1F1E7; UK',av:'SJ',avcls:'g',
     nav:[
-      {sec:'inf-dashboard',ic:'ðŸ“Š',label:'My Dashboard'},
-      {sec:'browse',ic:'ðŸ”',label:'Browse Campaigns'},
-      {sec:'my-camps',ic:'ðŸ“²',label:'My Campaigns'},
-      {sec:'earnings',ic:'ðŸ’°',label:'Earnings'},
+      {sec:'inf-dashboard',ic:'&#x1F4CA;',label:'My Dashboard'},
+      {sec:'browse',ic:'&#x1F50D;',label:'Browse Campaigns'},
+      {sec:'my-camps',ic:'&#x1F4F2;',label:'My Campaigns'},
+      {sec:'earnings',ic:'&#x1F4B0;',label:'Earnings'},
     ],
     default:'inf-dashboard'
   },
   marketer:{
-    label:'Marketer Portal',user:'Nike UK',role:'Marketer Â· ðŸ‡¬ðŸ‡§ UK',av:'NK',avcls:'b',
+    label:'Marketer Portal',user:'Nike UK',role:'Marketer Â· &#x1F1EC;&#x1F1E7; UK',av:'NK',avcls:'b',
     nav:[
-      {sec:'mkr-dashboard',ic:'ðŸ“Š',label:'Dashboard'},
-      {sec:'create',ic:'âž•',label:'Create Campaign'},
-      {sec:'mkr-camps',ic:'ðŸ“‹',label:'My Campaigns'},
-      {sec:'billing',ic:'ðŸ’³',label:'Billing'},
+      {sec:'mkr-dashboard',ic:'&#x1F4CA;',label:'Dashboard'},
+      {sec:'create',ic:'&#x2795;',label:'Create Campaign'},
+      {sec:'mkr-camps',ic:'&#x1F4CB;',label:'My Campaigns'},
+      {sec:'billing',ic:'&#x1F4B3;',label:'Billing'},
     ],
     default:'mkr-dashboard'
   }
@@ -436,15 +436,15 @@ function renderAdminDash() {
   const rev = totalAdminRevenue;
   return `
   <div class="sgrid">
-    <div class="scard"><div class="si">ðŸ‘¥</div><div class="sl">Influencers</div><div class="sv">${allInfluencers.length}</div><div class="ss">${allInfluencers.filter(x=>x.status==='active').length} active</div></div>
-    <div class="scard"><div class="si">ðŸ“£</div><div class="sl">Marketers</div><div class="sv">${allMarketers.length}</div><div class="ss">All verified</div></div>
+    <div class="scard"><div class="si">&#x1F465;</div><div class="sl">Influencers</div><div class="sv">${allInfluencers.length}</div><div class="ss">${allInfluencers.filter(x=>x.status==='active').length} active</div></div>
+    <div class="scard"><div class="si">&#x1F4E3;</div><div class="sl">Marketers</div><div class="sv">${allMarketers.length}</div><div class="ss">All verified</div></div>
     <div class="scard"><div class="si">â³</div><div class="sl">Pending Approvals</div><div class="sv" style="color:var(--a)">${pendingApprovals.length}</div><div class="ss">Need review</div></div>
-    <div class="scard"><div class="si">ðŸ’°</div><div class="sl">Platform Revenue</div><div class="sv" style="color:var(--g)">${pound(rev)}</div><div class="ss">Total earned</div></div>
+    <div class="scard"><div class="si">&#x1F4B0;</div><div class="sl">Platform Revenue</div><div class="sv" style="color:var(--g)">${pound(rev)}</div><div class="ss">Total earned</div></div>
   </div>
   <div class="grid2">
     <div class="card">
       <div class="ch"><div class="ct">â³ Pending Approvals</div><div class="cbadge">${pendingApprovals.length}</div></div>
-      ${pendingApprovals.length === 0 ? '<div class="cb"><div class="empty"><div class="ei">âœ…</div><p>All clear â€” no approvals pending</p></div></div>' :
+      ${pendingApprovals.length === 0 ? '<div class="cb"><div class="empty"><div class="ei">&#x2705;</div><p>All clear â€” no approvals pending</p></div></div>' :
       `<div class="cb">` + pendingApprovals.slice(0,3).map(a => `
         <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--g100)">
           <div style="flex:1"><div class="cname">${a.campaign}</div><div class="csub">${a.influencer} Â· ${a.tier} Â· <span style="color:var(--g);font-weight:600">${a.submitted} views</span></div></div>
@@ -452,7 +452,7 @@ function renderAdminDash() {
         </div>`).join('') + `<div style="padding-top:10px"><button class="btn btn-gh btn-sm" onclick="navigate('approvals')">View all â†’</button></div></div>`}
     </div>
     <div class="card">
-      <div class="ch"><div class="ct">ðŸ“ˆ Platform Activity</div></div>
+      <div class="ch"><div class="ct">&#x1F4C8; Platform Activity</div></div>
       <div class="cb">
         ${[
           ['10 Jun','Nike Summer Drop â€” approved','var(--g)'],
@@ -467,9 +467,9 @@ function renderAdminDash() {
 }
 
 function renderApprovals() {
-  if (pendingApprovals.length === 0) return `<div class="card"><div class="cb"><div class="empty"><div class="ei">âœ…</div><p>No pending approvals â€” all caught up!</p></div></div></div>`;
+  if (pendingApprovals.length === 0) return `<div class="card"><div class="cb"><div class="empty"><div class="ei">&#x2705;</div><p>No pending approvals â€” all caught up!</p></div></div></div>`;
   return `
-  <div class="alert ai">â„¹ï¸ Review each submission below. The AI has pre-screened every proof â€” you make the final call.</div>
+  <div class="alert ai">&#x2139;&#xFE0F; Review each submission below. The AI has pre-screened every proof â€” you make the final call.</div>
   <div class="card">
     <div class="tw">
       <table>
@@ -555,9 +555,9 @@ function renderMarketers() {
 
 function renderTiers() {
   return `
-  <div class="alert ai">â„¹ï¸ Changes to tiers affect all new campaigns. Existing campaigns are locked at their original tier price.</div>
+  <div class="alert ai">&#x2139;&#xFE0F; Changes to tiers affect all new campaigns. Existing campaigns are locked at their original tier price.</div>
   <div class="card">
-    <div class="ch"><div class="ct">âš™ï¸ Payout Tiers</div></div>
+    <div class="ch"><div class="ct">&#x2699;&#xFE0F; Payout Tiers</div></div>
     <div class="tw"><table>
       <thead><tr><th>Tier</th><th>Views Target</th><th>Influencer Payout</th><th>Platform Fee</th><th>Marketer Total</th><th>Margin</th></tr></thead>
       <tbody>${tiers.map(t=>`<tr>
@@ -605,14 +605,14 @@ function renderInfDash() {
       <div class="eamt">${pound(paid)}</div>
       <div class="erow">
         <div>â³ Pending: <strong>${pound(pending)}</strong></div>
-        <div>ðŸ“² Active: <strong>${active}</strong></div>
-        <div>âœ… Completed: <strong>${myCampaigns.filter(c=>c.status==='paid').length}</strong></div>
+        <div>&#x1F4F2; Active: <strong>${active}</strong></div>
+        <div>&#x2705; Completed: <strong>${myCampaigns.filter(c=>c.status==='paid').length}</strong></div>
       </div>
     </div>
   </div>
   <div class="grid2">
     <div class="card">
-      <div class="ch"><div class="ct">ðŸ“² Active Campaigns</div></div>
+      <div class="ch"><div class="ct">&#x1F4F2; Active Campaigns</div></div>
       <div class="cb">
         ${myCampaigns.filter(c=>c.status==='active'||c.status==='proof_submitted').map(c=>`
         <div style="padding:10px 0;border-bottom:1px solid var(--g100)">
@@ -626,7 +626,7 @@ function renderInfDash() {
       </div>
     </div>
     <div class="card">
-      <div class="ch"><div class="ct">ðŸ” Available Campaigns</div><div class="ca"><button class="btn btn-gh btn-sm" onclick="navigate('browse')">View all â†’</button></div></div>
+      <div class="ch"><div class="ct">&#x1F50D; Available Campaigns</div><div class="ca"><button class="btn btn-gh btn-sm" onclick="navigate('browse')">View all â†’</button></div></div>
       <div class="cb">
         ${availCampaigns.slice(0,3).map(c=>`
         <div style="padding:10px 0;border-bottom:1px solid var(--g100)">
@@ -643,7 +643,7 @@ function renderInfDash() {
 
 function renderBrowse() {
   return `
-  <div class="alert as">âœ… Stripe account connected â€” payouts go straight to your bank within 2 business days.</div>
+  <div class="alert as">&#x2705; Stripe account connected â€” payouts go straight to your bank within 2 business days.</div>
   ${availCampaigns.map(c=>`
   <div class="card">
     <div class="ch">
@@ -657,9 +657,9 @@ function renderBrowse() {
     <div class="cb">
       <p style="font-size:13px;color:var(--g600);margin-bottom:12px">${c.desc}</p>
       <div class="flex" style="gap:20px;font-size:12px;color:var(--g400)">
-        <span>ðŸŽ¯ Target: ${tiers.find(t=>t.name===c.tier)?.views.toLocaleString()} views</span>
-        <span>ðŸ“… Deadline: ${c.deadline}</span>
-        <span>ðŸ’° Payout: ${pound(c.payout)}</span>
+        <span>&#x1F3AF; Target: ${tiers.find(t=>t.name===c.tier)?.views.toLocaleString()} views</span>
+        <span>&#x1F4C5; Deadline: ${c.deadline}</span>
+        <span>&#x1F4B0; Payout: ${pound(c.payout)}</span>
       </div>
     </div>
   </div>`).join('')}`;
@@ -669,7 +669,7 @@ function applyNow(id) {
   if (!c) return;
   myCampaigns.unshift({id:c.id,campaign:c.campaign,marketer:c.marketer,tier:c.tier,payout:c.payout,status:'active',target:tiers.find(t=>t.name===c.tier)?.views||500});
   availCampaigns = availCampaigns.filter(x=>x.id!==id);
-  openModal('Applied!', `<div class="alert as">âœ… You've applied to <strong>${c.campaign}</strong>!<br><br>Download the ad creative and post it to your WhatsApp Status. Once it hits ${tiers.find(t=>t.name===c.tier)?.views.toLocaleString()} views, come back and submit your screenshot proof.</div>`, `<button class="btn btn-g" onclick="closeModal();navigate('my-camps')">Go to My Campaigns â†’</button>`);
+  openModal('Applied!', `<div class="alert as">&#x2705; You've applied to <strong>${c.campaign}</strong>!<br><br>Download the ad creative and post it to your WhatsApp Status. Once it hits ${tiers.find(t=>t.name===c.tier)?.views.toLocaleString()} views, come back and submit your screenshot proof.</div>`, `<button class="btn btn-g" onclick="closeModal();navigate('my-camps')">Go to My Campaigns â†’</button>`);
 }
 
 function renderMyCamps() {
@@ -706,9 +706,9 @@ function renderEarnings() {
     </div>
   </div>
   <div class="card">
-    <div class="ch"><div class="ct">ðŸ’³ Stripe Payout Account</div></div>
+    <div class="ch"><div class="ct">&#x1F4B3; Stripe Payout Account</div></div>
     <div class="cb">
-      <div class="alert as">âœ… Stripe account connected â€” **** **** **** 4242 (Barclays UK)</div>
+      <div class="alert as">&#x2705; Stripe account connected â€” **** **** **** 4242 (Barclays UK)</div>
       <button class="btn btn-gh btn-sm">Update bank details</button>
     </div>
   </div>
@@ -733,10 +733,10 @@ function renderMkrDash() {
   const active = mkrCampaigns.filter(c=>c.status==='active').length;
   return `
   <div class="sgrid">
-    <div class="scard"><div class="si">ðŸ“‹</div><div class="sl">Total Campaigns</div><div class="sv">${mkrCampaigns.length}</div><div class="ss">${active} active</div></div>
-    <div class="scard"><div class="si">ðŸ‘ï¸</div><div class="sl">Verified Views</div><div class="sv">${totalViews.toLocaleString()}</div><div class="ss">AI verified</div></div>
-    <div class="scard"><div class="si">ðŸ’°</div><div class="sl">Total Spent</div><div class="sv">${pound(totalSpent)}</div><div class="ss">In escrow</div></div>
-    <div class="scard"><div class="si">ðŸ“Š</div><div class="sl">Cost Per View</div><div class="sv">${totalViews > 0 ? 'Â£' + (totalSpent/totalViews).toFixed(3) : 'â€”'}</div><div class="ss">Avg CPV</div></div>
+    <div class="scard"><div class="si">&#x1F4CB;</div><div class="sl">Total Campaigns</div><div class="sv">${mkrCampaigns.length}</div><div class="ss">${active} active</div></div>
+    <div class="scard"><div class="si">&#x1F441;&#xFE0F;</div><div class="sl">Verified Views</div><div class="sv">${totalViews.toLocaleString()}</div><div class="ss">AI verified</div></div>
+    <div class="scard"><div class="si">&#x1F4B0;</div><div class="sl">Total Spent</div><div class="sv">${pound(totalSpent)}</div><div class="ss">In escrow</div></div>
+    <div class="scard"><div class="si">&#x1F4CA;</div><div class="sl">Cost Per View</div><div class="sv">${totalViews > 0 ? 'Â£' + (totalSpent/totalViews).toFixed(3) : 'â€”'}</div><div class="ss">Avg CPV</div></div>
   </div>
   <div class="card">
     <div class="ch"><div class="ct">My Campaigns</div><div class="ca"><button class="btn btn-p btn-sm" onclick="navigate('create')">+ New Campaign</button></div></div>
@@ -762,7 +762,7 @@ function renderCreate() {
       <div class="tt">Influencer gets ${pound(t.inf)}</div>
     </div>`).join('');
   return `
-  <div class="alert ai">â„¹ï¸ Funds are held in escrow by Stripe until an influencer hits the view target and the proof is admin-approved.</div>
+  <div class="alert ai">&#x2139;&#xFE0F; Funds are held in escrow by Stripe until an influencer hits the view target and the proof is admin-approved.</div>
   <div class="card">
     <div class="ch"><div class="ct">Campaign Details</div></div>
     <div class="cb">
@@ -781,7 +781,7 @@ function renderCreate() {
     <div class="ch"><div class="ct">Ad Creative *</div></div>
     <div class="cb">
       <div class="uz" onclick="alert('File upload coming in the live build')">
-        <div class="ui">ðŸ“¤</div>
+        <div class="ui">&#x1F4E4;</div>
         <div class="ut">Click to upload ad creative</div>
         <div class="us">Image or video Â· Max 50MB Â· WhatsApp Status format recommended (9:16)</div>
       </div>
@@ -805,13 +805,13 @@ function submitCampaign() {
   const t = tiers.find(t=>t.name===selectedTier);
   mkrCampaigns.unshift({id:Date.now(),name,tier:selectedTier,status:'active',target:t.views,verified:0,influencers:0,cost:t.total,created:'Today'});
   totalAdminRevenue += t.fee;
-  openModal('Campaign Launched! ðŸŽ‰',
-    `<div class="alert as">âœ… <strong>${name}</strong> is now live!</div>
+  openModal('Campaign Launched! &#x1F389;',
+    `<div class="alert as">&#x2705; <strong>${name}</strong> is now live!</div>
      <p style="font-size:13px;color:var(--g600);margin-bottom:12px">${pound(t.total)} has been held in Stripe escrow. It will be released to the influencer once the view target (${t.views.toLocaleString()} views) is verified and admin-approved.</p>
      <div style="background:var(--g50);border-radius:8px;padding:14px;font-size:13px">
-       <div style="margin-bottom:6px">ðŸŽ¯ View target: <strong>${t.views.toLocaleString()}</strong></div>
-       <div style="margin-bottom:6px">ðŸ’° Escrow held: <strong>${pound(t.total)}</strong></div>
-       <div>ðŸ“£ Influencers can now apply</div>
+       <div style="margin-bottom:6px">&#x1F3AF; View target: <strong>${t.views.toLocaleString()}</strong></div>
+       <div style="margin-bottom:6px">&#x1F4B0; Escrow held: <strong>${pound(t.total)}</strong></div>
+       <div>&#x1F4E3; Influencers can now apply</div>
      </div>`,
     `<button class="btn btn-g" onclick="closeModal();navigate('mkr-camps')">View My Campaigns â†’</button>`);
 }
@@ -838,9 +838,9 @@ function renderBilling() {
   const totalSpent = mkrCampaigns.reduce((s,c)=>s+c.cost,0);
   return `
   <div class="card">
-    <div class="ch"><div class="ct">ðŸ’³ Payment Method</div></div>
+    <div class="ch"><div class="ct">&#x1F4B3; Payment Method</div></div>
     <div class="cb">
-      <div class="alert as">âœ… Stripe account active â€” **** **** **** 8765 (HSBC Business)</div>
+      <div class="alert as">&#x2705; Stripe account active â€” **** **** **** 8765 (HSBC Business)</div>
       <button class="btn btn-gh btn-sm">Update card</button>
     </div>
   </div>
@@ -887,7 +887,7 @@ function openProofModal(id) {
         <div style="font-size:10px;opacity:.6;margin-bottom:8px">WhatsApp Status</div>
         <div style="width:100px;height:100px;background:rgba(255,255,255,.15);border-radius:8px;margin-bottom:10px;display:flex;align-items:center;justify-content:center;font-size:10px;opacity:.6">Ad Creative</div>
         <div class="wvc">${a.submitted.toLocaleString()}</div>
-        <div class="wvl">ðŸ‘ Views</div>
+        <div class="wvl">&#x1F441; Views</div>
         <div class="wad">${a.influencer}</div>
       </div></div>
     </div>
@@ -916,8 +916,8 @@ function approveProof(id) {
   if (mc) mc.status = 'paid';
   closeModal();
   setTimeout(()=>{
-    openModal('Payment Released âœ…',
-      `<div class="alert as">âœ… Approved! <strong>${pound(tierPayout)}</strong> has been released to <strong>${a.influencer}</strong> via Stripe.</div>
+    openModal('Payment Released &#x2705;',
+      `<div class="alert as">&#x2705; Approved! <strong>${pound(tierPayout)}</strong> has been released to <strong>${a.influencer}</strong> via Stripe.</div>
        <p style="font-size:13px;color:var(--g600)">Platform fee of <strong>${pound(fee)}</strong> retained. Campaign marked complete.</p>`,
       `<button class="btn btn-g" onclick="closeModal();navigate('approvals')">Done</button>`);
     buildNav(portals[portal]);
@@ -937,17 +937,17 @@ function rejectProof(id) {
 function openSubmitProof(id) {
   const c = myCampaigns.find(x=>x.id===id);
   openModal(`Submit Proof â€” ${c.campaign}`,
-    `<div class="alert ai">â„¹ï¸ Post the ad creative to your WhatsApp Status, wait for ${c.target.toLocaleString()} views, then upload a screenshot below.</div>
+    `<div class="alert ai">&#x2139;&#xFE0F; Post the ad creative to your WhatsApp Status, wait for ${c.target.toLocaleString()} views, then upload a screenshot below.</div>
      <div class="fg"><label class="fl">Screenshot of WhatsApp Status (showing view count) *</label>
        <div class="uz" onclick="alert('File upload active in the live build')">
-         <div class="ui">ðŸ“¸</div>
+         <div class="ui">&#x1F4F8;</div>
          <div class="ut">Click to upload screenshot</div>
          <div class="us">The AI will read your view count automatically</div>
        </div>
      </div>
      <div class="fg"><label class="fl">Optional: Video recording (increases confidence score)</label>
        <div class="uz" onclick="alert('File upload active in the live build')">
-         <div class="ui">ðŸŽ¥</div>
+         <div class="ui">&#x1F3A5;</div>
          <div class="ut">Click to upload video</div>
          <div class="us">MP4 or MOV Â· Max 100MB</div>
        </div>
@@ -963,7 +963,7 @@ function fakeSubmitProof(id) {
   closeModal();
   setTimeout(()=>{
     openModal('Proof Submitted! â³',
-      `<div class="alert as">âœ… Your proof has been submitted for admin review.</div>
+      `<div class="alert as">&#x2705; Your proof has been submitted for admin review.</div>
        <p style="font-size:13px;color:var(--g600)">The AI has pre-screened your screenshot. An admin will review and release your payment â€” usually within 24 hours.</p>`,
       `<button class="btn btn-g" onclick="closeModal();navigate('my-camps')">Go to My Campaigns â†’</button>`);
     if (portal==='admin') buildNav(portals['admin']);
@@ -976,13 +976,13 @@ function openInviteModal(type) {
      <div class="fg"><label class="fl">Email Address</label><input class="fi" type="email" placeholder="email@example.com" id="inv-email"></div>
      <div class="fg"><label class="fl">Country</label>
        <select class="fsel" id="inv-country">
-         <option>ðŸ‡¬ðŸ‡§ United Kingdom</option>
-         <option>ðŸ‡®ðŸ‡± Israel</option>
-         <option>ðŸ‡§ðŸ‡ª Belgium</option>
-         <option>ðŸ‡ºðŸ‡¸ United States</option>
+         <option>&#x1F1EC;&#x1F1E7; United Kingdom</option>
+         <option>&#x1F1EE;&#x1F1F1; Israel</option>
+         <option>&#x1F1E7;&#x1F1EA; Belgium</option>
+         <option>&#x1F1FA;&#x1F1F8; United States</option>
        </select>
      </div>
-     <div class="alert ai">â„¹ï¸ An invite email will be sent with a secure signup link.</div>`,
+     <div class="alert ai">&#x2139;&#xFE0F; An invite email will be sent with a secure signup link.</div>`,
     `<button class="btn btn-gh" onclick="closeModal()">Cancel</button>
      <button class="btn btn-p" onclick="sendInvite('${type}')">Send Invite â†’</button>`);
 }
@@ -992,8 +992,8 @@ function sendInvite(type) {
   if (!name || !email) { alert('Please fill in all fields'); return; }
   closeModal();
   setTimeout(()=>{
-    openModal('Invite Sent âœ…',
-      `<div class="alert as">âœ… Invite sent to <strong>${name}</strong> (${email})</div>`,
+    openModal('Invite Sent &#x2705;',
+      `<div class="alert as">&#x2705; Invite sent to <strong>${name}</strong> (${email})</div>`,
       `<button class="btn btn-g" onclick="closeModal()">Done</button>`);
   }, 100);
 }
