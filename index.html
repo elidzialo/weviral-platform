@@ -290,17 +290,21 @@ let pendingApprovals = [
   {id:3,campaign:'BrewDog IPA Launch',marketer:'BrewDog',influencer:'James W.',handle:'@james_w',tier:'Viral',target:1000,submitted:1047,confidence:97,date:'14 Jun'},
 ];
 let allInfluencers = [
-  {name:'Sarah Johnson',handle:'@sarah_j',country:'&#x1F1EC;&#x1F1E7; UK',campaigns:6,earned:315,status:'active'},
-  {name:'Michal Tal',handle:'@michal_t',country:'&#x1F1EE;&#x1F1F1; Israel',campaigns:3,earned:120,status:'active'},
-  {name:'James Williams',handle:'@james_w',country:'&#x1F1EC;&#x1F1E7; UK',campaigns:4,earned:212,status:'active'},
-  {name:'Emma Dupont',handle:'@emma_d',country:'&#x1F1E7;&#x1F1EA; Belgium',campaigns:2,earned:90,status:'active'},
-  {name:'Tyler Brooks',handle:'@tyler_b',country:'&#x1F1FA;&#x1F1F8; USA',campaigns:1,earned:45,status:'pending'},
+  {name:'Sarah Johnson',handle:'@sarah_j',country:'&#x1F1EC;&#x1F1E7; UK',contacts:1240,campaigns:6,earned:315,status:'active'},
+  {name:'Michal Tal',handle:'@michal_t',country:'&#x1F1EE;&#x1F1F1; Israel',contacts:870,campaigns:3,earned:120,status:'active'},
+  {name:'James Williams',handle:'@james_w',country:'&#x1F1EC;&#x1F1E7; UK',contacts:2100,campaigns:4,earned:212,status:'active'},
+  {name:'Emma Dupont',handle:'@emma_d',country:'&#x1F1E7;&#x1F1EA; Belgium',contacts:650,campaigns:2,earned:90,status:'active'},
+  {name:'Tyler Brooks',handle:'@tyler_b',country:'&#x1F1FA;&#x1F1F8; USA',contacts:430,campaigns:1,earned:45,status:'pending'},
+  {name:'Priya Sharma',handle:'@priya_s',country:'&#x1F1EC;&#x1F1E7; UK',contacts:1850,campaigns:3,earned:165,status:'active'},
+  {name:'Lior Cohen',handle:'@lior_c',country:'&#x1F1EE;&#x1F1F1; Israel',contacts:920,campaigns:2,earned:108,status:'active'},
 ];
 let allMarketers = [
   {name:'Nike UK',contact:'mark@nike.com',country:'&#x1F1EC;&#x1F1E7; UK',campaigns:4,spent:324,status:'active'},
   {name:"Ben's Deli",contact:'ben@bensdeli.co.il',country:'&#x1F1EE;&#x1F1F1; Israel',campaigns:2,spent:108,status:'active'},
   {name:'BrewDog',contact:'ads@brewdog.com',country:'&#x1F1EC;&#x1F1E7; UK',campaigns:3,spent:228,status:'active'},
   {name:'Zara Belgium',contact:'digital@zara.be',country:'&#x1F1E7;&#x1F1EA; Belgium',campaigns:1,spent:54,status:'active'},
+  {name:'Innocent Drinks',contact:'hello@innocent.com',country:'&#x1F1EC;&#x1F1E7; UK',campaigns:2,spent:96,status:'active'},
+  {name:'ASOS',contact:'partnerships@asos.com',country:'&#x1F1EC;&#x1F1E7; UK',campaigns:1,spent:80,status:'active'},
 ];
 let tiers = [
   {name:'Starter',views:100,inf:10,fee:2,total:12},
@@ -309,9 +313,12 @@ let tiers = [
   {name:'Elite',views:5000,inf:350,fee:70,total:420},
 ];
 let availCampaigns = [
-  {id:4,campaign:'Zara Summer',marketer:'Zara UK',tier:'Growth',payout:45,deadline:'20 Jun',desc:'Promote our new summer collection. Post ad creative to your WhatsApp Status for 24 hours.'},
-  {id:5,campaign:'Innocent Smoothies',marketer:'Innocent Drinks',tier:'Starter',payout:10,deadline:'18 Jun',desc:'Share our new smoothie range with your contacts. Fun, colourful creative provided.'},
-  {id:6,campaign:'ASOS Payday',marketer:'ASOS',tier:'Viral',payout:80,deadline:'25 Jun',desc:'Payday sale campaign — 30% off everything. Post to status and earn when you hit 1,000 views.'},
+  {id:4,campaign:'Zara Summer',marketer:'Zara UK',tier:'Growth',payout:45,deadline:'20 Jun',desc:'Promote our new summer collection on WhatsApp Status. Colourful, vertical-format creative provided. Post for 24hrs.'},
+  {id:5,campaign:'Innocent Smoothies',marketer:'Innocent Drinks',tier:'Starter',payout:10,deadline:'18 Jun',desc:'Share our new smoothie range with your contacts. Bright, fun creative provided. Perfect for all audiences.'},
+  {id:6,campaign:'ASOS Payday',marketer:'ASOS',tier:'Viral',payout:80,deadline:'25 Jun',desc:'Payday sale — 30% off everything. Post to status and earn £80 when you hit 1,000 verified views.'},
+  {id:9,campaign:"Ben's Deli Launch",marketer:"Ben's Deli",tier:'Starter',payout:10,deadline:'22 Jun',desc:'Help launch our new London branch! Share our opening offer with your Status contacts.'},
+  {id:10,campaign:'BrewDog IPA',marketer:'BrewDog',tier:'Growth',payout:45,deadline:'28 Jun',desc:'New IPA launch campaign. Post our ad creative and earn £45 when 500 of your contacts view it.'},
+  {id:11,campaign:'Nike Air Max 2026',marketer:'Nike UK',tier:'Elite',payout:350,deadline:'30 Jun',desc:'Exclusive Elite campaign for our new Air Max 2026 drop. 5,000 view target, £350 payout. High demand — apply fast.'},
 ];
 let myCampaigns = [
   {id:1,campaign:'Nike Summer Drop',marketer:'Nike UK',tier:'Growth',payout:45,status:'proof_submitted',target:500},
@@ -325,7 +332,7 @@ let mkrCampaigns = [
   {id:3,name:'Spring Clearance',tier:'Starter',status:'completed',target:100,verified:112,influencers:1,cost:12,created:'1 Jun'},
 ];
 let selectedTier = 'Growth';
-let totalAdminRevenue = 847.50;
+let totalAdminRevenue = 1284.00;
 
 // ===== PORTAL CONFIG =====
 const portals = {
@@ -462,12 +469,13 @@ function prog(v,t) { const pct = Math.min(100,Math.round(v/t*100)); return `<div
 // ===== ADMIN PAGES =====
 function renderAdminDash() {
   const rev = totalAdminRevenue;
+  const totalReach = allInfluencers.reduce((s,u)=>s+(u.contacts||0),0);
   return `
   <div class="sgrid">
     <div class="scard"><div class="si">&#x1F465;</div><div class="sl">Influencers</div><div class="sv">${allInfluencers.length}</div><div class="ss">${allInfluencers.filter(x=>x.status==='active').length} active</div></div>
-    <div class="scard"><div class="si">&#x1F4E3;</div><div class="sl">Marketers</div><div class="sv">${allMarketers.length}</div><div class="ss">All verified</div></div>
-    <div class="scard"><div class="si">&#x23F3;</div><div class="sl">Pending Approvals</div><div class="sv" style="color:var(--a)">${pendingApprovals.length}</div><div class="ss">Need review</div></div>
-    <div class="scard"><div class="si">&#x1F4B0;</div><div class="sl">Platform Revenue</div><div class="sv" style="color:var(--g)">${pound(rev)}</div><div class="ss">Total earned</div></div>
+    <div class="scard"><div class="si">&#x1F4F2;</div><div class="sl">Total WA Reach</div><div class="sv" style="color:var(--p)">${(totalReach/1000).toFixed(1)}k</div><div class="ss">Combined contacts</div></div>
+    <div class="scard"><div class="si">&#x23F3;</div><div class="sl">Pending Approvals</div><div class="sv" style="color:var(--a)">${pendingApprovals.length}</div><div class="ss">Awaiting review</div></div>
+    <div class="scard"><div class="si">&#x1F4B0;</div><div class="sl">Platform Revenue</div><div class="sv" style="color:var(--g)">${pound(rev)}</div><div class="ss" style="color:var(--g)">&#x2191; +12% this month</div></div>
   </div>
   <div class="grid2">
     <div class="card">
@@ -548,11 +556,12 @@ function renderInfluencers() {
   <div class="card">
     <div class="ch"><div class="ct">All Influencers</div><div class="cbadge">${allInfluencers.length}</div><div class="ca"><button class="btn btn-p btn-sm" onclick="openInviteModal('influencer')">+ Invite</button></div></div>
     <div class="tw"><table>
-      <thead><tr><th>Name</th><th>Handle</th><th>Country</th><th>Campaigns</th><th>Total Earned</th><th>Status</th><th></th></tr></thead>
+      <thead><tr><th>Name</th><th>Handle</th><th>Country</th><th>WA Contacts</th><th>Campaigns</th><th>Total Earned</th><th>Status</th><th></th></tr></thead>
       <tbody>${allInfluencers.map(u=>`<tr>
         <td><div class="cname">${u.name}</div></td>
         <td style="color:var(--p);font-weight:600">${u.handle}</td>
         <td>${u.country}</td>
+        <td style="font-weight:600;color:var(--g)">${u.contacts ? u.contacts.toLocaleString() : '&#x2014;'}</td>
         <td>${u.campaigns}</td>
         <td style="font-weight:600">${pound(u.earned)}</td>
         <td>${statusBadge(u.status)}</td>
@@ -670,27 +679,32 @@ function renderInfDash() {
 }
 
 function renderBrowse() {
+  const appliedIds = new Set(myCampaigns.map(c=>c.id));
   return `
   <div class="alert as">&#x2705; Stripe account connected &#x2014; payouts go straight to your bank within 2 business days.</div>
-  ${availCampaigns.map(c=>`
-  <div class="card">
+  ${availCampaigns.map(c=>{
+    const already = appliedIds.has(c.id);
+    const t = tiers.find(t=>t.name===c.tier);
+    return `
+  <div class="card" style="${already?'opacity:.6':''}">
     <div class="ch">
-      <div><div class="ct">${c.campaign}</div><div class="csub" style="font-size:11px;margin-top:2px">${c.marketer}</div></div>
+      <div><div class="ct">${c.campaign}${already?' <span class="b bk" style="font-size:10px">Applied</span>':''}</div><div class="csub" style="font-size:11px;margin-top:2px">${c.marketer}</div></div>
       <div class="ca flex">
         ${tierBadge(c.tier)}
-        <span style="font-weight:700;color:var(--g);font-size:16px">${pound(c.payout)}</span>
-        <button class="btn btn-g" onclick="applyNow(${c.id})">Apply Now</button>
+        <span style="font-weight:800;color:var(--g);font-size:18px">${pound(c.payout)}</span>
+        ${already?'<span style="font-size:12px;color:var(--g400)">&#x2713; Applied</span>':`<button class="btn btn-g" style="font-size:13px;padding:9px 16px" onclick="applyNow(${c.id})">Apply Now &#x2192;</button>`}
       </div>
     </div>
     <div class="cb">
-      <p style="font-size:13px;color:var(--g600);margin-bottom:12px">${c.desc}</p>
-      <div class="flex" style="gap:20px;font-size:12px;color:var(--g400)">
-        <span>&#x1F3AF; Target: ${tiers.find(t=>t.name===c.tier)?.views.toLocaleString()} views</span>
-        <span>&#x1F4C5; Deadline: ${c.deadline}</span>
-        <span>&#x1F4B0; Payout: ${pound(c.payout)}</span>
+      <p style="font-size:13px;color:var(--g600);margin-bottom:14px">${c.desc}</p>
+      <div style="display:flex;gap:24px;font-size:12px;flex-wrap:wrap">
+        <span style="background:var(--g50);border-radius:6px;padding:5px 10px;color:var(--g600)">&#x1F3AF; Target: <strong>${t?.views.toLocaleString()} views</strong></span>
+        <span style="background:var(--g50);border-radius:6px;padding:5px 10px;color:var(--g600)">&#x1F4C5; Deadline: <strong>${c.deadline}</strong></span>
+        <span style="background:var(--g50);border-radius:6px;padding:5px 10px;color:var(--g600)">&#x1F4B0; You earn: <strong>${pound(c.payout)}</strong></span>
+        <span style="background:var(--g50);border-radius:6px;padding:5px 10px;color:var(--g600)">&#x1F465; Platform fee: <strong>${pound(t?.fee||0)}</strong></span>
       </div>
     </div>
-  </div>`).join('')}`;
+  </div>`;}).join('')}`;
 }
 function applyNow(id) {
   const c = availCampaigns.find(x=>x.id===id);
@@ -703,19 +717,22 @@ function applyNow(id) {
 function renderMyCamps() {
   return `
   <div class="card">
-    <div class="ch"><div class="ct">My Campaigns</div><div class="cbadge">${myCampaigns.length}</div></div>
+    <div class="ch"><div class="ct">My Campaigns</div><div class="cbadge">${myCampaigns.length}</div><div class="ca"><button class="btn btn-gh btn-sm" onclick="navigate('browse')">+ Find More</button></div></div>
     <div class="tw"><table>
-      <thead><tr><th>Campaign</th><th>Brand</th><th>Tier</th><th>Payout</th><th>Status</th><th>Action</th></tr></thead>
-      <tbody>${myCampaigns.map(c=>`<tr>
-        <td><div class="cname">${c.campaign}</div></td>
+      <thead><tr><th>Campaign</th><th>Brand</th><th>Tier</th><th>Progress</th><th>Payout</th><th>Status</th><th>Action</th></tr></thead>
+      <tbody>${myCampaigns.map(c=>{
+        const viewsDone = c.status==='paid'?c.target:c.status==='proof_submitted'?Math.round(c.target*1.05):Math.round(c.target*0.3);
+        return `<tr>
+        <td><div class="cname">${c.campaign}</div><div class="csub">${c.marketer}</div></td>
         <td>${c.marketer}</td>
         <td>${tierBadge(c.tier)}</td>
+        <td style="min-width:130px">${prog(viewsDone,c.target)}</td>
         <td style="font-weight:700;color:var(--g)">${pound(c.payout)}</td>
         <td>${statusBadge(c.status)}</td>
-        <td>${c.status==='active'?`<button class="btn btn-sm btn-p" onclick="openSubmitProof(${c.id})">Submit Proof</button>`:
-             c.status==='proof_submitted'?`<span style="font-size:12px;color:var(--a)">&#x23F3; Awaiting admin</span>`:
+        <td style="white-space:nowrap">${c.status==='active'?`<button class="btn btn-sm btn-p" onclick="openSubmitProof(${c.id})">Submit Proof</button>`:
+             c.status==='proof_submitted'?`<span style="font-size:12px;color:var(--a)">&#x23F3; Under review</span>`:
              c.status==='paid'?`<span style="font-size:12px;color:var(--g)">&#x2713; Paid</span>`:'&#x2014;'}</td>
-      </tr>`).join('')}</tbody>
+      </tr>`;}).join('')}</tbody>
     </table></div>
   </div>`;
 }
@@ -723,33 +740,56 @@ function renderMyCamps() {
 function renderEarnings() {
   const paid = myCampaigns.filter(c=>c.status==='paid').reduce((s,c)=>s+c.payout,0);
   const pending = myCampaigns.filter(c=>c.status==='proof_submitted').reduce((s,c)=>s+c.payout,0);
+  const active = myCampaigns.filter(c=>c.status==='active').length;
   return `
   <div class="ebanner">
     <div>
       <div class="elbl">Lifetime Earnings</div>
       <div class="eamt">${pound(paid)}</div>
       <div class="erow">
-        <div>&#x23F3; Pending payout: <strong>${pound(pending)}</strong></div>
+        <div>&#x23F3; Pending: <strong>${pound(pending)}</strong></div>
+        <div>&#x1F4F2; Active: <strong>${active} campaign${active!==1?'s':''}</strong></div>
+        <div>&#x2705; Paid out: <strong>${myCampaigns.filter(c=>c.status==='paid').length}</strong></div>
       </div>
     </div>
   </div>
-  <div class="card">
-    <div class="ch"><div class="ct">&#x1F4B3; Stripe Payout Account</div></div>
-    <div class="cb">
-      <div class="alert as">&#x2705; Stripe account connected &#x2014; **** **** **** 4242 (Barclays UK)</div>
-      <button class="btn btn-gh btn-sm">Update bank details</button>
+  <div class="grid2">
+    <div class="card">
+      <div class="ch"><div class="ct">&#x1F4B3; Stripe Payout Account</div></div>
+      <div class="cb">
+        <div class="alert as">&#x2705; Connected &#x2014; Barclays UK **** 4242</div>
+        <div style="font-size:12px;color:var(--g400);margin-bottom:10px">Payouts arrive within 2 business days of approval.</div>
+        <button class="btn btn-gh btn-sm">Update bank details</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><div class="ct">&#x1F4CA; Earnings Summary</div></div>
+      <div class="cb">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px"><span style="color:var(--g400)">Total campaigns</span><strong>${myCampaigns.length}</strong></div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px"><span style="color:var(--g400)">Total earned</span><strong style="color:var(--g)">${pound(paid)}</strong></div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px"><span style="color:var(--g400)">Pending payout</span><strong style="color:var(--a)">${pound(pending)}</strong></div>
+        <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--g400)">Avg per campaign</span><strong>${myCampaigns.length?pound(Math.round(paid/Math.max(1,myCampaigns.filter(c=>c.status==='paid').length))):'&#x2014;'}</strong></div>
+      </div>
     </div>
   </div>
   <div class="card">
     <div class="ch"><div class="ct">Payment History</div></div>
     <div class="tw"><table>
-      <thead><tr><th>Date</th><th>Campaign</th><th>Amount</th><th>Status</th></tr></thead>
-      <tbody>${myCampaigns.filter(c=>c.status==='paid').map(c=>`<tr>
-        <td style="color:var(--g400)">Jun 2026</td>
-        <td>${c.campaign}</td>
+      <thead><tr><th>Date</th><th>Campaign</th><th>Brand</th><th>Tier</th><th>Amount</th><th>Status</th></tr></thead>
+      <tbody>${myCampaigns.filter(c=>c.status==='paid').map((c,i)=>`<tr>
+        <td style="color:var(--g400)">${['14 Jun','12 Jun','10 Jun','8 Jun'][i]||'Jun 2026'}</td>
+        <td><div class="cname">${c.campaign}</div></td>
+        <td>${c.marketer}</td>
+        <td>${tierBadge(c.tier)}</td>
         <td style="font-weight:700;color:var(--g)">${pound(c.payout)}</td>
-        <td><span class="b bg">Paid &#x2713;</span></td>
-      </tr>`).join('')}</tbody>
+        <td><span class="b bg">&#x2713; Paid</span></td>
+      </tr>`).join('')}
+      ${pending>0?`<tr style="background:var(--al)">
+        <td style="color:var(--g400)">Pending</td>
+        <td colspan="3" style="color:var(--a);font-weight:600">&#x23F3; Awaiting admin approval</td>
+        <td style="font-weight:700;color:var(--a)">${pound(pending)}</td>
+        <td><span class="b ba">Pending</span></td>
+      </tr>`:''}</tbody>
     </table></div>
   </div>`;
 }
@@ -758,13 +798,14 @@ function renderEarnings() {
 function renderMkrDash() {
   const totalSpent = mkrCampaigns.reduce((s,c)=>s+c.cost,0);
   const totalViews = mkrCampaigns.reduce((s,c)=>s+c.verified,0);
-  const active = mkrCampaigns.filter(c=>c.status==='active').length;
+  const active = mkrCampaigns.filter(c=>c.status==='active'||c.status==='proof_submitted').length;
+  const cpv = totalViews > 0 ? (totalSpent/totalViews) : 0;
   return `
   <div class="sgrid">
-    <div class="scard"><div class="si">&#x1F4CB;</div><div class="sl">Total Campaigns</div><div class="sv">${mkrCampaigns.length}</div><div class="ss">${active} active</div></div>
-    <div class="scard"><div class="si">&#x1F441;&#xFE0F;</div><div class="sl">Verified Views</div><div class="sv">${totalViews.toLocaleString()}</div><div class="ss">AI verified</div></div>
-    <div class="scard"><div class="si">&#x1F4B0;</div><div class="sl">Total Spent</div><div class="sv">${pound(totalSpent)}</div><div class="ss">In escrow</div></div>
-    <div class="scard"><div class="si">&#x1F4CA;</div><div class="sl">Cost Per View</div><div class="sv">${totalViews > 0 ? '£' + (totalSpent/totalViews).toFixed(3) : '&#x2014;'}</div><div class="ss">Avg CPV</div></div>
+    <div class="scard"><div class="si">&#x1F4CB;</div><div class="sl">Campaigns</div><div class="sv">${mkrCampaigns.length}</div><div class="ss">${active} active</div></div>
+    <div class="scard"><div class="si">&#x1F441;&#xFE0F;</div><div class="sl">Verified Views</div><div class="sv">${totalViews.toLocaleString()}</div><div class="ss">AI-verified</div></div>
+    <div class="scard"><div class="si">&#x1F4B0;</div><div class="sl">Total Spent</div><div class="sv">${pound(totalSpent)}</div><div class="ss">Via Stripe escrow</div></div>
+    <div class="scard"><div class="si">&#x1F4CA;</div><div class="sl">Cost Per View</div><div class="sv" style="color:var(--g)">${cpv > 0 ? '£' + cpv.toFixed(4) : '&#x2014;'}</div><div class="ss">${cpv>0&&cpv<0.05?'&#x2705; Excellent CPV':cpv>0?'Good CPV':''}</div></div>
   </div>
   <div class="card">
     <div class="ch"><div class="ct">My Campaigns</div><div class="ca"><button class="btn btn-p btn-sm" onclick="navigate('create')">+ New Campaign</button></div></div>
