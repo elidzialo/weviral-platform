@@ -94,6 +94,7 @@ function getNavItems(role: Role, pendingCount?: number): NavItem[] {
         { label: 'Campaigns', href: '/admin/campaigns', icon: Icons.campaign },
         { label: 'Users', href: '/admin/influencers', icon: Icons.users },
         { label: 'Financials', href: '/admin/dashboard', icon: Icons.coin },
+        { label: 'Construction', href: '/finance', icon: Icons.wallet },
         { label: 'Settings', href: '/admin/settings', icon: Icons.gear },
       ];
     case 'influencer':
