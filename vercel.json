@@ -2,5 +2,9 @@
   "github": {
     "silent": false
   },
-  "ignoreCommand": "[ \"$VERCEL_GIT_COMMIT_REF\" = \"gh-pages\" ]"
+  "ignoreCommand": "[ \"$VERCEL_GIT_COMMIT_REF\" = \"gh-pages\" ]",
+  "crons": [
+    { "path": "/api/amazon-ads/cron", "schedule": "0 5 * * *" },
+    { "path": "/api/amazon-ads/cron", "schedule": "0 6 * * *" }
+  ]
 }

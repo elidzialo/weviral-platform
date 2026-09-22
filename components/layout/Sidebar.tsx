@@ -58,6 +58,13 @@ const Icons = {
       <path strokeLinecap="round" strokeLinejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
     </svg>
   ),
+  cart: (
+    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h2l2.4 10.2a1.5 1.5 0 001.5 1.1h8.6a1.5 1.5 0 001.4-1l2.1-6.3H6.2" />
+      <circle cx="9.5" cy="19.5" r="1.25" />
+      <circle cx="17" cy="19.5" r="1.25" />
+    </svg>
+  ),
   search: (
     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -108,6 +115,7 @@ function getNavItems(role: Role, pendingCount?: number): NavItem[] {
         { label: 'Overview', href: '/marketer', icon: Icons.home },
         { label: 'Campaigns', href: '/marketer/campaigns', icon: Icons.campaign },
         { label: 'Create Ad', href: '/marketer/create', icon: Icons.grid },
+        { label: 'Amazon Ads', href: '/marketer/amazon-ads', icon: Icons.cart },
         { label: 'Billing', href: '/marketer/billing', icon: Icons.wallet },
       ];
   }

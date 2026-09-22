@@ -106,6 +106,33 @@ WeViral uses GPT-4o Vision to assist admins by automatically checking screenshot
 
 ---
 
+## Amazon Ads Agent
+
+Marketers can connect an Amazon Ads account under **Marketer → Amazon Ads**. An optimisation agent reviews Sponsored Products performance and proposes changes aimed at a target ACoS.
+
+**How a run works**
+
+1. The agent requests three Amazon Ads v3 reports for the lookback window: campaigns, targeting and search terms. Amazon builds these asynchronously, usually within a few minutes.
+2. A deterministic rule engine (`lib/amazon-ads/optimizer.ts`) proposes:
+   - bid changes that move each keyword or target towards the target ACoS, capped at ±20% per run by default
+   - bid cuts, then pauses, for targets that get clicks but no orders
+   - negative-exact keywords for search terms that get clicks but no orders
+   - new exact-match keywords for converting search terms that came from broad or phrase keywords
+   - daily budget increases for profitable campaigns that keep hitting their budget
+3. An AI reviewer (GPT-4o with tool calling, `lib/amazon-ads/agent.ts`) looks through the campaigns, drops or adjusts proposals and can add a few of its own. It then writes a plain-English summary. Everything it suggests is re-checked against the same guardrails (bid and budget limits, the maximum change per run, and whether the keyword, target or search term actually exists).
+4. The marketer approves or dismisses each change, and approved changes are pushed to Amazon. Turning on **Auto-apply** skips the approval step.
+
+A Vercel cron job (`/api/amazon-ads/cron`, see `vercel.json`) starts a daily run for each connected account that has **Daily run** switched on, and finishes runs whose reports are ready.
+
+**Setup**
+
+1. Run `supabase/amazon_ads.sql` after `schema.sql`.
+2. Create a Login with Amazon security profile and get it approved for the [Amazon Ads API](https://advertising.amazon.com/API/docs/en-us/guides/onboarding/overview).
+3. Add `{NEXT_PUBLIC_APP_URL}/api/amazon-ads/callback` as an allowed return URL.
+4. Set `AMAZON_ADS_CLIENT_ID`, `AMAZON_ADS_CLIENT_SECRET` and `CRON_SECRET`. `OPENAI_API_KEY` is optional; without it, runs use the rule engine only.
+
+---
+
 ## Vercel Deployment
 
 ### First deploy
@@ -165,6 +192,7 @@ weviral-platform/
 | `npm run build` | Build for production |
 | `npm run start` | Start production server |
 | `npm run lint` | Run ESLint |
+| `npm test` | Run unit tests (Amazon Ads optimiser) |
 
 ---
 
