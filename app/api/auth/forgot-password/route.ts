@@ -39,7 +39,7 @@ export async function POST(req: Request) {
             <table cellpadding="0" cellspacing="0">
               <tr>
                 <td style="width:28px;height:28px;background:linear-gradient(120deg,#6E5BFF,#1FD3A3);border-radius:50%;vertical-align:middle"></td>
-                <td style="padding-left:10px;font-size:18px;font-weight:900;letter-spacing:-0.5px;color:#0B0B0C;vertical-align:middle">We Viral</td>
+                <td style="padding-left:10px;font-size:18px;font-weight:900;letter-spacing:-0.5px;color:#0B0B0C;vertical-align:middle">Eli’s Dashboard</td>
               </tr>
             </table>
           </td>
@@ -49,7 +49,7 @@ export async function POST(req: Request) {
           <td style="padding:32px 40px">
             <h1 style="margin:0 0 12px;font-size:22px;font-weight:800;color:#0B0B0C;letter-spacing:-0.5px">Reset your password</h1>
             <p style="margin:0 0 24px;font-size:15px;color:#8C8C88;line-height:1.6">
-              We received a request to reset the password for your We Viral account. Click the button below to choose a new password.
+              We received a request to reset the password for your Eli’s Dashboard account. Click the button below to choose a new password.
             </p>
             <a href="${resetLink}"
                style="display:inline-block;padding:14px 28px;background:linear-gradient(120deg,#6E5BFF,#4D7CFF);color:#fff;font-size:15px;font-weight:700;text-decoration:none;border-radius:10px">
@@ -64,7 +64,7 @@ export async function POST(req: Request) {
         <tr>
           <td style="padding:20px 40px;border-top:1px solid #ECECE8;background:#F6F6F3">
             <p style="margin:0;font-size:12px;color:#C4C4C0">
-              © We Viral · <a href="${process.env.NEXT_PUBLIC_APP_URL}" style="color:#8C8C88;text-decoration:none">weviral.co.uk</a>
+              © Eli’s Dashboard · <a href="${process.env.NEXT_PUBLIC_APP_URL}" style="color:#8C8C88;text-decoration:none">weviral.co.uk</a>
             </p>
           </td>
         </tr>
@@ -81,9 +81,9 @@ export async function POST(req: Request) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: 'We Viral <noreply@weviral.co.uk>',
+      from: 'Eli’s Dashboard <noreply@weviral.co.uk>',
       to: email.trim().toLowerCase(),
-      subject: 'Reset your We Viral password',
+      subject: 'Reset your Eli’s Dashboard password',
       html,
     }),
   })

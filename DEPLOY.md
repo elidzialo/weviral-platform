@@ -1,6 +1,6 @@
-# We Viral Platform — Deployment Guide
+# Eli’s Dashboard Platform — Deployment Guide
 
-A complete step-by-step guide for getting We Viral running locally and deploying to production at weviral.io.
+A complete step-by-step guide for getting Eli’s Dashboard running locally and deploying to production at weviral.io.
 
 ---
 
@@ -83,7 +83,7 @@ This installs all packages listed in `package.json` into `node_modules/`.
 ### Set Up Stripe Connect
 1. In the Stripe Dashboard go to **Settings → Connect settings**.
 2. Enable **Express accounts** (for influencer payouts).
-3. Under **Branding**, add your platform name (`We Viral`) and logo.
+3. Under **Branding**, add your platform name (`Eli’s Dashboard`) and logo.
 4. In Connect settings set the **Redirect URI** to:
    - Development: `http://localhost:3000/influencer/earnings`
    - Production: `https://weviral.io/influencer/earnings`

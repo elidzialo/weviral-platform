@@ -56,7 +56,7 @@ export default function ForgotPasswordPage() {
                 style={{ background: 'linear-gradient(120deg,#6E5BFF,#1FD3A3)', boxShadow: '0 0 10px rgba(110,91,255,.5)' }}
               />
             </div>
-            <span className="text-[22px] font-black tracking-[-0.8px] text-[#0B0B0C]">We Viral</span>
+            <span className="text-[22px] font-black tracking-[-0.8px] text-[#0B0B0C]">Eli’s Dashboard</span>
           </Link>
           <p className="text-[14px] text-[#8C8C88] font-medium">Reset your password</p>
         </div>

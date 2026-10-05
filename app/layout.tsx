@@ -15,7 +15,7 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'We Viral — WhatsApp Status Marketing Platform',
+  title: 'Eli’s Dashboard — WhatsApp Status Marketing Platform',
   description: 'Post your status. Get paid for your reach.',
 }
 

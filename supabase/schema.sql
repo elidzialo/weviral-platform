@@ -1,5 +1,5 @@
 -- ============================================================
--- We Viral Platform — Supabase PostgreSQL Schema
+-- Eli’s Dashboard Platform — Supabase PostgreSQL Schema
 -- ============================================================
 
 -- Enable UUID generation

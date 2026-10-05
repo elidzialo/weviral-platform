@@ -285,7 +285,7 @@ export default async function InfluencerDashboardPage() {
                         <div className="min-w-0 flex-1">
                           <p className="text-[13px] font-semibold text-[#0B0B0C] truncate">{campaign.title}</p>
                           <p className="text-xs text-[#8C8C88] mt-0.5">
-                            {marketer ? `by ${marketer}` : 'We Viral Campaign'}
+                            {marketer ? `by ${marketer}` : 'Eli’s Dashboard Campaign'}
                             {campaign.tiers?.name && (
                               <> &bull; <span style={{ color: '#6E5BFF' }}>{campaign.tiers.name}</span></>
                             )}
