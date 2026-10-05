@@ -442,7 +442,7 @@ export default function AdminSettingsPage() {
                   Platform Fee
                 </p>
                 <p className="text-sm text-[#4D3FCC]">
-                  WeViral revenue retained from each completed campaign.
+                  We Viral revenue retained from each completed campaign.
                 </p>
               </div>
               <div className="rounded-xl bg-[#F6F6F3] border border-[#ECECE8] px-5 py-4">

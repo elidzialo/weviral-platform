@@ -1,6 +1,6 @@
-# WeViral Platform
+# We Viral Platform
 
-WeViral is a WhatsApp Status influencer marketing platform. Marketers create campaigns, influencers post ads to their WhatsApp Status, submit screenshot proof of posting, and get paid via Stripe escrow. An admin reviews and approves proof before payment is released.
+We Viral is a WhatsApp Status influencer marketing platform. Marketers create campaigns, influencers post ads to their WhatsApp Status, submit screenshot proof of posting, and get paid via Stripe escrow. An admin reviews and approves proof before payment is released.
 
 ---
 
@@ -68,7 +68,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Stripe Setup
 
-WeViral uses Stripe Connect to hold funds in escrow and release them to influencers after admin approval.
+We Viral uses Stripe Connect to hold funds in escrow and release them to influencers after admin approval.
 
 ### Test mode (development)
 
@@ -97,7 +97,7 @@ WeViral uses Stripe Connect to hold funds in escrow and release them to influenc
 
 ## OpenAI Setup
 
-WeViral uses GPT-4o Vision to assist admins by automatically checking screenshot proof for authenticity.
+We Viral uses GPT-4o Vision to assist admins by automatically checking screenshot proof for authenticity.
 
 1. Go to [https://platform.openai.com](https://platform.openai.com) and log in or create an account.
 2. Go to **API Keys** and create a new secret key.

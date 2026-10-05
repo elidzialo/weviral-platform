@@ -143,7 +143,7 @@ export async function POST(request: NextRequest) {
           influencer_id: influencerProfile.id,
           tier_name: tier.name,
         },
-        description: `WeViral payout — ${campaign.title} (${tier.name} tier)`,
+        description: `We Viral payout — ${campaign.title} (${tier.name} tier)`,
       })
     } catch (stripeErr: unknown) {
       const errMessage = stripeErr instanceof Error ? stripeErr.message : 'Stripe transfer failed'

@@ -210,7 +210,7 @@ export default function LandingPage() {
               />
             </div>
             <div style={{ fontSize: '21px', fontWeight: 900, letterSpacing: '-.8px' }}>
-              WViral
+              We Viral
             </div>
           </div>
           <div
@@ -744,7 +744,7 @@ export default function LandingPage() {
                   zIndex: 4,
                 }}
               >
-                SPONSORED · via WViral
+                SPONSORED · via We Viral
               </div>
               {/* Earned pill */}
               <div
@@ -1031,7 +1031,7 @@ export default function LandingPage() {
                 numColor: '#8FB0FF',
                 iconBg: 'rgba(77,124,255,.14)',
                 title: 'We hand it to posters',
-                body: 'WViral matches your ad to thousands of everyday people who have real, active Status audiences.',
+                body: 'We Viral matches your ad to thousands of everyday people who have real, active Status audiences.',
                 icon: (
                   <div style={{ display: 'flex', gap: '3px' }}>
                     {[0, 0.2, 0.4].map((d, i) => (
@@ -1440,7 +1440,7 @@ export default function LandingPage() {
                   letterSpacing: '-.5px',
                 }}
               >
-                WViral
+                We Viral
               </div>
             </div>
             <div
@@ -1451,7 +1451,7 @@ export default function LandingPage() {
               }}
             >
               WhatsApp Status marketing. Your ad on everyone&apos;s Status. WhatsApp is a
-              trademark of Meta — WViral is not affiliated with Meta.
+              trademark of Meta — We Viral is not affiliated with Meta.
             </div>
           </div>
           <div
@@ -1515,7 +1515,7 @@ export default function LandingPage() {
             color: 'rgba(255,255,255,.3)',
           }}
         >
-          © 2026 WViral
+          © 2026 We Viral
         </div>
       </div>
     </div>

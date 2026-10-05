@@ -1,5 +1,5 @@
 -- ============================================================
--- WeViral Platform — Supabase PostgreSQL Schema
+-- We Viral Platform — Supabase PostgreSQL Schema
 -- ============================================================
 
 -- Enable UUID generation

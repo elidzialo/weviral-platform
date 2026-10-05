@@ -169,7 +169,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </svg>
         </div>
         <span className="text-[15px] font-bold tracking-tight text-[#0B0B0C]">
-          We<span style={{ color: '#6E5BFF' }}>Viral</span>
+          We <span style={{ color: '#6E5BFF' }}>Viral</span>
         </span>
       </div>
 

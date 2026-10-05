@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // WViral design tokens
+        // We Viral design tokens
         wv: {
           indigo: '#6E5BFF',
           teal: '#1FD3A3',
